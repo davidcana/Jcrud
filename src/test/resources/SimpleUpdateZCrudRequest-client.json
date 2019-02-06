@@ -1,0 +1,11 @@
+{
+    "existingRecords": {
+        "1": {
+            "name": "Simple 1b"
+        }
+    },
+    "newRecords": [],
+    "recordsToRemove": [],
+    "url": "CRUDManager.do?cmd=BATCH_UPDATE&table=simple",
+    "command": "batchUpdate"
+}

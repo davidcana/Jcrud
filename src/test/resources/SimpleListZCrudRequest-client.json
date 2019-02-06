@@ -1,0 +1,8 @@
+{
+    "filter": {},
+    "pageNumber": 1,
+    "pageSize": 5,
+    "sortFieldId": "id",
+    "sortType": "asc",
+    "command": "listRecords"
+}

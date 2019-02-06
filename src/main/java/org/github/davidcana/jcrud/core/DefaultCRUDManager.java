@@ -22,9 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DefaultCRUDManager {
 	
-	private static final String COMMAND_LIST_URL_PARAMETER = "LIST";
-	private static final String COMMAND_GET_URL_PARAMETER = "GET";
-	private static final String COMMAND_UPDATE_URL_PARAMETER = "BATCH_UPDATE";
+	public static final String COMMAND_LIST_URL_PARAMETER = "LIST";
+	public static final String COMMAND_GET_URL_PARAMETER = "GET";
+	public static final String COMMAND_UPDATE_URL_PARAMETER = "BATCH_UPDATE";
 	
 	private static final String COMMAND_URL_PARAMETER = "cmd";
 	private static final String TABLE_URL_PARAMETER = "table";
@@ -41,10 +41,12 @@ public class DefaultCRUDManager {
 		
 		try {
 			// Build zcrudRequest
-			String json = this.getStringFromReader(request.getReader());
-			String cmd = request.getParameter(COMMAND_URL_PARAMETER);
 			CRUDHelper crudHelper = this.buildCRUDHelper(request, crudHelpers);
-			zcrudRequest = this.getRequest(cmd, json, crudHelper);
+			zcrudRequest = this.getRequest(
+					request.getParameter(COMMAND_URL_PARAMETER), 
+					request.getReader(), 
+					crudHelper
+			);
 			
 			// Build zcrudCommand
 			ZCrudCommand zcrudCommand = zcrudRequest.buildCommand(crudHelper);
@@ -83,7 +85,9 @@ public class DefaultCRUDManager {
 		throw new IllegalArgumentException("Unknown table in CRUD: " + table);
 	}
 	
-	private ZCrudRequest getRequest(String cmd, String json, CRUDHelper crudHelper) throws JsonParseException, JsonMappingException, IOException {
+	public ZCrudRequest getRequest(String cmd, Reader jsonReader, CRUDHelper crudHelper) throws JsonParseException, JsonMappingException, IOException {
+		
+		String json = this.getStringFromReader(jsonReader);
 		
 		switch (cmd){
 		case COMMAND_LIST_URL_PARAMETER:
