@@ -20,7 +20,9 @@ abstract public class GenericZCrudResponse implements ZCrudResponse {
 
 	public void setMessage(String message) {
 		this.message = message;
-		this.isOK(false);
+		if (message != null){
+			this.isOK(false);
+		}
 	}
 
 	public void isOK(boolean ok){
