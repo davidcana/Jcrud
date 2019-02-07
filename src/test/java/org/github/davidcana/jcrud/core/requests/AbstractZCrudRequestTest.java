@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core;
+package org.github.davidcana.jcrud.core.requests;
 
 import static org.junit.Assert.*;
 

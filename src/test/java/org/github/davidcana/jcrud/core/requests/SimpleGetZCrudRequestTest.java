@@ -1,7 +1,8 @@
-package org.github.davidcana.jcrud.core;
+package org.github.davidcana.jcrud.core.requests;
 
 import java.io.IOException;
 
+import org.github.davidcana.jcrud.core.DefaultCRUDManager;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.junit.Test;
 

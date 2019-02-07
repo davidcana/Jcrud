@@ -1,10 +1,11 @@
-package org.github.davidcana.jcrud.core;
+package org.github.davidcana.jcrud.core.requests;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.github.davidcana.jcrud.core.DefaultCRUDManager;
 import org.github.davidcana.jcrud.core.model.Simple;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.junit.Test;
