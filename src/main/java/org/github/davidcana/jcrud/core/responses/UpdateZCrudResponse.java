@@ -2,17 +2,19 @@ package org.github.davidcana.jcrud.core.responses;
 
 import java.util.List;
 
-public class UpdateZCrudResponse extends GenericZCrudResponse {
+import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-	private List<?> newRecords;
+public class UpdateZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse {
+
+	private List<T> newRecords;
 	
 	public UpdateZCrudResponse(){}
 	
-	public List<?> getNewRecords() {
+	public List<T> getNewRecords() {
 		return newRecords;
 	}
 
-	public void setNewRecords(List<?> records) {
+	public void setNewRecords(List<T> records) {
 		this.newRecords = records;
 	}
 

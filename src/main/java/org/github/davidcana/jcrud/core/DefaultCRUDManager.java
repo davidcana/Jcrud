@@ -8,17 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
-import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
-import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
-import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.ZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.SimpleZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ZCrudResponse;
+import org.github.davidcana.jcrud.core.utils.CoreUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DefaultCRUDManager {
 	
@@ -29,7 +25,6 @@ public class DefaultCRUDManager {
 	private static final String COMMAND_URL_PARAMETER = "cmd";
 	private static final String TABLE_URL_PARAMETER = "table";
 	
-	private ObjectMapper mapper = ObjectMapperProvider.getInstance().get();
 	static private DefaultCRUDManager instance;
 	
 	private DefaultCRUDManager(){}
@@ -61,18 +56,6 @@ public class DefaultCRUDManager {
 		return zcrudResponse;
 	}
 	
-	private String getStringFromReader(Reader reader) throws IOException {
-		
-		StringBuilder sb = new StringBuilder();
-	    int intValueOfChar;
-	    while ((intValueOfChar = reader.read()) != -1) {
-	        sb.append( (char) intValueOfChar);
-	    }
-	    reader.close();
-	    
-	    return sb.toString();
-	}
-	
 	private CRUDHelper buildCRUDHelper(HttpServletRequest request, Map<String, CRUDHelper> crudHelpers){
 		
 		String table = request.getParameter(TABLE_URL_PARAMETER);
@@ -87,17 +70,17 @@ public class DefaultCRUDManager {
 	
 	public ZCrudRequest getRequest(String cmd, Reader jsonReader, CRUDHelper crudHelper) throws JsonParseException, JsonMappingException, IOException {
 		
-		String json = this.getStringFromReader(jsonReader);
+		String json = CoreUtils.getInstance().getStringFromReader(jsonReader);
 		
 		switch (cmd){
 		case COMMAND_LIST_URL_PARAMETER:
-			return this.getListRequest(json, crudHelper);
+			return ObjectMapperProvider.getInstance().getListRequest(json, crudHelper);
 			
 		case COMMAND_GET_URL_PARAMETER:
-			return this.getGetRequest(json, crudHelper);
+			return ObjectMapperProvider.getInstance().getGetRequest(json, crudHelper);
 			
 		case COMMAND_UPDATE_URL_PARAMETER:
-			return this.getUpdateRequest(json, crudHelper);
+			return ObjectMapperProvider.getInstance().getUpdateRequest(json, crudHelper);
 			
 		case "":
 			throw new IllegalArgumentException("CMD is null!");
@@ -105,19 +88,6 @@ public class DefaultCRUDManager {
 		default:
 			throw new IllegalArgumentException("Unknown CMD: '" + cmd + "'!");
 		}
-	}
-	
-	private ListZCrudRequest getListRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
-		return (ListZCrudRequest) this.mapper.readValue(json, ListZCrudRequest.class);
-	}
-	private GetZCrudRequest getGetRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
-		return (GetZCrudRequest) this.mapper.readValue(json, GetZCrudRequest.class);
-	}
-	@SuppressWarnings("rawtypes")
-	private UpdateZCrudRequest getUpdateRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
-		
-		JavaType type = this.mapper.getTypeFactory().constructParametricType(UpdateZCrudRequest.class, crudHelper.getDeserializeClass());
-		return (UpdateZCrudRequest) this.mapper.readValue(json, type);
 	}
 	
 	static public DefaultCRUDManager getInstance(){
