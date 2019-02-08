@@ -1,16 +1,18 @@
 package org.github.davidcana.jcrud.core.responses;
 
-public class GetZCrudResponse extends GenericZCrudResponse {
+import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-	private Object record;
+public class GetZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse {
+
+	private T record;
 	
 	public GetZCrudResponse(){}
 
-	public Object getRecord() {
+	public T getRecord() {
 		return record;
 	}
 
-	public void setRecord(Object record) {
+	public void setRecord(T record) {
 		this.record = record;
 	}
 
