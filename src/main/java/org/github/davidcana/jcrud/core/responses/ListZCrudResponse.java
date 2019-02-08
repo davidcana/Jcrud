@@ -2,18 +2,20 @@ package org.github.davidcana.jcrud.core.responses;
 
 import java.util.List;
 
-public class ListZCrudResponse extends GenericZCrudResponse {
+import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-	private List<?> records;
+public class ListZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse {
+
+	private List<T> records;
 	private long totalNumberOfRecords;
 	
 	public ListZCrudResponse(){}
 	
-	public List<?> getRecords() {
+	public List<T> getRecords() {
 		return records;
 	}
 
-	public void setRecords(List<?> records) {
+	public void setRecords(List<T> records) {
 		this.records = records;
 	}
 

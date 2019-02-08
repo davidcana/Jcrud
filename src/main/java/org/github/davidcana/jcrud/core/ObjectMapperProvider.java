@@ -65,7 +65,8 @@ public class ObjectMapperProvider {
 	}
 	
 	public ListZCrudResponse getListResponse(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
-		return (ListZCrudResponse) this.get().readValue(json, ListZCrudResponse.class);
+		JavaType type = this.get().getTypeFactory().constructParametricType(ListZCrudResponse.class, crudHelper.getDeserializeClass());
+		return (ListZCrudResponse) this.get().readValue(json, type);
 	}
 	public GetZCrudResponse getGetResponse(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
 		return (GetZCrudResponse) this.get().readValue(json, GetZCrudResponse.class);
