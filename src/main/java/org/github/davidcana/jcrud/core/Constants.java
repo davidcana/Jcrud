@@ -24,13 +24,6 @@ public class Constants {
     public static final Logger ADMIN_LOGGER = Logger.getLogger("adminLogger");
     public static final Logger TEST_LOGGER = ADMIN_LOGGER;
     
-    // DB
-    public static final String DB_HOST = "localhost";
-    public static final int DB_PORT = 5432;
-    public static final String DB_NAME = "jcrud";
-    public static final String DB_USER = "jcrud_user";
-    public static final String DB_PASSWORD = "emkv4df2lp";
-    
     /*
     // URLs
 	public static final String HOME_URL = "http://localhost:8080/" + WEB_APP_ID + "/";
