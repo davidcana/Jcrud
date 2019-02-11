@@ -2,7 +2,7 @@ package org.github.davidcana.jcrud.core.commands;
 
 import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
-import org.github.davidcana.jcrud.core.responses.GenericZCrudResponse;
+import org.github.davidcana.jcrud.core.responses.AbstractZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 
 public class GetZCrudCommand implements ZCrudCommand {
@@ -17,7 +17,7 @@ public class GetZCrudCommand implements ZCrudCommand {
 	}
 	
 	@Override
-	public GenericZCrudResponse buildResponse() {
+	public AbstractZCrudResponse buildResponse() {
 		
 		GetZCrudResponse zcrudResponse = new GetZCrudResponse();
 		

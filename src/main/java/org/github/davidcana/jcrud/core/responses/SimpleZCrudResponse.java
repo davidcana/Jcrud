@@ -1,6 +1,6 @@
 package org.github.davidcana.jcrud.core.responses;
 
-public class SimpleZCrudResponse extends GenericZCrudResponse {
+public class SimpleZCrudResponse extends AbstractZCrudResponse {
 	
 	public SimpleZCrudResponse(){
 		super();

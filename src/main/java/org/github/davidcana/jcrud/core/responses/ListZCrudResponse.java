@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-public class ListZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse {
+public class ListZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse<T> {
 
 	private List<T> records;
 	private long totalNumberOfRecords;

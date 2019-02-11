@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-public class UpdateZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse {
+public class UpdateZCrudResponse<T extends ZCrudEntity>  extends GenericZCrudResponse<T> {
 
 	private List<T> newRecords;
 	

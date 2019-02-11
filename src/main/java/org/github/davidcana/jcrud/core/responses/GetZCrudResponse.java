@@ -2,7 +2,7 @@ package org.github.davidcana.jcrud.core.responses;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-public class GetZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse {
+public class GetZCrudResponse<T extends ZCrudEntity> extends GenericZCrudResponse<T> {
 
 	private T record;
 	

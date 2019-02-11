@@ -1,8 +1,8 @@
 package org.github.davidcana.jcrud.core.commands;
 
-import org.github.davidcana.jcrud.core.responses.GenericZCrudResponse;
+import org.github.davidcana.jcrud.core.responses.AbstractZCrudResponse;
 
 public interface ZCrudCommand {
 
-	public GenericZCrudResponse buildResponse();
+	public AbstractZCrudResponse buildResponse();
 }

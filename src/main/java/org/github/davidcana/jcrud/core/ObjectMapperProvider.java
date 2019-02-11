@@ -31,23 +31,25 @@ public class ObjectMapperProvider {
 	public ObjectMapper get(){
 		
 		if (this.mapper == null){
-			this.instanceObjectMapper();
+			this.mapper = instanceObjectMapper();
 		}
 		
 		return this.mapper;
 	}
 	
-	private void instanceObjectMapper(){
+	static ObjectMapper instanceObjectMapper(){
 		
-		this.mapper = new ObjectMapper();
+		ObjectMapper mapper = new ObjectMapper();
 
 		SimpleModule module1 = new SimpleModule("LocalTimeSerializer", new Version(1, 0, 0, null, null, null));
 		module1.addSerializer(LocalTime.class, new LocalTimeSerializer());
-		this.mapper.registerModule(module1);
+		mapper.registerModule(module1);
 		
 		SimpleModule module2 = new SimpleModule("LocalTimeDeserializer", new Version(1, 0, 0, null, null, null));
 		module2.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
-		this.mapper.registerModule(module2);
+		mapper.registerModule(module2);
+		
+		return mapper;
 	}
 	
 	public ListZCrudRequest getListRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
