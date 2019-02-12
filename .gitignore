@@ -1,0 +1,11 @@
+# Linux
+.*
+!.gitignore
+!.htaccess
+*~
+
+# Misc
+target/
+pom.xml.releaseBackup
+release.properties
+maven-central-deploy.log
