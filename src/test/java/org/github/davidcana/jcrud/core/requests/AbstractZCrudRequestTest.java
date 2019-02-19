@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.github.davidcana.jcrud.core.DefaultCRUDManager;
-import org.github.davidcana.jcrud.core.model.CRUD.SimpleCRUDHelper;
 import org.github.davidcana.jcrud.core.requests.ZCrudRequest;
+import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
 import org.junit.After;
 import org.junit.Before;
 
@@ -34,7 +34,7 @@ abstract public class AbstractZCrudRequestTest {
         ZCrudRequest zCrudRequest = DefaultCRUDManager.getInstance().getRequest(
         		cmd, 
         		this.getResourceReader(test), 
-        		SimpleCRUDHelper.getInstance()
+        		SimpleVoidStorage.getInstance()
         );
         
         assertEquals("failure - strings are not equal", expected, zCrudRequest);

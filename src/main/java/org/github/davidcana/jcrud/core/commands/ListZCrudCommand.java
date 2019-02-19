@@ -1,19 +1,19 @@
 package org.github.davidcana.jcrud.core.commands;
 
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.AbstractZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
+import org.github.davidcana.jcrud.storages.Storage;
 
 public class ListZCrudCommand implements ZCrudCommand {
 
 	private ListZCrudRequest zCrudRequest;
-	private CRUDHelper crudHelper;
+	private Storage storage;
 	
-	public ListZCrudCommand(ListZCrudRequest zCrudRequest, CRUDHelper crudHelper) {
+	public ListZCrudCommand(ListZCrudRequest zCrudRequest, Storage storage) {
 		super();
 		this.zCrudRequest = zCrudRequest;
-		this.crudHelper = crudHelper;
+		this.storage = storage;
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class ListZCrudCommand implements ZCrudCommand {
 		ListZCrudResponse zcrudResponse = new ListZCrudResponse();
 		
 		try {			
-			this.crudHelper.fillListCRUDResponse(zcrudResponse, this.zCrudRequest);
+			this.storage.fillListCRUDResponse(zcrudResponse, this.zCrudRequest);
 			zcrudResponse.isOK(true);
 
 		} catch (Exception e) {

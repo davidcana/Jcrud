@@ -3,7 +3,6 @@ package org.github.davidcana.jcrud.core;
 import java.io.IOException;
 import java.time.LocalTime;
 
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.JSON.deserializers.LocalTimeDeserializer;
 import org.github.davidcana.jcrud.core.JSON.serializers.LocalTimeSerializer;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
@@ -12,6 +11,7 @@ import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.UpdateZCrudResponse;
+import org.github.davidcana.jcrud.storages.Storage;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.Version;
@@ -52,35 +52,37 @@ public class ObjectMapperProvider {
 		return mapper;
 	}
 	
-	public ListZCrudRequest getListRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
+	@SuppressWarnings("rawtypes")
+	public ListZCrudRequest getListRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		return (ListZCrudRequest) this.get().readValue(json, ListZCrudRequest.class);
 	}
-	public GetZCrudRequest getGetRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
+	@SuppressWarnings("rawtypes")
+	public GetZCrudRequest getGetRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		return (GetZCrudRequest) this.get().readValue(json, GetZCrudRequest.class);
 	}
 	@SuppressWarnings("rawtypes")
-	public UpdateZCrudRequest getUpdateRequest(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
+	public UpdateZCrudRequest getUpdateRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudRequest.class, crudHelper.getDeserializeClass());
+		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudRequest.class, storage.getDeserializeClass());
 		return (UpdateZCrudRequest) this.get().readValue(json, type);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public ListZCrudResponse getListResponse(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
+	public ListZCrudResponse getListResponse(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(ListZCrudResponse.class, crudHelper.getDeserializeClass());
+		JavaType type = this.get().getTypeFactory().constructParametricType(ListZCrudResponse.class, storage.getDeserializeClass());
 		return (ListZCrudResponse) this.get().readValue(json, type);
 	}
 	@SuppressWarnings("rawtypes")
-	public GetZCrudResponse getGetResponse(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
+	public GetZCrudResponse getGetResponse(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(GetZCrudResponse.class, crudHelper.getDeserializeClass());
+		JavaType type = this.get().getTypeFactory().constructParametricType(GetZCrudResponse.class, storage.getDeserializeClass());
 		return (GetZCrudResponse) this.get().readValue(json, type);
 	}
 	@SuppressWarnings("rawtypes")
-	public UpdateZCrudResponse getUpdateResponse(String json, CRUDHelper crudHelper) throws IOException, JsonParseException, JsonMappingException {
+	public UpdateZCrudResponse getUpdateResponse(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudResponse.class, crudHelper.getDeserializeClass());
+		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudResponse.class, storage.getDeserializeClass());
 		return (UpdateZCrudResponse) this.get().readValue(json, type);
 	}
 	

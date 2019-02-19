@@ -1,20 +1,19 @@
 package org.github.davidcana.jcrud.core.commands;
 
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.AbstractZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.UpdateZCrudResponse;
+import org.github.davidcana.jcrud.storages.Storage;
 
 public class UpdateZCrudCommand implements ZCrudCommand {
 
-	@SuppressWarnings("rawtypes")
 	private UpdateZCrudRequest zCrudRequest;
-	private CRUDHelper crudHelper;
+	private Storage storage;
 	
-	public UpdateZCrudCommand(@SuppressWarnings("rawtypes") UpdateZCrudRequest zCrudRequest, CRUDHelper crudHelper) {
+	public UpdateZCrudCommand(UpdateZCrudRequest zCrudRequest, Storage storage) {
 		super();
 		this.zCrudRequest = zCrudRequest;
-		this.crudHelper = crudHelper;
+		this.storage = storage;
 	}
 	
 	@Override
@@ -23,7 +22,7 @@ public class UpdateZCrudCommand implements ZCrudCommand {
 		UpdateZCrudResponse jsonResponse = new UpdateZCrudResponse();
 		
 		try {			
-			this.crudHelper.doCRUD(this.zCrudRequest);
+			this.storage.doCRUD(this.zCrudRequest);
 			jsonResponse.isOK(true);
 
 		} catch (Exception e) {

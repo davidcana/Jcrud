@@ -2,9 +2,9 @@ package org.github.davidcana.jcrud.core.requests;
 
 import java.util.Map;
 
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.commands.ListZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
+import org.github.davidcana.jcrud.storages.Storage;
 
 public class ListZCrudRequest extends AbstractZCrudRequest {
 
@@ -59,8 +59,8 @@ public class ListZCrudRequest extends AbstractZCrudRequest {
 	}
 
 	@Override
-	public ZCrudCommand buildCommand(CRUDHelper crudHelper) {
-		return new ListZCrudCommand(this, crudHelper);
+	public ZCrudCommand buildCommand(Storage storage) {
+		return new ListZCrudCommand(this, storage);
 	}
 
 	@Override

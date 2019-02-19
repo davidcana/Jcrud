@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.commands.UpdateZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
+import org.github.davidcana.jcrud.storages.Storage;
 
 public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequest implements IZCrudRecords<T> {
 	
@@ -50,8 +50,8 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 	}
 
 	@Override
-	public ZCrudCommand buildCommand(CRUDHelper crudHelper) {
-		return new UpdateZCrudCommand(this, crudHelper);
+	public ZCrudCommand buildCommand(Storage storage) {
+		return new UpdateZCrudCommand(this, storage);
 	}
 
 	@Override

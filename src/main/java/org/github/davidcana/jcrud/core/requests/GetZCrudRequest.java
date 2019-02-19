@@ -1,8 +1,8 @@
 package org.github.davidcana.jcrud.core.requests;
 
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.commands.GetZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
+import org.github.davidcana.jcrud.storages.Storage;
 
 public class GetZCrudRequest extends AbstractZCrudRequest {
 	
@@ -19,8 +19,8 @@ public class GetZCrudRequest extends AbstractZCrudRequest {
 	}
 
 	@Override
-	public ZCrudCommand buildCommand(CRUDHelper crudHelper) {
-		return new GetZCrudCommand(this, crudHelper);
+	public ZCrudCommand buildCommand(Storage storage) {
+		return new GetZCrudCommand(this, storage);
 	}
 
 	@Override

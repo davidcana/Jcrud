@@ -6,12 +6,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.github.davidcana.jcrud.core.CRUD.CRUDHelper;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.core.requests.ZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.SimpleZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ZCrudResponse;
 import org.github.davidcana.jcrud.core.utils.CoreUtils;
+import org.github.davidcana.jcrud.storages.Storage;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -29,22 +29,22 @@ public class DefaultCRUDManager {
 	
 	private DefaultCRUDManager(){}
 	
-	public ZCrudResponse buildCRUDResponse(HttpServletRequest request, Map<String, CRUDHelper> crudHelpers){
+	public ZCrudResponse buildCRUDResponse(HttpServletRequest request, Map<String, Storage> storages){
 		
 		ZCrudRequest zcrudRequest = null;
 		ZCrudResponse zcrudResponse = null;
 		
 		try {
 			// Build zcrudRequest
-			CRUDHelper crudHelper = this.buildCRUDHelper(request, crudHelpers);
+			Storage storage = this.resolveStorage(request, storages);
 			zcrudRequest = this.getRequest(
 					request.getParameter(COMMAND_URL_PARAMETER), 
 					request.getReader(), 
-					crudHelper
+					storage
 			);
 			
 			// Build zcrudCommand
-			ZCrudCommand zcrudCommand = zcrudRequest.buildCommand(crudHelper);
+			ZCrudCommand zcrudCommand = zcrudRequest.buildCommand(storage);
 			
 			// Build zcrudResponse
 			zcrudResponse = zcrudCommand.buildResponse();
@@ -56,10 +56,10 @@ public class DefaultCRUDManager {
 		return zcrudResponse;
 	}
 	
-	private CRUDHelper buildCRUDHelper(HttpServletRequest request, Map<String, CRUDHelper> crudHelpers){
+	private Storage resolveStorage(HttpServletRequest request, Map<String, Storage> storages){
 		
 		String table = request.getParameter(TABLE_URL_PARAMETER);
-		CRUDHelper result = crudHelpers.get(table);
+		Storage result = storages.get(table);
 
 		if (result != null){
 			return result;
@@ -68,19 +68,19 @@ public class DefaultCRUDManager {
 		throw new IllegalArgumentException("Unknown table in CRUD: " + table);
 	}
 	
-	public ZCrudRequest getRequest(String cmd, Reader jsonReader, CRUDHelper crudHelper) throws JsonParseException, JsonMappingException, IOException {
+	public ZCrudRequest getRequest(String cmd, Reader jsonReader, Storage storage) throws JsonParseException, JsonMappingException, IOException {
 		
 		String json = CoreUtils.getInstance().getStringFromReader(jsonReader);
 		
 		switch (cmd){
 		case COMMAND_LIST_URL_PARAMETER:
-			return ObjectMapperProvider.getInstance().getListRequest(json, crudHelper);
+			return ObjectMapperProvider.getInstance().getListRequest(json, storage);
 			
 		case COMMAND_GET_URL_PARAMETER:
-			return ObjectMapperProvider.getInstance().getGetRequest(json, crudHelper);
+			return ObjectMapperProvider.getInstance().getGetRequest(json, storage);
 			
 		case COMMAND_UPDATE_URL_PARAMETER:
-			return ObjectMapperProvider.getInstance().getUpdateRequest(json, crudHelper);
+			return ObjectMapperProvider.getInstance().getUpdateRequest(json, storage);
 			
 		case "":
 			throw new IllegalArgumentException("CMD is null!");

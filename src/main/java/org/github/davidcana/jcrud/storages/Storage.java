@@ -3,13 +3,14 @@ package org.github.davidcana.jcrud.storages;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
+import org.github.davidcana.jcrud.core.options.Option;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 
-public interface Storage<T extends ZCrudEntity> {
+public interface Storage<T extends ZCrudEntity, K> {
 	
 	public List<T> getAll() throws StorageException;
 	
@@ -23,5 +24,7 @@ public interface Storage<T extends ZCrudEntity> {
 	
 	public long getTotalNumberOfRecords() throws StorageException;
 	
-	//public Storage getSubformStorage(String fieldName);
+	public Class<?> getDeserializeClass();
+	
+	public List<Option<K>> getAllAsOptions() throws StorageException;
 }
