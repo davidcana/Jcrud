@@ -15,6 +15,9 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K> implements Stora
 	protected AbstractStorage(){
 		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
+	protected AbstractStorage(Class<T> clazz){
+		this.clazz = clazz;
+	}
 	
 	@Override
 	public List<Option<K>> getAllAsOptions() throws StorageException {
