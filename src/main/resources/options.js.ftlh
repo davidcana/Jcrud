@@ -59,8 +59,10 @@ var ${options.varName} = {
     "key" : "${options.key}",
     "fields": {
 	<#list options.fields as field>
-        "${field.name}": {
-			"type": "${field.type}"
+        "${field.id}": {
+			<#list field.properties as property>
+				"${property.key}": "${property.value}"
+			</#list>
         }
 	</#list>
 	},
