@@ -1,17 +1,17 @@
 "use strict";
 
-var ${varName} = {
-    "entityId": "${entityId}",
+var ${options.varName} = {
+    "entityId": "${options.entityId}",
     "saveUserPreferences": true,
     
     "pageConf": {
         "defaultPageConf": {
-            "updateURL": "${pageConf-defaultPageConf-updateURL}",
-            "getRecordURL": "${pageConf-defaultPageConf-getRecordURL}",
-            "getGroupOfRecordsURL": "${pageConf-defaultPageConf-getGroupOfRecordsURL}"
+            "updateURL": "${options.updateURL}",
+            "getRecordURL": "${options.getRecordURL}"
         },
         "pages": {
             "list": {
+            "getGroupOfRecordsURL": "${options.getGroupOfRecordsURL}",
                 "fields": [
                     {
                         "type": "fieldsGroup"
@@ -25,8 +25,8 @@ var ${varName} = {
                     "sorting": {
                         "isOn": true,
                         "default": {
-                            "fieldId": "${pageConf-pages-list-components-sorting-default-fieldId}",
-                            "type": "${pageConf-pages-list-components-sorting-default-type}"
+                            "fieldId": "${options.listSortingDefaultFieldId}",
+                            "type": "${options.listSortingDefaultType}"
                         },
                         "allowUser": true
                     }
@@ -56,9 +56,9 @@ var ${varName} = {
         }
     },
 
-    "key" : "${key}",
+    "key" : "${options.key}",
     "fields": {
-	<#list fields as field>
+	<#list options.fields as field>
         "${field.name}": {
 			"type": "${field.type}"
         }
@@ -82,8 +82,8 @@ var ${varName} = {
     "i18n": {
         "language": "es",
         "files": { 
-            "en": [ "en-common.json", "en-simple.json" ],
-            "es": [ "es-common.json", "es-simple.json" ] 
+            "en": [ "en-common.json", "en-${options.entityId}.json" ],
+            "es": [ "es-common.json", "es-${options.entityId}.json" ] 
         }
     },
 
