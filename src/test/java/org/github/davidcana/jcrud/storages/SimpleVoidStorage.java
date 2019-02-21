@@ -1,5 +1,7 @@
 package org.github.davidcana.jcrud.storages;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.model.Simple;
@@ -49,6 +51,16 @@ public class SimpleVoidStorage extends AbstractStorage<Simple, Integer> implemen
 	public Class<?> getDeserializeClass() {
 		return Simple.class;
 	}
+
+	@Override
+	protected boolean resolveClassAnnotation(Annotation annotation) {
+		return false;
+	}
+
+	@Override
+	protected boolean resolveFieldAnnotation(Annotation annotation, Field field) {
+		return false;
+	}
 	
 	static public SimpleVoidStorage getInstance(){
 		
@@ -58,4 +70,5 @@ public class SimpleVoidStorage extends AbstractStorage<Simple, Integer> implemen
 		
 		return instance;
 	}
+
 }

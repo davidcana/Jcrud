@@ -1,10 +1,13 @@
 package org.github.davidcana.jcrud.storages;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
+import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.options.Option;
 import org.github.davidcana.jcrud.core.options.OptionProvider;
 
@@ -42,4 +45,47 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K> implements Stora
 	public Class<?> getDeserializeClass() {
 		return this.clazz;
 	}
+	
+	private void resolveSuperClassAnnotation(Annotation annotation){
+		
+	    if (annotation instanceof JCRUDEntity){
+	    	this.resolveJCRUDEntity( (JCRUDEntity) annotation);
+	    	return;
+	    }
+	    
+	    if (! this.resolveClassAnnotation(annotation)){
+	    	throw new IllegalArgumentException("Unknown class annotation: " + annotation);
+	    }
+	}
+	
+	abstract protected boolean resolveClassAnnotation(Annotation annotation);
+	
+	private void resolveJCRUDEntity(JCRUDEntity annotation) {
+		// Nothing to do
+	}
+	
+	private void resolveSuperFieldAnnotation(Annotation annotation, Field field){
+	    
+		if (! this.resolveFieldAnnotation(annotation, field)){
+	    	throw new IllegalArgumentException("Unknown field annotation: " + annotation);
+		}
+	}
+	
+	abstract protected boolean resolveFieldAnnotation(Annotation annotation, Field field);
+	
+	protected void resolveAll(){
+		
+		// Get annotations of class
+		for (Annotation annotation : this.clazz.getAnnotations()){
+			this.resolveSuperClassAnnotation(annotation);
+		}
+		
+		// Get annotations of fields
+		for (Field field : this.clazz.getDeclaredFields()){
+			for (Annotation annotation : field.getAnnotations()){
+				this.resolveSuperFieldAnnotation(annotation, field);
+			}
+		}
+	}
+	
 }
