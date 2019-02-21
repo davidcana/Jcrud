@@ -25,6 +25,11 @@
 		    <artifactId>log4j</artifactId>
 		    <version>1.2.17</version>
 		</dependency>
+        <dependency>
+		    <groupId>org.atteo.classindex</groupId>
+		    <artifactId>classindex</artifactId>
+		    <version>3.4</version>
+		</dependency>
 		
 		<!-- begin tomcat -->
         <dependency>

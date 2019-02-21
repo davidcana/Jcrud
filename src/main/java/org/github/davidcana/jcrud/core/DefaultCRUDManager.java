@@ -2,7 +2,6 @@ package org.github.davidcana.jcrud.core;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +11,7 @@ import org.github.davidcana.jcrud.core.responses.SimpleZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ZCrudResponse;
 import org.github.davidcana.jcrud.core.utils.CoreUtils;
 import org.github.davidcana.jcrud.storages.Storage;
+import org.github.davidcana.jcrud.storages.StorageResolver;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -29,14 +29,16 @@ public class DefaultCRUDManager {
 	
 	private DefaultCRUDManager(){}
 	
-	public ZCrudResponse buildCRUDResponse(HttpServletRequest request, Map<String, Storage> storages){
+	public ZCrudResponse buildCRUDResponse(HttpServletRequest request){
 		
 		ZCrudRequest zcrudRequest = null;
 		ZCrudResponse zcrudResponse = null;
 		
 		try {
 			// Build zcrudRequest
-			Storage storage = this.resolveStorage(request, storages);
+			Storage storage = StorageResolver.getInstance().get(
+					request.getParameter(TABLE_URL_PARAMETER)
+			);
 			zcrudRequest = this.getRequest(
 					request.getParameter(COMMAND_URL_PARAMETER), 
 					request.getReader(), 
@@ -54,18 +56,6 @@ public class DefaultCRUDManager {
 		}
 		
 		return zcrudResponse;
-	}
-	
-	private Storage resolveStorage(HttpServletRequest request, Map<String, Storage> storages){
-		
-		String table = request.getParameter(TABLE_URL_PARAMETER);
-		Storage result = storages.get(table);
-
-		if (result != null){
-			return result;
-		}
-		
-		throw new IllegalArgumentException("Unknown table in CRUD: " + table);
 	}
 	
 	public ZCrudRequest getRequest(String cmd, Reader jsonReader, Storage storage) throws JsonParseException, JsonMappingException, IOException {
