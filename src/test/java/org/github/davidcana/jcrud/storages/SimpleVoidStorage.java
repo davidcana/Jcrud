@@ -16,6 +16,11 @@ public class SimpleVoidStorage extends AbstractStorage<Simple, Integer> implemen
 	static private SimpleVoidStorage instance;
 	
 	@Override
+	public void configure() throws StorageException {
+		// Nothing to do
+	}
+	
+	@Override
 	public List<Simple> getAll() throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}

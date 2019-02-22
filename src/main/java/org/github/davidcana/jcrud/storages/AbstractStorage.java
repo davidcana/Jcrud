@@ -64,16 +64,16 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K> implements Stora
 		// Nothing to do
 	}
 	
-	private void resolveSuperFieldAnnotation(Annotation annotation, Field field){
+	private void resolveSuperFieldAnnotation(Annotation annotation, Field field) throws StorageException{
 	    
 		if (! this.resolveFieldAnnotation(annotation, field)){
 	    	throw new IllegalArgumentException("Unknown field annotation: " + annotation);
 		}
 	}
 	
-	abstract protected boolean resolveFieldAnnotation(Annotation annotation, Field field);
+	abstract protected boolean resolveFieldAnnotation(Annotation annotation, Field field) throws StorageException;
 	
-	protected void resolveAll(){
+	protected void resolveAll() throws StorageException {
 		
 		// Get annotations of class
 		for (Annotation annotation : this.clazz.getAnnotations()){

@@ -31,9 +31,14 @@ public class StorageResolver {
 				
 				String key = resolveKey(jcrudEntity, clazz);
 				@SuppressWarnings("rawtypes")
-				Storage storage = resolveStorage(jcrudEntity);
+				Storage storage = this.resolveStorage(jcrudEntity);
 				
 				this.storages.put(key, storage);
+			}
+			
+			for (Map.Entry<String, Storage> entry : this.storages.entrySet()){
+				Storage storage = entry.getValue();
+				storage.configure();
 			}
 			
 		} catch (Exception e) {
@@ -42,11 +47,15 @@ public class StorageResolver {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	static private Storage resolveStorage(JCRUDEntity jcrudEntity) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	private Storage resolveStorage(JCRUDEntity jcrudEntity) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
 		Class<? extends Storage> storageClass = jcrudEntity.storage();
-		Method method = storageClass.getMethod("getInstance");
+		return this.resolve(storageClass);
+	}
+
+	public Storage resolve(Class<? extends Storage> storageClass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		
+		Method method = storageClass.getMethod("getInstance");
 		return (Storage) method.invoke(method);
 	}
 
