@@ -36,11 +36,6 @@ public class StorageResolver {
 				this.storages.put(key, storage);
 			}
 			
-			for (Map.Entry<String, Storage> entry : this.storages.entrySet()){
-				Storage storage = entry.getValue();
-				storage.configure();
-			}
-			
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}

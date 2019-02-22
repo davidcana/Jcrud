@@ -12,8 +12,6 @@ import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 
 public interface Storage<T extends ZCrudEntity, K> {
 	
-	public void configure() throws StorageException;
-	
 	public List<T> getAll() throws StorageException;
 	
 	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest listRequest) throws StorageException;
