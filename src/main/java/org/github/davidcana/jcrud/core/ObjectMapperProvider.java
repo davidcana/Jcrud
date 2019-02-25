@@ -54,7 +54,9 @@ public class ObjectMapperProvider {
 	
 	@SuppressWarnings("rawtypes")
 	public ListZCrudRequest getListRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
-		return (ListZCrudRequest) this.get().readValue(json, ListZCrudRequest.class);
+		
+		JavaType type = this.get().getTypeFactory().constructParametricType(ListZCrudRequest.class, storage.getDeserializeClass());
+		return (ListZCrudRequest) this.get().readValue(json, type);
 	}
 	@SuppressWarnings("rawtypes")
 	public GetZCrudRequest getGetRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {

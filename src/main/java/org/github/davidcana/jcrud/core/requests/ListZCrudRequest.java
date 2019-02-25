@@ -1,12 +1,11 @@
 package org.github.davidcana.jcrud.core.requests;
 
-import java.util.Map;
-
+import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.commands.ListZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class ListZCrudRequest extends AbstractZCrudRequest {
+public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequest {
 
 	//pageNumber=1&pageSize=15&sortFieldId=name&sortType=asc&command=listRecords
 	
@@ -14,7 +13,7 @@ public class ListZCrudRequest extends AbstractZCrudRequest {
 	private int pageSize;
 	private String sortFieldId;
 	private String sortType;
-	private Map<String, Map<String, Object>> filter;
+	private T filter;
 	
 	public ListZCrudRequest(){}
 
@@ -50,11 +49,11 @@ public class ListZCrudRequest extends AbstractZCrudRequest {
 		this.sortType = sortType;
 	}
 
-	public Map<String, Map<String, Object>> getFilter() {
+	public T getFilter() {
 		return filter;
 	}
 
-	public void setFilter(Map<String, Map<String, Object>> filter) {
+	public void setFilter(T filter) {
 		this.filter = filter;
 	}
 
