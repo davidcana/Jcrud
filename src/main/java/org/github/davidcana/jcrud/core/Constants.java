@@ -24,15 +24,7 @@ public class Constants {
     public static final Logger ADMIN_LOGGER = Logger.getLogger("adminLogger");
     public static final Logger TEST_LOGGER = ADMIN_LOGGER;
     
-    /*
-    // URLs
-	public static final String HOME_URL = "http://localhost:8080/" + WEB_APP_ID + "/";
-	public static final String ACTION_PAGE = "action.html";
-	public static final String ACTION_URL = HOME_URL + ACTION_PAGE;
-	public static final String CLIENT_PAGE = "client.html";
-	public static final String CLIENT_URL = HOME_URL + CLIENT_PAGE;
-	public static final String ADMIN_PAGE = "admin.html";
-	public static final String ADMIN_URL = HOME_URL + ADMIN_PAGE;
-	
-	*/
+    // Misc
+    public static final String ZCRUD_RECORDS_SUFFIX = "ZCrudRecords";
+
 }
