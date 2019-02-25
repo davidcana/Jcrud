@@ -2,6 +2,8 @@ package org.github.davidcana.jcrud.core.model;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Simple implements ZCrudEntity {
 	
 	private Integer id;
@@ -75,15 +77,17 @@ public class Simple implements ZCrudEntity {
 	public String toString() {
 		return "Simple [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
-
-	@Override
-	public void initNewInstance() {
-		// Nothing to do
-	}
-
+	
+	@JsonIgnore
 	@Override
 	public String getKey() {
 		return id.toString();
+	}
+	
+	@Override
+	@JsonIgnore
+	public void setKey(String key) {
+		this.id = Integer.getInteger(key);
 	}
 
 	@Override

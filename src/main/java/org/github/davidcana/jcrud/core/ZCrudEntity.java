@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public interface ZCrudEntity {
 	
-	public void initNewInstance();
-	
 	@JsonIgnore
 	public String getKey();
+	
+	@JsonIgnore
+	public void setKey(String key);
 	
 	@JsonProperty
 	public void setParentKey(String key);
