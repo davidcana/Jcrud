@@ -11,7 +11,7 @@ import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 
-public class SimpleVoidStorage extends AbstractStorage<Simple, Integer> implements Storage<Simple, Integer> {
+public class SimpleVoidStorage extends AbstractStorage<Simple, Integer, Simple> implements Storage<Simple, Integer, Simple> {
 	
 	static private SimpleVoidStorage instance;
 	
@@ -21,13 +21,13 @@ public class SimpleVoidStorage extends AbstractStorage<Simple, Integer> implemen
 	}
 
 	@Override
-	public void fillListCRUDResponse(ListZCrudResponse listCRUDResponse, ListZCrudRequest listRequest)
+	public void fillListCRUDResponse(ListZCrudResponse<Simple> listCRUDResponse, ListZCrudRequest<Simple> listRequest)
 			throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 
 	@Override
-	public void fillGetCRUDResponse(GetZCrudResponse getCRUDResponse, GetZCrudRequest getRequest)
+	public void fillGetCRUDResponse(GetZCrudResponse<Simple> getCRUDResponse, GetZCrudRequest getRequest)
 			throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
@@ -43,7 +43,7 @@ public class SimpleVoidStorage extends AbstractStorage<Simple, Integer> implemen
 	}
 
 	@Override
-	public long getTotalNumberOfRecords() throws StorageException {
+	public long getNumberOfRecords(ListZCrudRequest<Simple> listCRUDRequest) throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 

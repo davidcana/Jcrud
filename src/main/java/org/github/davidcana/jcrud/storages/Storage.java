@@ -10,19 +10,19 @@ import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 
-public interface Storage<T extends ZCrudEntity, K> {
+public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public List<T> getAll() throws StorageException;
 	
-	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest listRequest) throws StorageException;
+	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest<F> listCRUDRequest) throws StorageException;
 
-	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest getRequest) throws StorageException;
+	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest getCRUDRequest) throws StorageException;
 	
-	public void doCRUD(UpdateZCrudRequest<T> updateRequest) throws StorageException;
+	public void doCRUD(UpdateZCrudRequest<T> updateCRUDRequest) throws StorageException;
 	
 	public T get(String key) throws StorageException;
 	
-	public long getTotalNumberOfRecords() throws StorageException;
+	public long getNumberOfRecords(ListZCrudRequest<F> listCRUDRequest) throws StorageException;
 	
 	public Class<?> getDeserializeClass();
 	

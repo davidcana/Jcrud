@@ -11,7 +11,7 @@ import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.options.Option;
 import org.github.davidcana.jcrud.core.options.OptionProvider;
 
-abstract public class AbstractStorage<T extends ZCrudEntity, K> implements Storage<T, K> {
+abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> implements Storage<T, K, F> {
 	
 	protected Class<T> clazz;
 	
