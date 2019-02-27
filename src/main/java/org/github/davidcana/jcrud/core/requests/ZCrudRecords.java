@@ -80,15 +80,4 @@ public class ZCrudRecords<T extends ZCrudEntity> implements IZCrudRecords<T> {
 				+ existingRecords + "]";
 	}
 
-	public void setParentKey(String key) {
-		/*
-		for (Map.Entry<String, T> entry : this.existingRecords.entrySet()){
-			T existingRecord = entry.getValue();
-			existingRecord.setParentKey(key);
-		}
-		*/
-		for (T newRecord : this.newRecords){
-			newRecord.setParentKey(key);
-		}
-	}
 }

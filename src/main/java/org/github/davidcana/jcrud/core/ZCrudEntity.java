@@ -1,7 +1,6 @@
 package org.github.davidcana.jcrud.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public interface ZCrudEntity {
 	
@@ -11,6 +10,6 @@ public interface ZCrudEntity {
 	@JsonIgnore
 	public void setKey(String key);
 	
-	@JsonProperty
-	public void setParentKey(String key);
+	//@JsonProperty
+	//public void setParentKey(String key);
 }

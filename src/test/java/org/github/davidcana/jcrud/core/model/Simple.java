@@ -90,9 +90,4 @@ public class Simple implements ZCrudEntity {
 		this.id = Integer.getInteger(key);
 	}
 
-	@Override
-	public void setParentKey(String key) {
-		throw new UnsupportedOperationException("setParentKey invokation not supported in this class!");
-	}
-
 }
