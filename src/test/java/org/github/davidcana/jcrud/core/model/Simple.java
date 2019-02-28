@@ -5,10 +5,25 @@ import org.github.davidcana.jcrud.core.ZCrudEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Simple implements ZCrudEntity {
+	/*
+    entityId: 'simple',
+    saveUserPreferences: true,
+    ...
+	 */
 	
 	private Integer id;
 	private String name;
+	/*
+		    attributes:{
+		        rowHeader: {
+		            style: 'width:40%'
+		        }
+		    }
+    */
 	private String description;
+	/* 
+			type: 'textarea'
+	 */
 	
 	public Simple(){}
 	
