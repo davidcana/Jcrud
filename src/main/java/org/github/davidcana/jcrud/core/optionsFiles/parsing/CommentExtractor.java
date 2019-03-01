@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core.parsing;
+package org.github.davidcana.jcrud.core.optionsFiles.parsing;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,6 +10,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.Comment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.github.davidcana.jcrud.core.optionsFiles.OptionsFile;
 
 public class CommentExtractor {
 	
@@ -24,11 +25,15 @@ public class CommentExtractor {
 		
 		String str = "/home/david/jcrud-core/src/test/java/org/github/davidcana/jcrud/core/model/Simple.java";
 		String converted = readFileToString(str);
-		parse(converted);
+		
+		OptionsFile optionsFile = parse(converted);
+		System.out.print(
+				"OptionsFile:\n" + optionsFile
+		);
 	}
  
 	// use ASTParse to parse string
-	public static void parse(final String str) {
+	public static OptionsFile parse(final String str) {
 		
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setSource(str.toCharArray());
@@ -36,15 +41,14 @@ public class CommentExtractor {
  
 		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
 
-		
-		cu.accept(new CommentVisitor(cu, str));
+		CommentVisitor visitor = new CommentVisitor(cu, str);
+		cu.accept(visitor);
 		
 		for (Comment comment : (List<Comment>) cu.getCommentList()) {
-			comment.accept(new CommentVisitor(cu, str));
+			comment.accept(visitor);
 		}
 		
-		
-
+		return visitor.getOptionsFile();
 	}
  
 	// read file content into a string

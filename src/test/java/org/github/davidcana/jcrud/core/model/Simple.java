@@ -1,19 +1,24 @@
 package org.github.davidcana.jcrud.core.model;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
+import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
+import org.github.davidcana.jcrud.core.annotations.JCRUDId;
+import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@JCRUDEntity(storage = SimpleVoidStorage.class)
 public class Simple implements ZCrudEntity {
-	/*
+	/*jcrud
     entityId: 'simple',
     saveUserPreferences: true,
     ...
 	 */
 	
+	@JCRUDId
 	private Integer id;
 	private String name;
-	/*
+	/*jcrud
 		    attributes:{
 		        rowHeader: {
 		            style: 'width:40%'
@@ -21,7 +26,7 @@ public class Simple implements ZCrudEntity {
 		    }
     */
 	private String description;
-	/* 
+	/*jcrud
 			type: 'textarea'
 	 */
 	
