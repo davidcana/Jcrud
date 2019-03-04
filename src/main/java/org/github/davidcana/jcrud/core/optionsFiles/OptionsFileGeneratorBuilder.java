@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.Constants;
@@ -15,7 +16,8 @@ import freemarker.template.TemplateException;
 public class OptionsFileGeneratorBuilder {
 	
 	static private OptionsFileGeneratorBuilder instance;
-	static private boolean STANDARD_OUT_MODE = false;
+	static private final boolean STANDARD_OUT_MODE = false;
+	static private final String SRC_TEST_JAVA_MODEL = "src/test/java/org/github/davidcana/jcrud/core/model/";
 	
 	public OptionsFileGeneratorBuilder(){}
 	
@@ -30,38 +32,43 @@ public class OptionsFileGeneratorBuilder {
 		// Build the list of instances of OptionsFile
 		JavaParser commentExtractor = new JavaParser();
 		List<OptionsFile> optionsFiles = commentExtractor.parseJavaFolder(
-				"/home/david/jcrud-core/src/test/java/org/github/davidcana/jcrud/core/model/"
+				CoreUtils.getInstance().getProjectFullPath() 
+				+ File.separator 
+				+ SRC_TEST_JAVA_MODEL
 		);
 		
 		// Iterate optionsFiles and build the js files
 		for (OptionsFile optionsFile : optionsFiles){
-			OutputStreamWriter outputStreamWriter = STANDARD_OUT_MODE? 
-					this.buildSystemOutOutputStreamWriter(optionsFile):
-					this.buildFileOutputStreamWriter(optionsFile);
+			Writer writer = STANDARD_OUT_MODE? 
+					this.buildSystemOutWriter(optionsFile):
+					this.buildFileWriter(optionsFile);
 			TemplateParser.getInstance().parse(
 					Constants.TEMPLATE_FILE_NAME, 
 					optionsFile,
-					outputStreamWriter
+					writer
 			);
-			outputStreamWriter.close();
+			writer.close();
 		}
 	}
 	
 
-	private OutputStreamWriter buildSystemOutOutputStreamWriter(OptionsFile optionsFile) {
+	private Writer buildSystemOutWriter(OptionsFile optionsFile) {
 		return new OutputStreamWriter(System.out);
 	}
 	
-	private OutputStreamWriter buildFileOutputStreamWriter(OptionsFile optionsFile) throws IOException, ClassNotFoundException {
+	private Writer buildFileWriter(OptionsFile optionsFile) throws IOException, ClassNotFoundException {
 
 		// Build the full path of the new js file
 		Class<?> clazz = optionsFile.getClazz();
 		JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
-		String jsFileFullPath = CoreUtils.getInstance().getProjectFullPath() + File.separator + jcrudEntity.jsFilePath();
+		String jsFileFullPath = CoreUtils.getInstance().getProjectFullPath() 
+				+ File.separator 
+				+ jcrudEntity.jsFilePath();
 		
 		// Instance the writer
 		return new OutputStreamWriter(
-				new FileOutputStream(jsFileFullPath));
+				new FileOutputStream(jsFileFullPath)
+		);
 	}
 	
 	static public OptionsFileGeneratorBuilder getInstance(){

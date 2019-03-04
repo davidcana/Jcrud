@@ -39,8 +39,9 @@ public class TemplateParser {
         // Where do we load the templates from:
 		this.configuration.setDirectoryForTemplateLoading(
 				new File(
-						CoreUtils.getInstance().getProjectFullPath() + File.separator + Constants.TEMPLATE_FOLDER
-						//this.getClass().getResource("/").getFile()
+						CoreUtils.getInstance().getProjectFullPath() 
+						+ File.separator 
+						+ Constants.TEMPLATE_FOLDER
 				)
 		);
 
