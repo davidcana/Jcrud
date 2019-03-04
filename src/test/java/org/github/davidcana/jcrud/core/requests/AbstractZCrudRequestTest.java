@@ -17,7 +17,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 abstract public class AbstractZCrudRequestTest {
-
+	
+	public static final String TESTS_PATH = "/requests/";
+	
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -33,7 +35,7 @@ abstract public class AbstractZCrudRequestTest {
         // Build expectedZcrudRequest
         ZCrudRequest zCrudRequest = DefaultCRUDManager.getInstance().getRequest(
         		cmd, 
-        		this.getResourceReader(test), 
+        		this.getResourceReader(TESTS_PATH, test), 
         		SimpleVoidStorage.getInstance()
         );
         
@@ -42,51 +44,15 @@ abstract public class AbstractZCrudRequestTest {
         long elapsed = System.currentTimeMillis() - start;
         System.err.println(test + ": tested in " + elapsed + " ms");
 	}
-	/*
-	private URL getResource(String test) {
-		
-		String json = test + "-client" + ".json";
-        return this.getClass().getResource( "/" + json );
-	}*/
 	
-	private Reader getResourceReader(String test) {
+	private Reader getResourceReader(String testsPath, String test) {
 		
-		String json = test + "-client" + ".json";
+		String jsonPath = TESTS_PATH + test + ".json";
         return new BufferedReader(
         		new InputStreamReader(
-        				this.getClass().getResourceAsStream( "/" + json )));
+        				this.getClass().getResourceAsStream(jsonPath)
+        		)
+        );
 	}
-	/*
-    static final String filterText(String source){
-    	
-    	String text = source.replaceAll("\\r|\\n|\\t", "");
-    	
-    	StringBuilder sb = new StringBuilder();
 
-    	Scanner scanner = new Scanner(text);
-    	while (scanner.hasNextLine()) {
-    	  String line = scanner.nextLine();
-    	  sb.append( 
-    			  line.trim().replaceAll( 
-    					  "\\s+", " " ) );
-    	}
-    	scanner.close();
-    	
-    	return sb.toString();
-    }
-    
-    static final String fixCRLF(String source){
-    	
-        StringBuffer buf = new StringBuffer(source.length());
-        StringTokenizer chunks = new StringTokenizer(source, "\r\n");
-        
-        while (chunks.hasMoreTokens()) {
-            buf.append(chunks.nextToken());
-            if (buf.charAt(buf.length() - 1) != '\n') {
-                buf.append('\n');
-            }
-        }
-        
-        return buf.toString();
-    }*/
 }

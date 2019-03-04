@@ -20,7 +20,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import freemarker.template.TemplateException;
 
 public class OptionsFilesTest {
-
+	
+	public static final String TESTS_PATH = "/optionsFiles/";
+	
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -38,14 +40,6 @@ public class OptionsFilesTest {
 
         long elapsed = System.currentTimeMillis() - start;
         System.err.println("tested in " + elapsed + " ms");
-	}
-	
-	private Reader getResourceReader(String test) {
-		
-		String json = test + "-client" + ".json";
-        return new BufferedReader(
-        		new InputStreamReader(
-        				this.getClass().getResourceAsStream( "/" + json )));
 	}
 
 }
