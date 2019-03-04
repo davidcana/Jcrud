@@ -23,8 +23,8 @@ public class OptionsFileGeneratorBuilder {
 	
 	public static void main(String[] args) throws IOException, TemplateException, ClassNotFoundException {
 		
-		OptionsFileGeneratorBuilder instance = new OptionsFileGeneratorBuilder();
-		instance.run();
+		//OptionsFileGeneratorBuilder instance = new OptionsFileGeneratorBuilder();
+		//instance.run();
 	}
 	
 	public void run() throws IOException, TemplateException, ClassNotFoundException {

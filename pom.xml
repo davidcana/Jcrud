@@ -94,6 +94,25 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <arguments>
+                        <argument>${project.build.directory}/${project.build.finalName}</argument>
+                    </arguments>
+                    <mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFileGeneratorBuilder</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
