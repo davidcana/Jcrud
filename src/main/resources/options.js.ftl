@@ -8,7 +8,7 @@ ${classContents},
     fields: {
 	<#list fields as field>
         ${field.id}: {
-            ${field.contents}
+${field.contents}
         },
 	</#list>
 	}

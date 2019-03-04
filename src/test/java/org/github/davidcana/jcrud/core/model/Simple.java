@@ -7,7 +7,7 @@ import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@JCRUDEntity(storage = SimpleVoidStorage.class)
+@JCRUDEntity(storage = SimpleVoidStorage.class, jsFilePath="target/test-classes/simple.js")
 public class Simple implements ZCrudEntity {
 	/*jcrud
     saveUserPreferences: true,

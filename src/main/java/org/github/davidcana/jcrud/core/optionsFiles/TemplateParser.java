@@ -2,7 +2,10 @@ package org.github.davidcana.jcrud.core.optionsFiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+import org.github.davidcana.jcrud.core.Constants;
+import org.github.davidcana.jcrud.core.utils.CoreUtils;
 
 import freemarker.core.JavaScriptOutputFormat;
 import freemarker.core.ParseException;
@@ -22,10 +25,10 @@ public class TemplateParser {
 		this.buildConfiguration();
 	}
 	
-	public void parse(String templatePath, Object dataModel, OutputStreamWriter outputStreamWriter) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public void parse(String templatePath, Object dataModel, Writer writer) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		
 		Template template = this.configuration.getTemplate(templatePath);
-		template.process(dataModel, outputStreamWriter);
+		template.process(dataModel, writer);
 
 	}
 
@@ -36,7 +39,8 @@ public class TemplateParser {
         // Where do we load the templates from:
 		this.configuration.setDirectoryForTemplateLoading(
 				new File(
-						this.getClass().getResource("/").getFile()
+						CoreUtils.getInstance().getProjectFullPath() + File.separator + Constants.TEMPLATE_FOLDER
+						//this.getClass().getResource("/").getFile()
 				)
 		);
 

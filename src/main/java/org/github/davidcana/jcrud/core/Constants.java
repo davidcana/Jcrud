@@ -16,15 +16,19 @@ public class Constants {
     public static final String LOG4J_CONF_FULL_PATH = TOMCAT_HOME+ "/" + WEB_APPS_DIR + "/" + WEB_APP_ID +"/" + LOG4J_CONF_PATH;
     public static final String LOG4J_TEST_CONF_FILE = "log4j-test.properties";
     //public static final String LOG4J_TEST_CONF_PATH = LOG4J_CONF_DIR + "/" + LOG4J_TEST_CONF_FILE;
-	public static final String DEV_HOME = "/home/david/" + WEB_APP_ID;
-	public static final String DEV_WEBINF = DEV_HOME + "/src/main/webapp/WEB-INF";
-    public static final String LOG4J_TEST_CONF_FULL_PATH = DEV_WEBINF +"/" + LOG4J_TEST_CONF_FILE;
+	//public static final String DEV_HOME = "/home/david/" + WEB_APP_ID;
+	//public static final String DEV_WEBINF = DEV_HOME + "/src/main/webapp/WEB-INF";
+    //public static final String LOG4J_TEST_CONF_FULL_PATH = DEV_WEBINF +"/" + LOG4J_TEST_CONF_FILE;
 	
     // Loggers
     public static final Logger ADMIN_LOGGER = Logger.getLogger("adminLogger");
     public static final Logger TEST_LOGGER = ADMIN_LOGGER;
     
+    // Java files
+    public static final String MAIN_JAVA_PATH = "/src/main/";
+    public static final String TEMPLATE_FOLDER = MAIN_JAVA_PATH + "/resources/";
+    
     // Misc
     public static final String ZCRUD_RECORDS_SUFFIX = "ZCrudRecords";
-    public static final String TEMPLATE_PATH = "options.js.ftl";
+    public static final String TEMPLATE_FILE_NAME = "options.js.ftl";
 }

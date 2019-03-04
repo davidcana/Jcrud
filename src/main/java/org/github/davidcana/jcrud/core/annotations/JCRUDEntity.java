@@ -14,5 +14,6 @@ import org.github.davidcana.jcrud.storages.Storage;
 @IndexAnnotated
 public @interface JCRUDEntity {
 	Class<? extends Storage> storage();
+	String jsFilePath() default "";
 	String urlParameter() default "";
 }
