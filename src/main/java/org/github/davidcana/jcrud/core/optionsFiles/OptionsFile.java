@@ -22,6 +22,10 @@ var ${options.varName} = {
 */
 public class OptionsFile {
 	
+	private String className;
+	private String packageName;
+	transient private Class<?> clazz;
+	
 	private String varName;
 	private String entityId;
 	private String classContents;
@@ -29,6 +33,35 @@ public class OptionsFile {
 	private List<OptionsFileField> fields = new ArrayList<>();
 	
 	public OptionsFile() {}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getPackageName() {
+		
+		if (packageName == null) {
+			throw new IllegalArgumentException("packageName not set in optionsFile!");
+		}
+		
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+
+	public Class<?> getClazz() throws ClassNotFoundException {
+		
+		if (clazz == null){
+			clazz = this.buildClazz();
+		}
+		return clazz;
+	}
 
 	public String getVarName() {
 		
@@ -46,7 +79,7 @@ public class OptionsFile {
 	public String getEntityId() {
 		
 		if (entityId == null) {
-			throw new IllegalArgumentException("entityId not set in optionsFile!");
+			entityId = this.buildEntityId();
 		}
 		
 		return entityId;
@@ -91,8 +124,9 @@ public class OptionsFile {
 	
 	@Override
 	public String toString() {
-		return "OptionsFile [varName=" + this.getVarName() + ", entityId=" + entityId + ", classContents=" + classContents
-				+ ", key=" + key + ", fields=" + fields + "]";
+		return "OptionsFile [className=" + className + ", packageName=" + packageName + ", varName=" + this.getVarName()
+				+ ", entityId=" + this.getEntityId() + ", classContents=" + classContents + ", key=" + key + ", fields=" + fields
+				+ "]";
 	}
 
 	@Override
@@ -100,9 +134,11 @@ public class OptionsFile {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((classContents == null) ? 0 : classContents.hashCode());
+		result = prime * result + ((className == null) ? 0 : className.hashCode());
 		result = prime * result + ((entityId == null) ? 0 : entityId.hashCode());
 		result = prime * result + ((fields == null) ? 0 : fields.hashCode());
 		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
 		result = prime * result + ((varName == null) ? 0 : varName.hashCode());
 		return result;
 	}
@@ -121,6 +157,11 @@ public class OptionsFile {
 				return false;
 		} else if (!classContents.equals(other.classContents))
 			return false;
+		if (className == null) {
+			if (other.className != null)
+				return false;
+		} else if (!className.equals(other.className))
+			return false;
 		if (entityId == null) {
 			if (other.entityId != null)
 				return false;
@@ -136,6 +177,11 @@ public class OptionsFile {
 				return false;
 		} else if (!key.equals(other.key))
 			return false;
+		if (packageName == null) {
+			if (other.packageName != null)
+				return false;
+		} else if (!packageName.equals(other.packageName))
+			return false;
 		if (varName == null) {
 			if (other.varName != null)
 				return false;
@@ -149,5 +195,17 @@ public class OptionsFile {
 		String part = this.getEntityId();
 		
 		return part.substring(0, 1).toLowerCase() + part.substring(1) +"Options";
-	}	
+	}
+	
+	private String buildEntityId() {
+		return this.getClassName();
+	}
+	
+
+	private Class<?> buildClazz() throws ClassNotFoundException {
+		
+		String fullClassName = this.getPackageName() + "." + this.getClassName();
+
+		return Class.forName(fullClassName);
+	}
 }

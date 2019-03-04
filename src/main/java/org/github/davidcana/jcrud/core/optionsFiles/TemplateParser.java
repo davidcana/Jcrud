@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core.optionsFiles.parsing;
+package org.github.davidcana.jcrud.core.optionsFiles;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

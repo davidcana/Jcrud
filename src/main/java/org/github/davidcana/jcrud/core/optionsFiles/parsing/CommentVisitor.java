@@ -7,7 +7,9 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.BlockComment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.github.davidcana.jcrud.core.optionsFiles.OptionsFile;
 import org.github.davidcana.jcrud.core.optionsFiles.OptionsFileField;
@@ -41,7 +43,7 @@ class CommentVisitor extends ASTVisitor {
 
 		this.classLine = nodeData.getStartLineNumber();
 		String className = node.getName().toString();
-		this.optionsFile.setEntityId(className);
+		this.optionsFile.setClassName(className);
 		
 		System.out.println(
 				this.classLine + ": [Class] [" + className + "]"
@@ -82,6 +84,21 @@ class CommentVisitor extends ASTVisitor {
 		
 		System.out.println(
 				idAnnotationLine + ": [IdAnnotation] [" + node + "]"
+		);
+		return true;
+	}
+	
+	@Override
+	public boolean visit(PackageDeclaration node) {
+		
+		NodeData nodeData = new NodeData(node, this.cu);
+		
+		int line = nodeData.getStartLineNumber();
+		String packageName = node.getName().toString();
+		this.optionsFile.setPackageName(packageName);
+		
+		System.out.println(
+				line + ": [Package] [" + packageName + "]"
 		);
 		return true;
 	}
