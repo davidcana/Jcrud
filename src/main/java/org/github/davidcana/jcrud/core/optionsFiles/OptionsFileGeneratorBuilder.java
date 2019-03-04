@@ -1,6 +1,7 @@
 package org.github.davidcana.jcrud.core.optionsFiles;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.Constants;
@@ -30,8 +31,16 @@ public class OptionsFileGeneratorBuilder {
 		
 		//
 		for (OptionsFile optionsFile : optionsFiles){
-			TemplateParser.getInstance().parse(Constants.TEMPLATE_PATH, optionsFile);
+			TemplateParser.getInstance().parse(
+					Constants.TEMPLATE_PATH, 
+					optionsFile,
+					this.buildOutputStreamWriter(optionsFile)
+			);
 		}
+	}
+	
+	private OutputStreamWriter buildOutputStreamWriter(OptionsFile optionsFile){
+		return new OutputStreamWriter(System.out);
 	}
 	
 	static public OptionsFileGeneratorBuilder getInstance(){

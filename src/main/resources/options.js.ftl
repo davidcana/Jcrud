@@ -1,13 +1,13 @@
 "use strict";
 
 var ${varName} = {
-    entityId: "${entityId}",
+    entityId: '${entityId}',
 ${classContents},
 
-    key: "${key}",
+    key: '${key}',
     fields: {
 	<#list fields as field>
-        "${field.id}": {
+        ${field.id}: {
             ${field.contents}
         },
 	</#list>

@@ -22,14 +22,10 @@ public class TemplateParser {
 		this.buildConfiguration();
 	}
 	
-	public void parse(String templatePath, Object dataModel) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
+	public void parse(String templatePath, Object dataModel, OutputStreamWriter outputStreamWriter) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		
 		Template template = this.configuration.getTemplate(templatePath);
-
-		template.process(
-				dataModel, 
-				new OutputStreamWriter(System.out)
-		);
+		template.process(dataModel, outputStreamWriter);
 
 	}
 
