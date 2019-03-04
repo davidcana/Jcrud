@@ -1,9 +1,10 @@
 package org.github.davidcana.jcrud.core.optionsFiles;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.Locale;
 
+import freemarker.core.JavaScriptOutputFormat;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
@@ -17,7 +18,7 @@ public class TemplateParser {
 	static private TemplateParser instance;
 	private Configuration configuration;
 	
-	public TemplateParser() {
+	public TemplateParser() throws IOException {
 		this.buildConfiguration();
 	}
 	
@@ -32,21 +33,27 @@ public class TemplateParser {
 
 	}
 
-	private void buildConfiguration() {
+	private void buildConfiguration() throws IOException {
 		
 		this.configuration = new Configuration(Configuration.VERSION_2_3_28);
 		
         // Where do we load the templates from:
-		//this.configuration.setClassForTemplateLoading(MainTest.class, "templates");
+		this.configuration.setDirectoryForTemplateLoading(
+				new File(
+						this.getClass().getResource("/").getFile()
+				)
+		);
 
+		// Don't escape anything
+		this.configuration.setOutputFormat(JavaScriptOutputFormat.INSTANCE);
+		
         // Some other recommended settings:
-		//this.configuration.setIncompatibleImprovements(new Version(2, 3, 20));
 		this.configuration.setDefaultEncoding("UTF-8");
-		this.configuration.setLocale(Locale.US);
+		//this.configuration.setLocale(Locale.ES);
 		this.configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 	}
 	
-	static public TemplateParser getInstance(){
+	static public TemplateParser getInstance() throws IOException{
 		
 		if ( instance == null ){
 			instance = new TemplateParser();

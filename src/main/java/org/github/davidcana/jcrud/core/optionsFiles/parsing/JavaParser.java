@@ -20,10 +20,10 @@ public class JavaParser {
 	public static void main(String[] args) throws IOException {
 		
 		JavaParser commentExtractor = new JavaParser();
-		//commentExtractor.run();
 		commentExtractor.parseJavaFolder("/home/david/jcrud-core/src/test/java/org/github/davidcana/jcrud/core/model/");
 	}
 	
+	/*
 	public void run() throws IOException {
 		
 		String str = "/home/david/jcrud-core/src/test/java/org/github/davidcana/jcrud/core/model/Simple.java";
@@ -34,7 +34,7 @@ public class JavaParser {
 				"OptionsFile:\n" + optionsFile
 		);
 	}
-	
+	*/
 	public List<OptionsFile> parseJavaFolder(final String folderPath) throws IOException {
 		
 		List<OptionsFile> result = new ArrayList<>();

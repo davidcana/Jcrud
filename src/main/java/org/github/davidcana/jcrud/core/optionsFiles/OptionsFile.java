@@ -194,11 +194,14 @@ public class OptionsFile {
 		
 		String part = this.getEntityId();
 		
-		return part.substring(0, 1).toLowerCase() + part.substring(1) +"Options";
+		return part.substring(0, 1).toLowerCase() + part.substring(1) + "Options";
 	}
 	
 	private String buildEntityId() {
-		return this.getClassName();
+
+		String part = this.getClassName();
+		
+		return part.substring(0, 1).toLowerCase() + part.substring(1);
 	}
 	
 

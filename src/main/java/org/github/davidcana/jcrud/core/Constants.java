@@ -26,5 +26,5 @@ public class Constants {
     
     // Misc
     public static final String ZCRUD_RECORDS_SUFFIX = "ZCrudRecords";
-
+    public static final String TEMPLATE_PATH = "options.js.ftl";
 }
