@@ -37,7 +37,7 @@ public class OptionsFilesBuilder {
 		);
 	}
 	
-	public void run(boolean debugJavaParser) throws IOException, TemplateException, ClassNotFoundException {
+	public List<OptionsFile> run(boolean debugJavaParser) throws IOException, TemplateException, ClassNotFoundException {
 		
 		// Build the list of instances of OptionsFile
 		JavaParser javaParser = new JavaParser();
@@ -66,6 +66,8 @@ public class OptionsFilesBuilder {
 					"Options file for " + optionsFile.getClassName() + " class built succesfully."
 			);
 		}
+		
+		return optionsFiles;
 	}
 	
 

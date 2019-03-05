@@ -1,8 +1,6 @@
 package org.github.davidcana.jcrud.core.optionsFiles.javaParsing;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +10,7 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.Comment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.github.davidcana.jcrud.core.optionsFiles.OptionsFile;
+import org.github.davidcana.jcrud.core.utils.CoreUtils;
 
 public class JavaParser {
 	
@@ -30,7 +29,7 @@ public class JavaParser {
 	        
 			if (file.isFile()){ 
 	        	String fileAbsolutePath = file.getAbsolutePath();
-				String converted = readFileToString(fileAbsolutePath);
+				String converted = CoreUtils.getInstance().getStringFromFullPath(fileAbsolutePath);
 				OptionsFile optionsFile = this.parseFile(converted, print);
 				
 				if (print){
@@ -73,24 +72,5 @@ public class JavaParser {
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		
 		return parser;
-	}
-	
-	private static String readFileToString(String filePath) throws IOException {
-		
-		StringBuilder fileData = new StringBuilder(1000);
-		BufferedReader reader = new BufferedReader(
-				new FileReader(filePath)
-		);
- 
-		char[] buf = new char[10];
-		int numRead = 0;
-		while ((numRead = reader.read(buf)) != -1) {
-			String readData = String.valueOf(buf, 0, numRead);
-			fileData.append(readData);
-			buf = new char[1024];
-		}
- 
-		reader.close();
-		return fileData.toString();
 	}
 }
