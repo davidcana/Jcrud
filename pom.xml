@@ -100,17 +100,18 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <phase>test-compile</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
+                	<classpathScope>test</classpathScope>
+                	<mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFilesBuilder</mainClass>
                     <arguments>
-                        <argument>${project.build.directory}/${project.build.finalName}</argument>
+                        <argument>false</argument> <!-- Debug java parsing -->
                     </arguments>
-                    <mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFileGeneratorBuilder</mainClass>
                 </configuration>
             </plugin>
         </plugins>

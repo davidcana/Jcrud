@@ -9,36 +9,50 @@ import java.util.List;
 
 import org.github.davidcana.jcrud.core.Constants;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
-import org.github.davidcana.jcrud.core.optionsFiles.parsing.JavaParser;
+import org.github.davidcana.jcrud.core.optionsFiles.javaParsing.JavaParser;
 import org.github.davidcana.jcrud.core.utils.CoreUtils;
 import freemarker.template.TemplateException;
 
-public class OptionsFileGeneratorBuilder {
+public class OptionsFilesBuilder {
 	
-	static private OptionsFileGeneratorBuilder instance;
+	static private OptionsFilesBuilder instance;
 	static private final boolean STANDARD_OUT_MODE = false;
 	static private final String SRC_TEST_JAVA_MODEL = "src/test/java/org/github/davidcana/jcrud/core/model/";
 	
-	public OptionsFileGeneratorBuilder(){}
+	public OptionsFilesBuilder(){}
 	
 	public static void main(String[] args) throws IOException, TemplateException, ClassNotFoundException {
 		
-		//OptionsFileGeneratorBuilder instance = new OptionsFileGeneratorBuilder();
-		//instance.run();
+		System.out.println(
+				"Running run method of OptionsFilesBuilder class to generate javascript files of model classes..."
+		);
+		
+		OptionsFilesBuilder instance = new OptionsFilesBuilder();
+		instance.run(
+				Boolean.parseBoolean(args[0])
+		);
+		
+		System.out.println(
+				"Javascript files of model classes generated successfully."
+		);
 	}
 	
-	public void run() throws IOException, TemplateException, ClassNotFoundException {
+	public void run(boolean debugJavaParser) throws IOException, TemplateException, ClassNotFoundException {
 		
 		// Build the list of instances of OptionsFile
-		JavaParser commentExtractor = new JavaParser();
-		List<OptionsFile> optionsFiles = commentExtractor.parseJavaFolder(
+		JavaParser javaParser = new JavaParser();
+		List<OptionsFile> optionsFiles = javaParser.parseFolder(
 				CoreUtils.getInstance().getProjectFullPath() 
-				+ File.separator 
-				+ SRC_TEST_JAVA_MODEL
+					+ File.separator 
+					+ SRC_TEST_JAVA_MODEL,
+				debugJavaParser
 		);
 		
 		// Iterate optionsFiles and build the js files
 		for (OptionsFile optionsFile : optionsFiles){
+			System.out.println(
+					"Building options file for " + optionsFile.getClassName() + " class..."
+			);
 			Writer writer = STANDARD_OUT_MODE? 
 					this.buildSystemOutWriter(optionsFile):
 					this.buildFileWriter(optionsFile);
@@ -48,6 +62,9 @@ public class OptionsFileGeneratorBuilder {
 					writer
 			);
 			writer.close();
+			System.out.println(
+					"Options file for " + optionsFile.getClassName() + " class built succesfully."
+			);
 		}
 	}
 	
@@ -71,10 +88,10 @@ public class OptionsFileGeneratorBuilder {
 		);
 	}
 	
-	static public OptionsFileGeneratorBuilder getInstance(){
+	static public OptionsFilesBuilder getInstance(){
 		
 		if ( instance == null ){
-			instance = new OptionsFileGeneratorBuilder();
+			instance = new OptionsFilesBuilder();
 		}
 		
 		return instance;

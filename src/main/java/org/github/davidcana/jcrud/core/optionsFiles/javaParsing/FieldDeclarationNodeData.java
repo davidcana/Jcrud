@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core.optionsFiles.parsing;
+package org.github.davidcana.jcrud.core.optionsFiles.javaParsing;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;

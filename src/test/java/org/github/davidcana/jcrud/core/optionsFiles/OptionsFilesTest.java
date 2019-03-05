@@ -22,6 +22,7 @@ import freemarker.template.TemplateException;
 public class OptionsFilesTest {
 	
 	public static final String TESTS_PATH = "/optionsFiles/";
+	static private final boolean STANDARD_OUT_MODE = false;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -32,11 +33,11 @@ public class OptionsFilesTest {
 	}
 
 	@Test
-	public void testRequest() throws ClassNotFoundException, IOException, TemplateException {
+	public void test() throws ClassNotFoundException, IOException, TemplateException {
 		
         long start = System.currentTimeMillis();
         
-        OptionsFileGeneratorBuilder.getInstance().run();
+        OptionsFilesBuilder.getInstance().run(STANDARD_OUT_MODE);
 
         long elapsed = System.currentTimeMillis() - start;
         System.err.println("tested in " + elapsed + " ms");

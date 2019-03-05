@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core.optionsFiles.parsing;
+package org.github.davidcana.jcrud.core.optionsFiles.javaParsing;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,11 +24,13 @@ class CommentVisitor extends ASTVisitor {
 	
 	private int classLine;
 	private Map<Integer, String> fields = new HashMap<>();
+	private boolean print;
 	
-	public CommentVisitor(CompilationUnit cu, String source) {
+	public CommentVisitor(CompilationUnit cu, String source, boolean print) {
 		super();
 		this.cu = cu;
 		this.source = source;
+		this.print = print;
 	}
 	
 	public OptionsFile getOptionsFile() {
@@ -45,9 +47,12 @@ class CommentVisitor extends ASTVisitor {
 		String className = node.getName().toString();
 		this.optionsFile.setClassName(className);
 		
-		System.out.println(
-				this.classLine + ": [Class] [" + className + "]"
-		);
+		if (this.print){
+			System.out.println(
+					this.classLine + ": [Class] [" + className + "]"
+			);
+		}
+		
 		return true;
 	}
 	
@@ -60,9 +65,12 @@ class CommentVisitor extends ASTVisitor {
 		int line = nodeData.getStartLineNumber();
 		this.fields.put(line, fieldId);
 		
-		System.out.println(
-				line + ": [Field] [" + fieldId + "]"
-		);
+		if (this.print){
+			System.out.println(
+					line + ": [Field] [" + fieldId + "]"
+			);
+		}
+		
 		return true;
 	}
 	
@@ -82,9 +90,12 @@ class CommentVisitor extends ASTVisitor {
 		}
 		this.optionsFile.setKey(key);
 		
-		System.out.println(
-				idAnnotationLine + ": [IdAnnotation] [" + node + "]"
-		);
+		if (this.print){
+			System.out.println(
+					idAnnotationLine + ": [IdAnnotation] [" + node + "]"
+			);
+		}
+		
 		return true;
 	}
 	
@@ -97,9 +108,12 @@ class CommentVisitor extends ASTVisitor {
 		String packageName = node.getName().toString();
 		this.optionsFile.setPackageName(packageName);
 		
-		System.out.println(
-				line + ": [Package] [" + packageName + "]"
-		);
+		if (this.print){
+			System.out.println(
+					line + ": [Package] [" + packageName + "]"
+			);
+		}
+		
 		return true;
 	}
 	/* End of first pass */
@@ -120,9 +134,12 @@ class CommentVisitor extends ASTVisitor {
 			throw new IllegalArgumentException("Error trying to link comment to field in class!");
 		}
 		
-		System.out.println(
-				line + ": [Comment] \n" + comment
-		);
+		if (this.print){
+			System.out.println(
+					line + ": [Comment] \n" + comment
+			);
+		}
+		
 		return true;
 	}
 	/* End of second pass */

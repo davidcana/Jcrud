@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.log4j.varia.NullAppender;
 import org.github.davidcana.jcrud.core.Constants;
 import org.github.davidcana.jcrud.core.utils.CoreUtils;
 
@@ -22,14 +23,13 @@ public class TemplateParser {
 	private Configuration configuration;
 	
 	public TemplateParser() throws IOException {
-		this.buildConfiguration();
+		this.configure();
 	}
 	
 	public void parse(String templatePath, Object dataModel, Writer writer) throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 		
 		Template template = this.configuration.getTemplate(templatePath);
 		template.process(dataModel, writer);
-
 	}
 
 	private void buildConfiguration() throws IOException {
@@ -52,6 +52,20 @@ public class TemplateParser {
 		this.configuration.setDefaultEncoding("UTF-8");
 		//this.configuration.setLocale(Locale.ES);
 		this.configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+	}
+	
+	private void initLog4Java(){
+		
+		org.apache.log4j.BasicConfigurator.configure(
+				new NullAppender()
+		);
+	}
+	
+	
+	private void configure() throws IOException {
+		
+		this.buildConfiguration();
+		this.initLog4Java();
 	}
 	
 	static public TemplateParser getInstance() throws IOException{

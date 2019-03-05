@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core.optionsFiles.parsing;
+package org.github.davidcana.jcrud.core.optionsFiles.javaParsing;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,27 +15,11 @@ import org.github.davidcana.jcrud.core.optionsFiles.OptionsFile;
 
 public class JavaParser {
 	
-	private ASTParser parser = buildParser();
+	private ASTParser parser = buildASTParser();
 	
-	public static void main(String[] args) throws IOException {
-		
-		JavaParser commentExtractor = new JavaParser();
-		commentExtractor.parseJavaFolder("/home/david/jcrud-core/src/test/java/org/github/davidcana/jcrud/core/model/");
-	}
+	public JavaParser(){}
 	
-	/*
-	public void run() throws IOException {
-		
-		String str = "/home/david/jcrud-core/src/test/java/org/github/davidcana/jcrud/core/model/Simple.java";
-		String converted = readFileToString(str);
-		
-		OptionsFile optionsFile = this.parseJavaFile(converted);
-		System.out.print(
-				"OptionsFile:\n" + optionsFile
-		);
-	}
-	*/
-	public List<OptionsFile> parseJavaFolder(final String folderPath) throws IOException {
+	public List<OptionsFile> parseFolder(final String folderPath, final boolean print) throws IOException {
 		
 		List<OptionsFile> result = new ArrayList<>();
 		
@@ -47,15 +31,20 @@ public class JavaParser {
 			if (file.isFile()){ 
 	        	String fileAbsolutePath = file.getAbsolutePath();
 				String converted = readFileToString(fileAbsolutePath);
-				OptionsFile optionsFile = this.parseJavaFile(converted);
-				System.out.print(
-						"OptionsFile:\n" + optionsFile
-				);
+				OptionsFile optionsFile = this.parseFile(converted, print);
+				
+				if (print){
+					System.out.print(
+							"OptionsFile:\n" + optionsFile
+					);
+				}
 	        	result.add(optionsFile);
 	        	
 	        } else if (file.isDirectory()) {
 	        	result.addAll(
-	        			this.parseJavaFolder(file.getAbsolutePath())
+	        			this.parseFolder(
+	        					file.getAbsolutePath(), print
+	        			)
 	        	);
 	        }
 	    }
@@ -63,12 +52,12 @@ public class JavaParser {
 		return result;
 	}
 	
-	private OptionsFile parseJavaFile(final String str) {
+	private OptionsFile parseFile(final String str, final boolean print) {
 		
 		this.parser.setSource(str.toCharArray());
 		final CompilationUnit cu = (CompilationUnit) this.parser.createAST(null);
 
-		CommentVisitor visitor = new CommentVisitor(cu, str);
+		CommentVisitor visitor = new CommentVisitor(cu, str, print);
 		cu.accept(visitor);
 		
 		for (Comment comment : (List<Comment>) cu.getCommentList()) {
@@ -78,7 +67,7 @@ public class JavaParser {
 		return visitor.getOptionsFile();
 	}
 
-	private static ASTParser buildParser() {
+	private static ASTParser buildASTParser() {
 		
 		ASTParser parser = ASTParser.newParser(AST.JLS3);		
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
@@ -89,7 +78,9 @@ public class JavaParser {
 	private static String readFileToString(String filePath) throws IOException {
 		
 		StringBuilder fileData = new StringBuilder(1000);
-		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		BufferedReader reader = new BufferedReader(
+				new FileReader(filePath)
+		);
  
 		char[] buf = new char[10];
 		int numRead = 0;
