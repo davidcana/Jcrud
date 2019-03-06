@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class AbstractOptionsFilesTest extends AbstractTest {
 	
-	private static final String TESTS_PATH = "/optionsFiles/";
+	private static final String TESTS_PATH = "optionsFiles/";
 	private static final String FILE_EXTENSION = ".js";
 	private static final boolean STANDARD_OUT_MODE = false;
 	private static final String ROOT_PATH = "src/test/java/";

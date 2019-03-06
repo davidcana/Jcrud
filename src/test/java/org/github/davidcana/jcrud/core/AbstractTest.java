@@ -19,7 +19,7 @@ abstract public class AbstractTest {
 	protected String getStringFromFile(String testsPath, String test, String extension) throws IOException {
 		
 		return CoreUtils.getInstance().getStringFromReader(
-				this.getResourceReader(testsPath, test, extension)
+				this.getResourceReader("/" + testsPath, test, extension)
 		);
 	}
 	

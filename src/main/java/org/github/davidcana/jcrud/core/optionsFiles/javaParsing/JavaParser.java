@@ -1,8 +1,6 @@
 package org.github.davidcana.jcrud.core.optionsFiles.javaParsing;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.AST;
@@ -18,6 +16,7 @@ public class JavaParser {
 	
 	public JavaParser(){}
 	
+	/*
 	public List<OptionsFile> parseFolder(final String folderPath, final boolean print) throws IOException {
 		
 		List<OptionsFile> result = new ArrayList<>();
@@ -50,6 +49,7 @@ public class JavaParser {
 		
 		return result;
 	}
+	*/
 	
 	public OptionsFile parseFile(final String fileAbsolutePath, final boolean print) throws IOException {
 		
