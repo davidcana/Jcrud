@@ -100,22 +100,59 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <phase>test</phase>
+                        <phase>process-test-classes</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                	<classpathScope>test</classpathScope>
-                	<mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFilesBuilder</mainClass>
+                    <classpathScope>test</classpathScope>
+                    <mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFilesBuilder</mainClass>
                     <arguments>
-						<argument>src/test/java/</argument> <!-- Root folder -->
+                        <argument>src/test/java/</argument> <!-- Root folder -->
                         <argument>false</argument> <!-- Debug java parsing -->
                     </arguments>
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.codehaus.mojo
+        								</groupId>
+        								<artifactId>
+        									exec-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[1.6.0,)
+        								</versionRange>
+        								<goals>
+        									<goal>java</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<execute>
+        									<runOnIncremental>true</runOnIncremental>
+        								</execute>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
     </build>
 
 </project>

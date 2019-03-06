@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.github.davidcana.jcrud.core.AbstractTest;
 import org.github.davidcana.jcrud.core.utils.CoreUtils;
-import org.junit.BeforeClass;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,6 +14,7 @@ public class AbstractOptionsFilesTest extends AbstractTest {
 	
 	private static final String TESTS_PATH = "optionsFiles/";
 	private static final String FILE_EXTENSION = ".js";
+	/*
 	private static final boolean STANDARD_OUT_MODE = false;
 	private static final String ROOT_PATH = "src/test/java/";
 	
@@ -22,6 +22,7 @@ public class AbstractOptionsFilesTest extends AbstractTest {
 	static public void setUp() throws Exception {
 		OptionsFilesBuilder.getInstance().run(ROOT_PATH, STANDARD_OUT_MODE);
 	}
+	*/
 	
 	protected void testJavascript(String test, String expectedPath) throws JsonParseException, JsonMappingException, IOException {
 		
