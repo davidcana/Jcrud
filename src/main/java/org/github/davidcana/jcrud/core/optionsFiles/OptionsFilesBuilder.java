@@ -5,8 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.atteo.classindex.ClassIndex;
 import org.github.davidcana.jcrud.core.Constants;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.optionsFiles.javaParsing.JavaParser;
@@ -17,7 +20,7 @@ public class OptionsFilesBuilder {
 	
 	static private OptionsFilesBuilder instance;
 	static private final boolean STANDARD_OUT_MODE = false;
-	static private final String SRC_TEST_JAVA_MODEL = "src/test/java/org/github/davidcana/jcrud/core/model/";
+	private JavaParser javaParser = new JavaParser();
 	
 	public OptionsFilesBuilder(){}
 	
@@ -27,31 +30,30 @@ public class OptionsFilesBuilder {
 				"Running run method of OptionsFilesBuilder class to generate javascript files of model classes..."
 		);
 		
+		String rootFolder = args[0];
+		boolean debugJavaParser = Boolean.parseBoolean(args[1]);
+		
 		OptionsFilesBuilder instance = new OptionsFilesBuilder();
-		instance.run(
-				Boolean.parseBoolean(args[0])
-		);
+		List<OptionsFile> optionsFiles = instance.run(rootFolder, debugJavaParser);
 		
 		System.out.println(
-				"Javascript files of model classes generated successfully."
+				optionsFiles.isEmpty()?
+				"The list of options files to built is empty, so there is no javascript file to build.":
+				optionsFiles.size() + " javascript files of model classes generated successfully."
 		);
 	}
 	
-	public List<OptionsFile> run(boolean debugJavaParser) throws IOException, TemplateException, ClassNotFoundException {
+	public List<OptionsFile> run(String rootFolder, boolean debugJavaParser) throws IOException, TemplateException, ClassNotFoundException {
 		
 		// Build the list of instances of OptionsFile
-		JavaParser javaParser = new JavaParser();
-		List<OptionsFile> optionsFiles = javaParser.parseFolder(
-				CoreUtils.getInstance().getProjectFullPath() 
-					+ File.separator 
-					+ SRC_TEST_JAVA_MODEL,
-				debugJavaParser
-		);
+		List<OptionsFile> optionsFiles = this.buildOptionsFiles(rootFolder, debugJavaParser);
 		
 		// Iterate optionsFiles and build the js files
 		for (OptionsFile optionsFile : optionsFiles){
 			System.out.println(
-					"Building options file for " + optionsFile.getClassName() + " class..."
+					"Building options file for " 
+							+ optionsFile.getClassName() 
+							+ " class..."
 			);
 			Writer writer = STANDARD_OUT_MODE? 
 					this.buildSystemOutWriter(optionsFile):
@@ -63,14 +65,50 @@ public class OptionsFilesBuilder {
 			);
 			writer.close();
 			System.out.println(
-					"Options file for " + optionsFile.getClassName() + " class built succesfully."
+					"Options file for " 
+							+ optionsFile.getClassName() 
+							+ " class built succesfully in " 
+							+ buildJsFileFullPath(optionsFile)
+							+ "."
 			);
 		}
 		
 		return optionsFiles;
 	}
-	
 
+	private List<OptionsFile> buildOptionsFiles(String rootFolder, boolean debugJavaParser) throws IOException {
+		
+		List<OptionsFile> optionsFiles = new ArrayList<>();
+		
+		Iterator<Class<?>> i = ClassIndex.getAnnotated(JCRUDEntity.class).iterator();
+		while (i.hasNext()){
+			Class<?> clazz = i.next();
+			
+			// Get the jsFileFullPath
+			JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
+			if ("".equals(jcrudEntity.jsFilePath())){
+				continue;
+			}
+			String jsFileFullPath = buildJsFileFullPath(jcrudEntity);
+			
+			// Get the javaFileFullPath
+			String javaFileFullPath = CoreUtils.getInstance().getJavaFileFullPath(clazz, rootFolder);
+			
+			//  If java file is not newer than js file skip it
+			if (!CoreUtils.getInstance().isNewerThan(javaFileFullPath, jsFileFullPath)){
+				System.out.println(jsFileFullPath + " not built, skipped.");
+				continue;
+			}
+			
+			// Parse java file and add OptionsFile to the list
+			OptionsFile optionsFile = this.javaParser.parseFile(javaFileFullPath, debugJavaParser);
+			optionsFiles.add(optionsFile);
+			
+		}
+
+		return optionsFiles;
+	}
+	
 	private Writer buildSystemOutWriter(OptionsFile optionsFile) {
 		return new OutputStreamWriter(System.out);
 	}
@@ -78,16 +116,27 @@ public class OptionsFilesBuilder {
 	private Writer buildFileWriter(OptionsFile optionsFile) throws IOException, ClassNotFoundException {
 
 		// Build the full path of the new js file
-		Class<?> clazz = optionsFile.getClazz();
-		JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
-		String jsFileFullPath = CoreUtils.getInstance().getProjectFullPath() 
-				+ File.separator 
-				+ jcrudEntity.jsFilePath();
+		String jsFileFullPath = buildJsFileFullPath(optionsFile);
 		
 		// Instance the writer
 		return new OutputStreamWriter(
 				new FileOutputStream(jsFileFullPath)
 		);
+	}
+
+	static private String buildJsFileFullPath(OptionsFile optionsFile) throws ClassNotFoundException, IOException {
+		
+		Class<?> clazz = optionsFile.getClazz();
+		JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
+		
+		return buildJsFileFullPath(jcrudEntity);
+	}
+
+	static private String buildJsFileFullPath(JCRUDEntity jcrudEntity) throws IOException {
+		
+		return CoreUtils.getInstance().getProjectFullPath() 
+				+ File.separator 
+				+ jcrudEntity.jsFilePath();
 	}
 	
 	static public OptionsFilesBuilder getInstance(){

@@ -72,6 +72,31 @@ public class CoreUtils {
         return projectFile.getAbsolutePath();
 	}
 	
+	public String getJavaFileFullPath(Class<?> clazz, String rootFolder) throws IOException {
+		
+		return this.getProjectFullPath() 
+				+ File.separatorChar
+				+ rootFolder 
+				+ clazz.getCanonicalName().replace('.', File.separatorChar)
+				+ ".java";
+	}
+
+	public boolean isNewerThan(String fullPath1, String fullPath2) {
+		
+		File file1 = new File(fullPath1);
+		File file2 = new File(fullPath2);
+		
+		if (!file1.exists()){
+			throw new IllegalArgumentException("File " + fullPath1 + " does not exist!");
+		}
+		
+		if (!file2.exists()){
+			return true;
+		}
+		
+		return file1.lastModified() > file2.lastModified();
+	}
+	
 	static public CoreUtils getInstance(){
 		
 		if ( instance == null ){

@@ -30,7 +30,7 @@ public class JavaParser {
 			if (file.isFile()){ 
 	        	String fileAbsolutePath = file.getAbsolutePath();
 				String converted = CoreUtils.getInstance().getStringFromFullPath(fileAbsolutePath);
-				OptionsFile optionsFile = this.parseFile(converted, print);
+				OptionsFile optionsFile = this.parseString(converted, print);
 				
 				if (print){
 					System.out.print(
@@ -51,7 +51,15 @@ public class JavaParser {
 		return result;
 	}
 	
-	private OptionsFile parseFile(final String str, final boolean print) {
+	public OptionsFile parseFile(final String fileAbsolutePath, final boolean print) throws IOException {
+		
+		return this.parseString(
+				CoreUtils.getInstance().getStringFromFullPath(fileAbsolutePath), 
+				print
+		);
+	}
+	
+	private OptionsFile parseString(final String str, final boolean print) {
 		
 		this.parser.setSource(str.toCharArray());
 		final CompilationUnit cu = (CompilationUnit) this.parser.createAST(null);

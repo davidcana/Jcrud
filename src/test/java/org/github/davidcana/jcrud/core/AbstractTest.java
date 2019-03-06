@@ -2,7 +2,6 @@ package org.github.davidcana.jcrud.core;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,14 +16,6 @@ abstract public class AbstractTest {
 	
 	private static final String NEW_FILE_SUFFIX = ".new";
 	
-	/*
-	protected String getStringFromPath(String testsPath) throws IOException {
-		
-		return CoreUtils.getInstance().getStringFromReader(
-				this.getResourceReader(testsPath)
-		);
-	}
-	*/
 	protected String getStringFromFile(String testsPath, String test, String extension) throws IOException {
 		
 		return CoreUtils.getInstance().getStringFromReader(

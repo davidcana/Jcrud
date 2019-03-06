@@ -110,6 +110,7 @@
                 	<classpathScope>test</classpathScope>
                 	<mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFilesBuilder</mainClass>
                     <arguments>
+						<argument>src/test/java/</argument> <!-- Root folder -->
                         <argument>false</argument> <!-- Debug java parsing -->
                     </arguments>
                 </configuration>
