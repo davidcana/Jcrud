@@ -170,17 +170,5 @@ public class Simple implements ZCrudEntity {
 	public String toString() {
 		return "Simple [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
-	
-	@JsonIgnore
-	@Override
-	public String getKey() {
-		return id.toString();
-	}
-	
-	@Override
-	@JsonIgnore
-	public void setKey(String key) {
-		this.id = Integer.getInteger(key);
-	}
 
 }
