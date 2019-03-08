@@ -80,6 +80,9 @@ var simpleOptions = {
 
     key: 'id',
     fields: {
+        id: {
+
+        },
         name: {
 		    attributes:{
 		        rowHeader: {

@@ -29,8 +29,8 @@ public class AbstractOptionsFilesTest extends AbstractTest {
         long start = System.currentTimeMillis();
         
         // Get contents of files
-        String testString = this.getStringFromFile(TESTS_PATH, test, FILE_EXTENSION);
-        String expectedString = CoreUtils.getInstance().getStringFromProjectPath(expectedPath);
+        String expectedString = this.getStringFromFile(TESTS_PATH, test, FILE_EXTENSION);
+        String testString = CoreUtils.getInstance().getStringFromProjectPath(expectedPath);
         
         // Check it!
 		if (! expectedString.equals(testString)){
@@ -44,7 +44,7 @@ public class AbstractOptionsFilesTest extends AbstractTest {
 	}
 
 	protected String saveNew(String test, String string) throws IOException {
-		return this.saveNew(test, string, FILE_EXTENSION);
+		return this.saveNew(test, string, FILE_EXTENSION, TESTS_PATH);
 	}
 	
 }

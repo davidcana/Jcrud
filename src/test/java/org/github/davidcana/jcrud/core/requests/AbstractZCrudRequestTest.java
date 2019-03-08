@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 abstract public class AbstractZCrudRequestTest extends AbstractTest {
 	
-	public static final String TESTS_PATH = "/requests/";
+	public static final String TESTS_PATH = "requests/";
 	private static final String FILE_EXTENSION = ".json";
 	
 	@Before
@@ -56,7 +56,7 @@ abstract public class AbstractZCrudRequestTest extends AbstractTest {
 				ObjectMapperProviderForTest.getInstance().get().writerWithDefaultPrettyPrinter().writeValueAsString(zCrudRequest)
 		);
 				
-		return this.saveNew(test, buffer, FILE_EXTENSION);
+		return this.saveNew(test, buffer, FILE_EXTENSION, TESTS_PATH);
 	}
 	
 }

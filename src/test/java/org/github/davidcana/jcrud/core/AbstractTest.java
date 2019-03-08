@@ -19,7 +19,7 @@ abstract public class AbstractTest {
 	protected String getStringFromFile(String testsPath, String test, String extension) throws IOException {
 		
 		return CoreUtils.getInstance().getStringFromReader(
-				this.getResourceReader("/" + testsPath, test, extension)
+				this.getResourceReader(testsPath, test, extension)
 		);
 	}
 	
@@ -33,16 +33,16 @@ abstract public class AbstractTest {
 	}
 	
 	protected Reader getResourceReader(String testsPath, String test, String extension) {
-		return this.getResourceReader(testsPath + test + extension);
+		return this.getResourceReader("/" + testsPath + test + extension);
 	}
 	
-	protected String saveNew(String test, String buffer, String extension) throws IOException {
+	protected String saveNew(String test, String buffer, String extension, String path) throws IOException {
 		
 		URL resource = getClass().getResource(
-				this.buildResourceString(test, extension)
+				this.buildResourceString(test, extension, path)
 		);
     	File parent = (new File( resource.getFile() ) ).getParentFile().getParentFile();
-    	String newFileName = parent.getPath() + this.buildNewFileName(test, extension);
+    	String newFileName = parent.getPath() + this.buildNewFileName(test, extension, path);
 		File newFile = new File(newFileName);
     	newFile.createNewFile();
     	 
@@ -58,13 +58,13 @@ abstract public class AbstractTest {
         fileWriter.close();
 	}
 	
-	private String buildNewFileName(String test, String extension) {
-		return this.buildResourceString(test, extension) + NEW_FILE_SUFFIX;
+	private String buildNewFileName(String test, String extension, String path) {
+		return this.buildResourceString(test, extension, path) + NEW_FILE_SUFFIX;
 	}
 	
-	private String buildResourceString(String test, String extension) {
+	private String buildResourceString(String test, String extension, String path) {
 		//return "/" + test;
-		return "/requests/" + test + extension;
+		return "/" + path + test + extension;
 	}
 	
 	protected String buildBuffer(String text) throws IOException {
