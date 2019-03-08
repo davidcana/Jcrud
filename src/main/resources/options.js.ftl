@@ -1,6 +1,10 @@
 "use strict";
 
+<#if varName?contains(".")>
+${varName} = {
+<#else>
 var ${varName} = {
+</#if>
     entityId: '${entityId}',
 ${classContents},
 

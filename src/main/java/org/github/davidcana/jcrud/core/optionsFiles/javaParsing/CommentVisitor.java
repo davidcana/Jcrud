@@ -7,7 +7,6 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.BlockComment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -16,12 +15,13 @@ import org.github.davidcana.jcrud.core.optionsFiles.OptionsFileField;
 
 class CommentVisitor extends ASTVisitor {
 	
-	private static final int MAX_DIFF_BETWEEN_CLASS_AND_ITS_COMMENT = 2;
+	private static final int MAX_DIFF_BETWEEN_CLASS_AND_ITS_COMMENT = 12;
 	private CompilationUnit cu;
 	private String source;
 	
 	private OptionsFile optionsFile = new OptionsFile();
 	
+	private String className;
 	private int classLine;
 	private Map<Integer, String> fields = new HashMap<>();
 	private boolean print;
@@ -44,12 +44,12 @@ class CommentVisitor extends ASTVisitor {
 		NodeData nodeData = new NodeData(node, this.cu);
 
 		this.classLine = nodeData.getStartLineNumber();
-		String className = node.getName().toString();
-		this.optionsFile.setClassName(className);
+		this.className = node.getName().toString();
+		this.optionsFile.setClassName(this.className);
 		
 		if (this.print){
 			System.out.println(
-					this.classLine + ": [Class] [" + className + "]"
+					this.classLine + ": [Class] [" + this.className + "]"
 			);
 		}
 		
@@ -86,7 +86,7 @@ class CommentVisitor extends ASTVisitor {
 		int idAnnotationLine = nodeData.getStartLineNumber(); 
 		String key = this.fields.get(idAnnotationLine);
 		if (key == null) {
-			throw new IllegalArgumentException("Error trying to locate key in class!");
+			throw new IllegalArgumentException("Error trying to locate key in class " + this.className + "!");
 		}
 		this.optionsFile.setKey(key);
 		
@@ -131,7 +131,7 @@ class CommentVisitor extends ASTVisitor {
 		int line = nodeData.getStartLineNumber();
 		
 		if (!searchInFields(comment, line) && !searchInClass(comment, line)) {
-			throw new IllegalArgumentException("Error trying to link comment to field in class!");
+			throw new IllegalArgumentException("Error trying to link comment to field in class " + this.className + "!");
 		}
 		
 		if (this.print){

@@ -84,8 +84,10 @@ public class OptionsFilesBuilder {
 		while (i.hasNext()){
 			Class<?> clazz = i.next();
 			
-			// Get the jsFileFullPath
+			// Get the JCRUDEntity annotation
 			JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
+			
+			// Get the jsFileFullPath
 			if ("".equals(jcrudEntity.jsFilePath())){
 				continue;
 			}
@@ -102,8 +104,13 @@ public class OptionsFilesBuilder {
 			
 			// Parse java file and add OptionsFile to the list
 			OptionsFile optionsFile = this.javaParser.parseFile(javaFileFullPath, debugJavaParser);
-			optionsFiles.add(optionsFile);
 			
+			// Set var name if needed
+			if (!"".equals(jcrudEntity.jsFileVarName())){
+				optionsFile.setVarName(jcrudEntity.jsFileVarName());
+			}
+			
+			optionsFiles.add(optionsFile);
 		}
 
 		return optionsFiles;
@@ -118,10 +125,19 @@ public class OptionsFilesBuilder {
 		// Build the full path of the new js file
 		String jsFileFullPath = buildJsFileFullPath(optionsFile);
 		
+		// Make dirs
+		this.mkdirsForFile(jsFileFullPath);
+		
 		// Instance the writer
 		return new OutputStreamWriter(
 				new FileOutputStream(jsFileFullPath)
 		);
+	}
+
+	private boolean mkdirsForFile(String fileFullPath) {
+		
+		File file = new File(fileFullPath);
+		return file.getParentFile().mkdirs();
 	}
 
 	static private String buildJsFileFullPath(OptionsFile optionsFile) throws ClassNotFoundException, IOException {

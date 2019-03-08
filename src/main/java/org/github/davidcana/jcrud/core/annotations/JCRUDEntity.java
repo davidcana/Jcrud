@@ -15,5 +15,6 @@ import org.github.davidcana.jcrud.storages.Storage;
 public @interface JCRUDEntity {
 	Class<? extends Storage> storage();
 	String jsFilePath() default "";
+	String jsFileVarName() default "";
 	String urlParameter() default "";
 }
