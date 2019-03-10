@@ -7,7 +7,42 @@
     <artifactId>jcrud-core</artifactId>
     <packaging>jar</packaging>
     <version>0.1</version>
+    
+    <name>JCRUD core</name>
+    <description>Core components of a Java server side API to use beside ZCrud.</description>
+    <url>https://github.com/davidcana/Jcrud-core</url>
+    
+    <!-- Required: license information: -->
+    <licenses>
+        <license>
+            <name>GNU Library or Lesser General Public License (LGPL), Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
+	<!-- Required: developer information: -->
+    <developers>
+    
+        <developer>
+            <name>David Cana</name>
+            <id>david</id>        
+            <email>david.javapagetemplates@gmail.com</email>
+            <organization>None</organization>
+            <url>https://github.com/davidcana</url>
+            <roles>
+                <role>Project Manager</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    
+    </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd_HHmm</maven.build.timestamp.format>
+    </properties>
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -63,6 +98,17 @@
     </dependencies>
 
     <build>
+        <!-- Include the README and LICENSE files: -->
+        <resources>
+            <resource>
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>README*</include>
+                    <include>LICENSE*</include>
+                </includes>
+            </resource>
+        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -74,6 +120,22 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            
+            <!-- Optional: generate default manifest file: -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+      
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.3</version>
@@ -94,6 +156,8 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <!-- Automatic building of javascript files using special comments in model java classes: -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
