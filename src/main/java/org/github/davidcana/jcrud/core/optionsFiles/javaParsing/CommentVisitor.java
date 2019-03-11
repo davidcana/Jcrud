@@ -15,14 +15,12 @@ import org.github.davidcana.jcrud.core.optionsFiles.OptionsFileField;
 
 class CommentVisitor extends ASTVisitor {
 	
-	//private static final int MAX_DIFF_BETWEEN_CLASS_AND_ITS_COMMENT = 12;
 	private CompilationUnit cu;
 	private String source;
 	
 	private OptionsFile optionsFile = new OptionsFile();
 	
 	private String className;
-	//private int classLine;
 	private Map<Integer, String> fields = new HashMap<>();
 	private boolean print;
 	
@@ -43,13 +41,13 @@ class CommentVisitor extends ASTVisitor {
 		
 		NodeData nodeData = new NodeData(node, this.cu);
 
-		int classLine = nodeData.getStartLineNumber();
+		int line = nodeData.getStartLineNumber();
 		this.className = node.getName().toString();
 		this.optionsFile.setClassName(this.className);
 		
 		if (this.print){
 			System.out.println(
-					classLine + ": [Class] [" + this.className + "]"
+					line + ": [Class] [" + this.className + "]"
 			);
 		}
 		
@@ -83,8 +81,8 @@ class CommentVisitor extends ASTVisitor {
 			return true;
 		}
 		
-		int idAnnotationLine = nodeData.getStartLineNumber(); 
-		String key = this.fields.get(idAnnotationLine);
+		int line = nodeData.getStartLineNumber(); 
+		String key = this.fields.get(line);
 		if (key == null) {
 			throw new IllegalArgumentException("Error trying to locate key in class " + this.className + "!");
 		}
@@ -92,7 +90,7 @@ class CommentVisitor extends ASTVisitor {
 		
 		if (this.print){
 			System.out.println(
-					idAnnotationLine + ": [IdAnnotation] [" + node + "]"
+					line + ": [IdAnnotation] [" + node + "]"
 			);
 		}
 		
@@ -131,7 +129,7 @@ class CommentVisitor extends ASTVisitor {
 		int line = nodeData.getStartLineNumber();
 		
 		if (!searchInClass(nodeData, comment) && !searchInFields(nodeData, comment, line)) {
-			throw new IllegalArgumentException("Error trying to link comment to field in class " + this.className + "!");
+			throw new IllegalArgumentException("Error trying to link comment in class " + this.className + "!");
 		}
 		
 		if (this.print){
@@ -165,11 +163,15 @@ class CommentVisitor extends ASTVisitor {
 	
 	private boolean searchInClass(BlockCommentNodeData nodeData, String comment) {
 		
-		if (nodeData.isJCRUDClassComment()) {
-			this.optionsFile.setClassContents(comment);
-			return true;
+		if (!nodeData.isJCRUDClassComment()) {
+			return false;
 		}
 		
-		return false;
+		if (this.optionsFile.getClassContents() != null){
+			throw new IllegalArgumentException("Error trying to link class comment: there are more than one class comment, only one is supported!");
+		}
+		
+		this.optionsFile.setClassContents(comment);
+		return true;
 	}
 }

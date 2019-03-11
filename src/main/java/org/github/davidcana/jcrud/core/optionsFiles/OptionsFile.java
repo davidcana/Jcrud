@@ -90,11 +90,6 @@ public class OptionsFile {
 	}
 
 	public String getClassContents() {
-		
-		if (classContents == null) {
-			throw new IllegalArgumentException("classContents not set in optionsFile!");
-		}
-		
 		return classContents;
 	}
 
