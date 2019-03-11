@@ -28,7 +28,13 @@ public class Constants {
     public static final String MAIN_JAVA_PATH = "/src/main/";
     public static final String TEMPLATE_FOLDER = MAIN_JAVA_PATH + "/resources/";
     
+    // Special comments for building of javascript files
+	public static final String COMMENT_START = "/*jcrud";
+	public static final String CLASS_COMMENT_START = COMMENT_START + "-class";
+	public static final String FIELD_COMMENT_START = COMMENT_START + "-field";
+	
     // Misc
     public static final String ZCRUD_RECORDS_SUFFIX = "ZCrudRecords";
     public static final String TEMPLATE_FILE_NAME = "options.js.ftl";
+    
 }

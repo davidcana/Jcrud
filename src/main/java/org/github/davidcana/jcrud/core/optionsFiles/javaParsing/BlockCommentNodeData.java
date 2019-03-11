@@ -2,10 +2,10 @@ package org.github.davidcana.jcrud.core.optionsFiles.javaParsing;
 
 import org.eclipse.jdt.core.dom.BlockComment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.github.davidcana.jcrud.core.Constants;
 
 public class BlockCommentNodeData extends NodeData {
 	
-	private static final String COMMENT_START = "/*jcrud";
 	private String fullComment;
 	
 	public BlockCommentNodeData(BlockComment node, CompilationUnit cu, String source) {
@@ -14,7 +14,13 @@ public class BlockCommentNodeData extends NodeData {
 	}
 
 	public boolean isJCRUDComment() {
-		return this.fullComment.trim().startsWith(COMMENT_START);
+		return this.fullComment.trim().startsWith(Constants.COMMENT_START);
+	}
+	public boolean isJCRUDClassComment() {
+		return this.fullComment.trim().startsWith(Constants.CLASS_COMMENT_START);
+	}
+	public boolean isJCRUDFieldComment() {
+		return this.fullComment.trim().startsWith(Constants.FIELD_COMMENT_START);
 	}
 	
 	public String getComment() {

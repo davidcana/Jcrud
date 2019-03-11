@@ -15,14 +15,14 @@ import org.github.davidcana.jcrud.core.optionsFiles.OptionsFileField;
 
 class CommentVisitor extends ASTVisitor {
 	
-	private static final int MAX_DIFF_BETWEEN_CLASS_AND_ITS_COMMENT = 12;
+	//private static final int MAX_DIFF_BETWEEN_CLASS_AND_ITS_COMMENT = 12;
 	private CompilationUnit cu;
 	private String source;
 	
 	private OptionsFile optionsFile = new OptionsFile();
 	
 	private String className;
-	private int classLine;
+	//private int classLine;
 	private Map<Integer, String> fields = new HashMap<>();
 	private boolean print;
 	
@@ -43,13 +43,13 @@ class CommentVisitor extends ASTVisitor {
 		
 		NodeData nodeData = new NodeData(node, this.cu);
 
-		this.classLine = nodeData.getStartLineNumber();
+		int classLine = nodeData.getStartLineNumber();
 		this.className = node.getName().toString();
 		this.optionsFile.setClassName(this.className);
 		
 		if (this.print){
 			System.out.println(
-					this.classLine + ": [Class] [" + this.className + "]"
+					classLine + ": [Class] [" + this.className + "]"
 			);
 		}
 		
@@ -130,7 +130,7 @@ class CommentVisitor extends ASTVisitor {
 		String comment = nodeData.getComment();
 		int line = nodeData.getStartLineNumber();
 		
-		if (!searchInFields(comment, line) && !searchInClass(comment, line)) {
+		if (!searchInClass(nodeData, comment) && !searchInFields(nodeData, comment, line)) {
 			throw new IllegalArgumentException("Error trying to link comment to field in class " + this.className + "!");
 		}
 		
@@ -144,7 +144,11 @@ class CommentVisitor extends ASTVisitor {
 	}
 	/* End of second pass */
 
-	private boolean searchInFields(String comment, int line) {
+	private boolean searchInFields(BlockCommentNodeData nodeData, String comment, int line) {
+		
+		if (!nodeData.isJCRUDFieldComment()) {
+			return false;
+		}
 		
 		for (int c = line; c >= 0; --c) {
 			if (this.fields.containsKey(c)) {
@@ -159,9 +163,9 @@ class CommentVisitor extends ASTVisitor {
 		return false;
 	}
 	
-	private boolean searchInClass(String comment, int line) {
+	private boolean searchInClass(BlockCommentNodeData nodeData, String comment) {
 		
-		if (line - this.classLine <= MAX_DIFF_BETWEEN_CLASS_AND_ITS_COMMENT) {
+		if (nodeData.isJCRUDClassComment()) {
 			this.optionsFile.setClassContents(comment);
 			return true;
 		}

@@ -7,7 +7,7 @@ import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
 
 @JCRUDEntity(storage = SimpleVoidStorage.class, jsFilePath="target/classes/simple.js")
 public class Simple implements ZCrudEntity {
-	/*jcrud
+	/*jcrud-class
     saveUserPreferences: true,
     
     pageConf: {
@@ -88,10 +88,10 @@ public class Simple implements ZCrudEntity {
 	
 	@JCRUDId
 	private Integer id;
-	/*jcrud
+	/*jcrud-field
 	 */
 	private String name;
-	/*jcrud
+	/*jcrud-field
 		    attributes:{
 		        rowHeader: {
 		            style: 'width:40%'
@@ -99,7 +99,7 @@ public class Simple implements ZCrudEntity {
 		    }
     */
 	private String description;
-	/*jcrud
+	/*jcrud-field
 			type: 'textarea'
 	 */
 	
