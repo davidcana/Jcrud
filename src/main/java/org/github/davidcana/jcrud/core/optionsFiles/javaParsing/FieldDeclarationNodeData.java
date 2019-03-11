@@ -14,10 +14,10 @@ public class FieldDeclarationNodeData extends NodeData {
 
 	public String getFieldId() {
 		
-		String text = this.fieldNode.toString();
-		int start = 1 + text.lastIndexOf(' ');
-		int end = text.lastIndexOf(';');
-		
-		return text.substring(start, end);
+		String fragment = this.fieldNode.fragments().get(0).toString();
+		int equals = fragment.lastIndexOf('='); 
+		return equals == -1? 
+				fragment:
+				fragment.substring(0, equals);
 	}
 }
