@@ -21,6 +21,12 @@
             <useDefaultExcludes>true</useDefaultExcludes>
         </fileSet>
         <fileSet>
+            <directory>${project.basedir}/src</directory>
+            <excludes>
+                <exclude>target/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
             <directory>${project.basedir}/jcrud-core</directory>
             <excludes>
                 <exclude>target/**</exclude>
@@ -28,6 +34,12 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/jcrud-jdbc</directory>
+            <excludes>
+                <exclude>target/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/jcrud-examples</directory>
             <excludes>
                 <exclude>target/**</exclude>
             </excludes>

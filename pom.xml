@@ -64,28 +64,19 @@
             </plugins>
         </pluginManagement>
 
-		<plugins>
+        <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.3</version>
+                <version>3.1.1</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>jcrud-core/src/main/assembly/src.xml</descriptor>
+                        <descriptor>src/assembly/src.xml</descriptor>
                     </descriptors>
                     <finalName>jcrud_${maven.build.timestamp}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- bind to the packaging phase -->
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-		</plugins>
+        </plugins>
     </build>
 
     <dependencies>
