@@ -1,0 +1,73 @@
+/* HTML tags */
+body {
+	font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+}
+
+footer {
+	text-align: left;
+}
+
+footer .smallerFooter {
+	font-size: 80%;
+}
+
+table#links {
+	border: 1px solid Black;
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table#links tr th {
+	border: 1px solid Black;
+	padding: .5em 1em .5em 1em;
+}
+
+table#links tr td {
+	border: 1px solid Black;
+	padding: .5em 1em .5em 1em;
+}
+
+#jsonViewer {
+	font-size: 85%;
+}
+
+/* Style the tab */
+.tab {
+  	overflow: hidden;
+  	border: 1px solid Darkcyan;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	float: left;
+	border: #f1f1f1;
+	outline: none;
+	cursor: pointer;
+	padding: 1em 1em;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: Darkcyan;
+	color: White;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: .5em 1em;
+	border: 1px solid Darkcyan;
+	border-top: none;
+	background-color: Darkcyan;
+}
+
+#copyMessage {
+	color: white;
+	padding-left: .5em;
+}
+

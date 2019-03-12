@@ -1,4 +1,4 @@
-# JCrud
+# JCrud-core
 
 [ZCrud](https://davidcana.github.io/Zcrud/) is a javascript API (also works as jQuery plugin) used to create AJAX based CRUD tables without coding HTML or Javascript. Any server side technology can work with ZCrud.
 

@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+		<groupId>org.github.davidcana.jcrud</groupId>
+		<artifactId>jcrud-parent</artifactId>
+        <version>0.1</version>
+    </parent>
+
+    <groupId>org.github.davidcana.jcrud</groupId>
+    <artifactId>jcrud-jdbc</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1</version>
+
+    <name>JDBC storage for JCRUD</name>
+    <description>JDBC component of a Java server side API to use beside ZCrud.</description>
+    <url>https://github.com/davidcana/Jcrud/Jcrud-jdbc</url>
+    
+    <!-- Required: license information: -->
+    <licenses>
+        <license>
+            <name>GNU Library or Lesser General Public License (LGPL), Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+	<!-- Required: developer information: -->
+    <developers>
+    
+        <developer>
+            <name>David Cana</name>
+            <id>david</id>        
+            <email>david.javapagetemplates@gmail.com</email>
+            <organization>None</organization>
+            <url>https://github.com/davidcana</url>
+            <roles>
+                <role>Project Manager</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    
+    </developers>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.github.davidcana.jcrud</groupId>
+            <artifactId>jcrud-core</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1209.jre7</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Include the README and LICENSE files: -->
+        <resources>
+            <resource>
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>README*</include>
+                    <include>LICENSE*</include>
+                </includes>
+            </resource>
+        </resources>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            
+            <!-- Optional: generate default manifest file: -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/src.xml</descriptor>
+                    </descriptors>
+                    <finalName>${project.artifactId}_${maven.build.timestamp}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

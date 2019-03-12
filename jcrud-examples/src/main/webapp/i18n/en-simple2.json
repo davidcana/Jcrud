@@ -1,0 +1,21 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_general": "",
+    "general_entityName": "Simple with details",
+    
+    "_fields": "",
+    "id_title": "Id",
+    "id_description": "An unique id",
+    "name_title": "Name",
+    "name_description": "The name",
+    "description_title": "Description",
+    "description_description": "The description",
+    "details_title": "Details",
+    "details_description": "The details",
+    "details2_title": "Details 2",
+    "details2_description": "The details (2)"
+}

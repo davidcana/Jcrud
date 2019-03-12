@@ -1,0 +1,27 @@
+INSTALL
+-------
+
+1. Install postgresql:
+$ sudo apt-get install postgresql
+
+2. Add your user:
+$ sudo -i -u postgres
+$ createuser --interactive david
+$ exit
+
+3. Create the database:
+$ createdb jcrud
+
+4. Configure the database and add test data:
+$ cd src/main/sql/
+$ psql jcrud
+\i definition.sql
+\i data.sql
+
+5. Copy the JDBC driver from postgresql to the lib directory of Tomcat:
+$ cd ../..
+$ cp src/main/lib/postgresql-9.4.1209.jre7.jar /usr/local/tomcat/lib
+
+
+
+

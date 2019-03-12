@@ -1,0 +1,27 @@
+{
+    "items": [
+        {
+            "getRequest": {
+                "key": "1",
+                "command": "getRecord"
+            },
+            "getResponse": {
+                "result": "OK",
+                "message": null,
+                "record": {
+                    "id": 1,
+                    "name": "Phillip Greer",
+                    "description": "Lorem ipsum dolor sit amet,",
+                    "secondaryId": 2,
+                    "important": true,
+                    "numberFloat": 44.22,
+                    "numberInteger": 98,
+                    "birth": 951174000000,
+                    "recordTime": "06:33",
+                    "recordDateTime": 1381258489000
+                }
+            }
+        }
+    ]
+}
+

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: JCrud examples
+Implementation-Version: 0.1.0
+Built-By: david
+Specification-Title: JCrud examples
+Implementation-Vendor-Id: com.github.davidcana
+Build-Jdk: 1.8.0_191
+Specification-Version: 0.1.0
+Created-By: Maven Integration for Eclipse
+

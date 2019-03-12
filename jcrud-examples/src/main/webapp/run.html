@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JCrud examples - Run</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        
+        <link rel="stylesheet" type="text/css" href="styles/default.css" media="all">
+        <link rel="stylesheet" type="text/css" href="themes/basic/theme.css" media="all">
+  
+		<script src="deps/zcrud.js" defer></script>
+		<script src="javascript/constants.js" defer></script>
+        <script src="javascript/options/simple.js" defer></script>
+        <script src="javascript/options/complex.js" defer></script>
+		<script src="javascript/options/simple2.js" defer></script>
+        <script src="javascript/options/complex2.js" defer></script>
+        <script src="javascript/application.js" defer></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="zcrud-busy-message">
+                Loading...
+            </div>
+        </div>
+        
+        <fieldset id="jsonViewer">
+        	<legend>Client to server/server to client JSON</legend>
+        	
+        	<div>
+	        	<label>Replace
+	  				<input type="checkbox" id="replace">
+	  				Replace previous contents when a new request is done. 
+				</label>
+        	</div>
+
+			<div>
+				<label>Autoscroll
+	  				<input type="checkbox" id="autoScroll" checked="checked">
+	  				Go to the end of the text areas automatically.
+				</label>
+			</div>
+
+        	<!-- Tab links -->
+			<div class="tab">
+			  <button class="tablinks" onclick="openTab(event, 'twoTextareas')">Two textareas</button>
+			  <button class="tablinks defaultTabLink" onclick="openTab(event, 'oneTextarea')">Only one textarea</button>
+			</div>
+			
+			<!-- Tab content -->
+			<div id="twoTextareas" class="tabcontent">
+	        	<textarea rows="30" cols="90" id="consolePre" readonly></textarea>
+	        	<textarea rows="30" cols="90" id="consolePost" readonly></textarea>
+			</div>
+			
+			<div id="oneTextarea" class="tabcontent">
+				<div>
+					<button onclick="copyConsole1ToClipboard()">Copy to clipboard</button>
+					<span id="copyMessage"></span>
+				</div>				
+				<textarea rows="30" cols="180" id="console1" readonly></textarea>
+			</div>
+        </fieldset>
+
+    </body>
+</html>

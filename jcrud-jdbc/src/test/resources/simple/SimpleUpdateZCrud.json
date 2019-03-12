@@ -1,0 +1,121 @@
+{
+    "items": [
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 1,
+                        "name": "Igor Cooley",
+                        "description": "Lorem ipsum dolor"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Trevor Pennington",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+                    },
+                    {
+                        "id": 3,
+                        "name": "Acton Waller",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer"
+                    },
+                    {
+                        "id": 4,
+                        "name": "Hamilton Prince",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+                    },
+                    {
+                        "id": 5,
+                        "name": "Griffith Jefferson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+                    }
+                ],
+                "totalNumberOfRecords": 94
+            }
+        },
+        {
+            "getRequest": {
+                "key": "1",
+                "command": "getRecord"
+            },
+            "getResponse": {
+                "result": "OK",
+                "message": null,
+                "record": {
+                    "id": 1,
+                    "name": "Igor Cooley",
+                    "description": "Lorem ipsum dolor"
+                }
+            }
+        },
+        {
+            "updateRequest": {
+                "existingRecords": {
+                    "1": {
+                        "name": "Igor Cooley Junior"
+                    }
+                },
+                "newRecords": [],
+                "recordsToRemove": [],
+                "url": "CRUDManager.do?cmd=BATCH_UPDATE&table=simple",
+                "command": "batchUpdate"
+            },
+            "updateResponse": {
+                "result": "OK",
+                "message": null,
+                "newRecords": null
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 1,
+                        "name": "Igor Cooley Junior",
+                        "description": "Lorem ipsum dolor"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Trevor Pennington",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+                    },
+                    {
+                        "id": 3,
+                        "name": "Acton Waller",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer"
+                    },
+                    {
+                        "id": 4,
+                        "name": "Hamilton Prince",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+                    },
+                    {
+                        "id": 5,
+                        "name": "Griffith Jefferson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+                    }
+                ],
+                "totalNumberOfRecords": 94
+            }
+        }
+    ]
+}

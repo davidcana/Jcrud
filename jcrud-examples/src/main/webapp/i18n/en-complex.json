@@ -1,0 +1,31 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_general": "",
+    "general_entityName": "Complex",
+    
+    "_fields": "",
+    "id_title": "Id",
+    "id_description": "An unique id",
+    "name_title": "Name",
+    "name_description": "The name",
+    "description_title": "Description",
+    "description_description": "The description",
+    "secondaryId_title": "Secondary",
+    "secondaryId_description": "Select an option",
+    "important_title": "Important",
+    "important_description": "A boolean value",
+    "numberFloat_title": "Float",
+    "numberFloat_description": "A float value",
+    "numberInteger_title": "Integer",
+    "numberInteger_description": "An integer value",
+    "birth_title": "Birth",
+    "birth_description": "A date value",
+    "recordTime_title": "Time",
+    "recordTime_description": "A time value",
+    "recordDateTime_title": "Datetime",
+    "recordDateTime_description": "A datetime value"
+}

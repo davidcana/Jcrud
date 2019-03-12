@@ -1,0 +1,127 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+		<groupId>org.github.davidcana.jcrud</groupId>
+		<artifactId>jcrud-parent</artifactId>
+        <version>0.1</version>
+    </parent>
+
+    <groupId>org.github.davidcana.jcrud</groupId>
+    <artifactId>jcrud-examples</artifactId>
+    <packaging>war</packaging>
+    <version>0.1</version>
+
+    <name>JCRUD examples</name>
+    <description>Example web application using Zcrud, JCrud-core and JCrud-JDBC.</description>
+    <url>https://github.com/davidcana/Jcrud/jcrud-examples</url>
+    
+    <!-- Required: license information: -->
+    <licenses>
+        <license>
+            <name>GNU Library or Lesser General Public License (LGPL), Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+	<!-- Required: developer information: -->
+    <developers>
+    
+        <developer>
+            <name>David Cana</name>
+            <id>david</id>        
+            <email>david.javapagetemplates@gmail.com</email>
+            <organization>None</organization>
+            <url>https://github.com/davidcana</url>
+            <roles>
+                <role>Project Manager</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.github.davidcana.jcrud</groupId>
+            <artifactId>jcrud-core</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.github.davidcana.jcrud</groupId>
+            <artifactId>jcrud-jdbc</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.github.davidcana.jcrud.core.optionsFiles.OptionsFilesBuilder</mainClass>
+                    <arguments>
+                        <argument>src/main/java/</argument> <!-- Root folder -->
+                        <argument>false</argument> <!-- Debug java parsing -->
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>
+        									org.codehaus.mojo
+        								</groupId>
+        								<artifactId>
+        									exec-maven-plugin
+        								</artifactId>
+        								<versionRange>
+        									[1.6.0,)
+        								</versionRange>
+        								<goals>
+        									<goal>java</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<execute>
+        									<runOnIncremental>true</runOnIncremental>
+        								</execute>
+        							</action>
+        						</pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
+    </build>
+</project>
