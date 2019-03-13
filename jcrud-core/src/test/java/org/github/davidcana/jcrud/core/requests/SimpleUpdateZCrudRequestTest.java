@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.github.davidcana.jcrud.core.DefaultCRUDManager;
+import org.github.davidcana.jcrud.core.Constants;
 import org.github.davidcana.jcrud.core.model.Simple;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class SimpleUpdateZCrudRequestTest extends AbstractZCrudRequestTest {
 		*/
 		
         this.testRequest(
-        		DefaultCRUDManager.COMMAND_UPDATE_URL_PARAMETER, 
+        		Constants.COMMAND_UPDATE_URL_PARAMETER, 
         		"SimpleUpdateZCrudRequest", 
         		zcrudRequest);
 	}

@@ -2,7 +2,13 @@ package org.github.davidcana.jcrud.core.options;
 
 import java.util.List;
 
-public class OptionsResponse<K> {
+import org.github.davidcana.jcrud.core.ObjectMapperProvider;
+import org.github.davidcana.jcrud.core.responses.ZCrudResponse;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+public class OptionsResponse<K> implements ZCrudResponse {
+	
 	private List<Option<K>> options;
 	private String result;
 	private String message;
@@ -35,5 +41,10 @@ public class OptionsResponse<K> {
 
 	public void done(boolean isOK){
 		this.result = isOK? "OK": "Error";
+	}
+
+	@Override
+	public String buildJSON() throws JsonProcessingException {
+		return ObjectMapperProvider.getInstance().get().writeValueAsString(this);
 	}
 }

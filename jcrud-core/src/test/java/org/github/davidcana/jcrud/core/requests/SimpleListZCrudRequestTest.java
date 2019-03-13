@@ -2,7 +2,7 @@ package org.github.davidcana.jcrud.core.requests;
 
 import java.io.IOException;
 
-import org.github.davidcana.jcrud.core.DefaultCRUDManager;
+import org.github.davidcana.jcrud.core.Constants;
 import org.github.davidcana.jcrud.core.model.Simple;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class SimpleListZCrudRequestTest extends AbstractZCrudRequestTest {
         zcrudRequest.setCommand("listRecords");
         
         this.testRequest(
-        		DefaultCRUDManager.COMMAND_LIST_URL_PARAMETER, 
+        		Constants.COMMAND_LIST_URL_PARAMETER, 
         		"SimpleListZCrudRequest", 
         		zcrudRequest);
 	}

@@ -2,7 +2,7 @@ package org.github.davidcana.jcrud.core.requests;
 
 import java.io.IOException;
 
-import org.github.davidcana.jcrud.core.DefaultCRUDManager;
+import org.github.davidcana.jcrud.core.Constants;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class SimpleGetZCrudRequestTest extends AbstractZCrudRequestTest {
         zcrudRequest.setCommand("getRecord");
         
         this.testRequest(
-        		DefaultCRUDManager.COMMAND_GET_URL_PARAMETER, 
+        		Constants.COMMAND_GET_URL_PARAMETER, 
         		"SimpleGetZCrudRequest", 
         		zcrudRequest);
 	}

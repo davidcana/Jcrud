@@ -1,10 +1,12 @@
-package org.github.davidcana.jcrud.core;
+package org.github.davidcana.jcrud.core.servletsHelpers;
 
 import java.io.IOException;
 import java.io.Reader;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.github.davidcana.jcrud.core.Constants;
+import org.github.davidcana.jcrud.core.ObjectMapperProvider;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.core.requests.ZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.SimpleZCrudResponse;
@@ -16,31 +18,26 @@ import org.github.davidcana.jcrud.storages.StorageResolver;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class DefaultCRUDManager {
-	
-	public static final String COMMAND_LIST_URL_PARAMETER = "LIST";
-	public static final String COMMAND_GET_URL_PARAMETER = "GET";
-	public static final String COMMAND_UPDATE_URL_PARAMETER = "BATCH_UPDATE";
-	
-	private static final String COMMAND_URL_PARAMETER = "cmd";
-	private static final String TABLE_URL_PARAMETER = "table";
+public class DefaultCRUDManager implements Manager {
 	
 	static private DefaultCRUDManager instance;
 	
 	private DefaultCRUDManager(){}
 	
-	public ZCrudResponse buildCRUDResponse(HttpServletRequest request){
+	@Override
+	public ZCrudResponse buildZCrudResponse(HttpServletRequest request){
 		
 		ZCrudRequest zcrudRequest = null;
 		ZCrudResponse zcrudResponse = null;
 		
 		try {
 			// Build zcrudRequest
+			@SuppressWarnings("rawtypes")
 			Storage storage = StorageResolver.getInstance().get(
-					request.getParameter(TABLE_URL_PARAMETER)
+					request.getParameter(Constants.TABLE_URL_PARAMETER)
 			);
 			zcrudRequest = this.getRequest(
-					request.getParameter(COMMAND_URL_PARAMETER), 
+					request.getParameter(Constants.COMMAND_URL_PARAMETER), 
 					request.getReader(), 
 					storage
 			);
@@ -52,24 +49,26 @@ public class DefaultCRUDManager {
 			zcrudResponse = zcrudCommand.buildResponse();
 			
 		} catch (Exception e) {
-			zcrudResponse = new SimpleZCrudResponse(e.getMessage());
+			zcrudResponse = new SimpleZCrudResponse(
+					e.getMessage()
+			);
 		}
 		
 		return zcrudResponse;
 	}
 	
-	public ZCrudRequest getRequest(String cmd, Reader jsonReader, Storage storage) throws JsonParseException, JsonMappingException, IOException {
+	public ZCrudRequest getRequest(String cmd, Reader jsonReader, @SuppressWarnings("rawtypes") Storage storage) throws JsonParseException, JsonMappingException, IOException {
 		
 		String json = CoreUtils.getInstance().getStringFromReader(jsonReader);
 		
 		switch (cmd){
-		case COMMAND_LIST_URL_PARAMETER:
+		case Constants.COMMAND_LIST_URL_PARAMETER:
 			return ObjectMapperProvider.getInstance().getListRequest(json, storage);
 			
-		case COMMAND_GET_URL_PARAMETER:
+		case Constants.COMMAND_GET_URL_PARAMETER:
 			return ObjectMapperProvider.getInstance().getGetRequest(json, storage);
 			
-		case COMMAND_UPDATE_URL_PARAMETER:
+		case Constants.COMMAND_UPDATE_URL_PARAMETER:
 			return ObjectMapperProvider.getInstance().getUpdateRequest(json, storage);
 			
 		case "":

@@ -117,7 +117,7 @@ public class Complex implements ZCrudEntity {
 	private Integer secondaryId;
 	/*jcrud-field
 			type: 'select',
-			options: '/jcrud/secondaryRequest.do'
+			options: '/jcrud/OptionsManager.do?table=secondary'
 	 */
 	private Boolean important;
 	/*jcrud-field

@@ -28,6 +28,15 @@ public class Constants {
     public static final String MAIN_JAVA_PATH = "/src/main/";
     public static final String TEMPLATE_FOLDER = MAIN_JAVA_PATH + "/resources/";
     
+	// URL parameters keys
+	public static final String COMMAND_URL_PARAMETER = "cmd";
+	public static final String TABLE_URL_PARAMETER = "table";
+	
+    // URL parameters values: commands
+	public static final String COMMAND_LIST_URL_PARAMETER = "LIST";
+	public static final String COMMAND_GET_URL_PARAMETER = "GET";
+	public static final String COMMAND_UPDATE_URL_PARAMETER = "BATCH_UPDATE";
+    
     // Special comments for building of javascript files
 	public static final String COMMENT_START = "/*jcrud";
 	public static final String CLASS_COMMENT_START = COMMENT_START + "-class";

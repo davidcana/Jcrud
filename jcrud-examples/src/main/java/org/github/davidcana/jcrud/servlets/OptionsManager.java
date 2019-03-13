@@ -7,11 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.davidcana.jcrud.core.servletsHelpers.DefaultCRUDManager;
+import org.github.davidcana.jcrud.core.servletsHelpers.DefaultOptionsManager;
 import org.github.davidcana.jcrud.core.servletsHelpers.ManagerServlet;
 
-@WebServlet("/CRUDManager.do")
-public class CRUDManager extends ManagerServlet {
+@WebServlet("/OptionsManager.do")
+public class OptionsManager extends ManagerServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -21,7 +21,7 @@ public class CRUDManager extends ManagerServlet {
 		super.service(
 				request, 
 				response, 
-				DefaultCRUDManager.getInstance()
+				DefaultOptionsManager.getInstance()
 		);
 	}
 
