@@ -72,7 +72,7 @@
                     <descriptors>
                         <descriptor>src/assembly/src.xml</descriptor>
                     </descriptors>
-                    <finalName>jcrud_${maven.build.timestamp}</finalName>
+                    <finalName>${project.artifactId}_${maven.build.timestamp}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
             </plugin>
