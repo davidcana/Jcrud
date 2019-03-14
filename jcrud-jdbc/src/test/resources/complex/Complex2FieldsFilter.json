@@ -1,0 +1,122 @@
+{
+    "items": [
+        {
+            "listRequest": {
+                "filter": {
+                    "name": "ee"
+                },
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 1,
+                        "name": "Phillip Greer",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 44.22,
+                        "numberInteger": 98,
+                        "birth": 951174000000,
+                        "recordTime": "06:33",
+                        "recordDateTime": 1381258489000
+                    },
+                    {
+                        "id": 15,
+                        "name": "Bradley Sweet",
+                        "description": "Lorem ipsum dolor sit",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 32.73,
+                        "numberInteger": 59,
+                        "birth": 946767600000,
+                        "recordTime": "07:15",
+                        "recordDateTime": 1064730767000
+                    },
+                    {
+                        "id": 18,
+                        "name": "Jakeem Obrien",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 93.96,
+                        "numberInteger": 31,
+                        "birth": 973724400000,
+                        "recordTime": "18:54",
+                        "recordDateTime": 1358699778000
+                    }
+                ],
+                "totalNumberOfRecords": 3
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {
+                    "id": "1",
+                    "name": "ee"
+                },
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 1,
+                        "name": "Phillip Greer",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 44.22,
+                        "numberInteger": 98,
+                        "birth": 951174000000,
+                        "recordTime": "06:33",
+                        "recordDateTime": 1381258489000
+                    }
+                ],
+                "totalNumberOfRecords": 1
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {
+                    "id": "1"
+                },
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 1,
+                        "name": "Phillip Greer",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 44.22,
+                        "numberInteger": 98,
+                        "birth": 951174000000,
+                        "recordTime": "06:33",
+                        "recordDateTime": 1381258489000
+                    }
+                ],
+                "totalNumberOfRecords": 1
+            }
+        }
+    ]
+}
