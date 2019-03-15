@@ -1,0 +1,46 @@
+{
+  "items" : [ {
+    "getRequest" : {
+      "command" : "getRecord",
+      "key" : "1"
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor",
+        "details" : [ {
+          "id" : "0000000115",
+          "name" : "Myles Rojas",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+        } ],
+        "details2" : [ {
+          "id" : "0000000019",
+          "name" : "Griffin Lamb",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+        }, {
+          "id" : "0000000035",
+          "name" : "Uriel Mack",
+          "description" : "Lorem ipsum dolor sit"
+        }, {
+          "id" : "0000000057",
+          "name" : "Abel Houston",
+          "description" : "Lorem ipsum dolor sit amet,"
+        }, {
+          "id" : "0000000069",
+          "name" : "Jameson Cote",
+          "description" : "Lorem ipsum dolor sit"
+        }, {
+          "id" : "0000000080",
+          "name" : "Nash Serrano",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+        }, {
+          "id" : "0000000139",
+          "name" : "Neil Ayers",
+          "description" : "Lorem ipsum dolor"
+        } ]
+      }
+    }
+  } ]
+}

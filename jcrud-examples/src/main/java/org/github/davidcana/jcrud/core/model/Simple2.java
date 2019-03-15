@@ -1,6 +1,5 @@
 package org.github.davidcana.jcrud.core.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
@@ -118,7 +117,7 @@ public class Simple2 implements ZCrudEntity {
 	/*jcrud-field
 		type: 'textarea'
 	 */
-	private List<Simple2Detail> details = new ArrayList<>();
+	private List<Simple2Detail> details;
 	/*jcrud-field
 		type: 'subform',
 		subformKey: 'id',
@@ -136,7 +135,7 @@ public class Simple2 implements ZCrudEntity {
 			}
 		}
 	 */
-	private List<Simple2Detail2> details2 = new ArrayList<>();
+	private List<Simple2Detail2> details2;
 	/*jcrud-field
 		type: 'subform',
 		subformKey: 'id',

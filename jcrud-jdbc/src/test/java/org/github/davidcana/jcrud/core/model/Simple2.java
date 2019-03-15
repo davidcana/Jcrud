@@ -1,6 +1,5 @@
 package org.github.davidcana.jcrud.core.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
@@ -24,8 +23,8 @@ public class Simple2 implements ZCrudEntity {
 	
 	private String name;
 	private String description;
-	private List<Simple2Detail> details = new ArrayList<>();
-	private List<Simple2Detail2> details2 = new ArrayList<>();
+	private List<Simple2Detail> details;
+	private List<Simple2Detail2> details2;
 	
 	@JDBCOneToMany(storage = Simple2DetailJDBCStorage.class)
 	private transient ZCrudRecords<Simple2Detail> detailsZCrudRecords;

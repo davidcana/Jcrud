@@ -165,10 +165,7 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 	@Override
 	public List<T> getAll() throws StorageException {
 		
-		String orderBy = this.getDefaultOrderFieldName() != null &&  this.getDefaultOrderType() != null?
-				" ORDER BY " + this.getDefaultOrderFieldName() + " " + this.getDefaultOrderType():
-				"";
-		String sql = "SELECT * FROM " + this.getTableName() + orderBy + ";";
+		String sql = "SELECT * FROM " + this.getTableName() + this.buildOrderBy() + ";";
 		
 		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
 			
@@ -246,11 +243,16 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 		
 		try {
 			for (Map.Entry<String, JDBCOneToMany> entry : this.allJDBCOneToMany.entrySet()){
-				//JDBCOneToMany jdbcOneToMany = entry.getValue();
 				String zcrudRecordsFieldName = entry.getKey();
 				String fieldName = CoreUtils.getInstance().getPropertyIdFromZCrudRecordsFieldName(zcrudRecordsFieldName);
+				
+				// Get the list, initialize it if it is null
 				List<T> list = (List<T>) getGetterValue(instance, fieldName);
-
+				if (list == null){
+					list = new ArrayList<>();
+					this.setSetterValue(instance, fieldName, list);
+				}
+				
 				this.add1SubformToInstance(
 						instance, 
 						this.getSubformStorage(zcrudRecordsFieldName), 
@@ -270,7 +272,6 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 				list, 
 				this.getKey(instance).toString()
 		);
-		//subformStorage.buildSubformList(list, instance.getKey());
 	}
 	
 	protected void setKey(String key, int pos, PreparedStatement preparedStatement) throws NumberFormatException, SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException{
@@ -456,7 +457,6 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 	protected T buildInstance(ResultSet rs, boolean excludeMasterKey) throws SQLException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
 		
 		String masterKey = excludeMasterKey? this.buildParentKeyFieldName(): null;
-		//String masterKey = null;
 		T instance = this.buildInstance();
 		
 		ResultSetMetaData rsmd = rs.getMetaData();
@@ -519,7 +519,7 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 	
 	public List<T> buildSubformList(List<T> subformList, String masterKey) throws SQLException, StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
 		
-		String sql = "SELECT * FROM " + this.getTableName() + " WHERE " + this.buildParentKeyFieldName() + "=?;";
+		String sql = "SELECT * FROM " + this.getTableName() + " WHERE " + this.buildParentKeyFieldName() + "=?" + this.buildOrderBy() + ";";
 		
 		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
 
@@ -534,6 +534,13 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 			}
 			return subformList;
 		}
+	}
+	
+	private String buildOrderBy() {
+		
+		return this.getDefaultOrderFieldName() != null &&  this.getDefaultOrderType() != null?
+				" ORDER BY " + this.getDefaultOrderFieldName() + " " + this.getDefaultOrderType():
+				"";
 	}
 	
 	public String buildParentKeyFieldName() {
@@ -552,10 +559,11 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 	}
 	private void setSetterValue(T instance, String fieldName, Object value) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
+		Class<? extends Object> parameterClass = value.getClass() == ArrayList.class? List.class: value.getClass();
 		Method method = this.getDeserializeClass().getMethod(
 			   "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), 
 			   new Class[] { 
-					   value.getClass() 
+					   parameterClass 
 			   }
 		);               
 	    method.invoke(instance, value);

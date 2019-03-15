@@ -81,7 +81,6 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 			throws IllegalArgumentException, IllegalAccessException, StorageException, InvocationTargetException, IntrospectionException {
 		
 		for (T record : this.zcrudRecords.getNewRecords()){
-			//String key = record.getKey();
 			String key = this.storage.getKey(record).toString();
 			this.addWorkersOfSubform(connection, stList, workerItemsList, record, true, key);
 		}

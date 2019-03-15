@@ -24,6 +24,7 @@ public class SQLFieldGroup {
 	private AbstractJDBCStorage storage;
 	private AbstractJDBCStorage parentStorage;
 	private Object parentKey;
+	private int size = 0;
 	
 	private static final Map<String, Boolean> NOT_UPDATABLE_TYPES = new HashMap<String, Boolean>();
 	static {
@@ -43,7 +44,7 @@ public class SQLFieldGroup {
 	}
 	
 	public int size() {
-		return this.fields.size();
+		return this.size;
 	}
 
 	public List<Field> getFields() {
@@ -76,6 +77,7 @@ public class SQLFieldGroup {
 				String type = getType(field);
 				if (! "list".equals(type) && ! "zcrudrecords".equals(type)) {
 					this.updatable = true;
+					this.size++;
 				}
 			}
 		}

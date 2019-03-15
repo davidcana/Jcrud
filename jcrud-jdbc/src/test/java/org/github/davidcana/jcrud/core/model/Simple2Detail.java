@@ -5,12 +5,14 @@ import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.storages.JDBC.Simple2DetailJDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
+import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;
 
 @JCRUDEntity(storage = Simple2DetailJDBCStorage.class)
 @JDBCEntity(table = "simple2_detail")
 public class Simple2Detail implements ZCrudEntity {
 	
 	@JDBCId(generate = true)
+	@JDBCOrderedByDefault(type = "ASC")
 	private String id;
 	private String name;
 	private String description;

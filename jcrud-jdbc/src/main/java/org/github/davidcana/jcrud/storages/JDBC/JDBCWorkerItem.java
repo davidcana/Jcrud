@@ -52,9 +52,6 @@ public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 						record,
 						RandomGenerator.getInstance().generateString()
 				);
-				/*record.setKey(
-						RandomGenerator.getInstance().generateString()
-				);*/
 			}
 		} catch (Exception e) {
 			throw new StorageException(e);
