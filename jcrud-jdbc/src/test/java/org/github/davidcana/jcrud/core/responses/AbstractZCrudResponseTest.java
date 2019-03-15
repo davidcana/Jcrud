@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 import org.github.davidcana.jcrud.core.ClientServerTalking;
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 abstract public class AbstractZCrudResponseTest {
 
 	private static final String NEW_FILE_SUFFIX = ".new";
+	private static final String EXTENSION = ".json";
 
 	@Before
 	public void setUp() throws Exception {
@@ -45,7 +47,8 @@ abstract public class AbstractZCrudResponseTest {
 		
 		File folder = new File(
 				getClass().getResource(
-						buildResourceFolderString(folderString)).getFile());
+						buildResourceFolderString(folderString)).getFile()
+		);
 		
 		this.testTalkingFolder(
 				folder.getName(), 
@@ -55,17 +58,23 @@ abstract public class AbstractZCrudResponseTest {
 	
 	private void testTalkingFolder(String path, File folder, Storage storage) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
 
-	    for (File file : folder.listFiles()) {
+		int c = 0;
+		
+	    File[] files = folder.listFiles();
+	    Arrays.sort(files);
+		for (File file : files) {
             String newPath = path + File.separator + file.getName();
-            if (newPath.endsWith(NEW_FILE_SUFFIX)){
-            	continue;
-            }
+            
 	        if (file.isDirectory()) {
 				this.testTalkingFolder(newPath,	file, storage);
-	        } else {
+				
+	        } else if (newPath.endsWith(EXTENSION)){
 	        	this.testTalking(newPath, storage);
+	        	++c;
 	        }
 	    }
+	    
+	    System.err.println("Folder: " + path + " -> " + c + " files tested.");
 	}
 	
 	protected void testTalking(String test, Storage storage) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
