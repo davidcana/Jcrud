@@ -13,6 +13,7 @@ import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.UpdateZCrudResponse;
 import org.github.davidcana.jcrud.storages.Storage;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.JavaType;
@@ -48,6 +49,8 @@ public class ObjectMapperProvider {
 		SimpleModule module2 = new SimpleModule("LocalTimeDeserializer", new Version(1, 0, 0, null, null, null));
 		module2.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
 		mapper.registerModule(module2);
+		
+		mapper.setSerializationInclusion(Include.NON_EMPTY);
 		
 		return mapper;
 	}
