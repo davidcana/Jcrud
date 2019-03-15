@@ -322,9 +322,10 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 		
 		// Order
 		String orderFieldId = listRequest.getSortFieldId() != null? listRequest.getSortFieldId(): this.getDefaultOrderFieldName();
+		String orderSQLFieldId = SQLFieldGroup.buildSQLName(orderFieldId);
 		String orderType = listRequest.getSortType() != null? listRequest.getSortType(): this.getDefaultOrderType();
-		String orderBy = orderFieldId != null && orderType != null?
-				" ORDER BY " + orderFieldId + " " + orderType + " " + getLimitPart(listRequest):
+		String orderBy = orderSQLFieldId != null && orderType != null?
+				" ORDER BY " + orderSQLFieldId + " " + orderType + " " + getLimitPart(listRequest):
 				"";
 		
 		// Where
