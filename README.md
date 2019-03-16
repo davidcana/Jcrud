@@ -26,7 +26,7 @@ To use it in your Maven build add the dependencies:
 
 ## Usage
 
-In this example we are going to mange the CRUD of a java POJO class called Simple:
+In this example we are going to manage the CRUD of a java POJO class called Simple:
 
 ```java
 package org.github.davidcana.jcrud.core.model;
