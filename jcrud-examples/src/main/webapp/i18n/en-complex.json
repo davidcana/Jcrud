@@ -27,5 +27,6 @@
     "recordTime_title": "Time",
     "recordTime_description": "A time value",
     "recordDateTime_title": "Datetime",
-    "recordDateTime_description": "A datetime value"
+    "recordDateTime_description": "A datetime value",
+	"complex_filter_description": "Please, select an id or/and a text inside the name and click the Filter button to filter."
 }

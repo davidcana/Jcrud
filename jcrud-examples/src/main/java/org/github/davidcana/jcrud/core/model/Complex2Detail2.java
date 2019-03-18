@@ -12,12 +12,12 @@ import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;
 
 @JCRUDEntity(storage = Complex2Detail2JDBCStorage.class)
-@JDBCEntity(table = "complex2Detail2")
+@JDBCEntity(table = "complex2_detail2")
 public class Complex2Detail2 implements ZCrudEntity {
 	
-	@JDBCId
+	@JDBCId(generate = true)
 	@JDBCOrderedByDefault(type = "ASC")
-	private Integer id;
+	private String id;
 	private String name;
 	private String description;
 	private Integer secondaryId;
@@ -30,11 +30,11 @@ public class Complex2Detail2 implements ZCrudEntity {
 	
 	public Complex2Detail2(){}
 	
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

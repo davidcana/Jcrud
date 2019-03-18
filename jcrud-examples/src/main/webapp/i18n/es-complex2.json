@@ -14,7 +14,7 @@
     "name_description": "El nombre",
     "description_title": "Descripción",
     "description_description": "La descripción",
-    "secondaryId_title": "Secondario",
+    "secondaryId_title": "Secundario",
     "secondaryId_description": "Seleccione una opción",
     "important_title": "Importante",
     "important_description": "Un valor booleano",
@@ -27,5 +27,10 @@
     "recordTime_title": "Hora",
     "recordTime_description": "Un valor de tipo hora",
     "recordDateTime_title": "Fecha/hora",
-    "recordDateTime_description": "Un valor de tipo fecha/hora"
+    "recordDateTime_description": "Un valor de tipo fecha/hora",
+    "details_title": "Detalles",
+    "details_description": "Los detalles",
+    "details2_title": "Detalles 2",
+    "details2_description": "Los detalles (2)",
+	"complex2_filter_description": "Por favor, seleccione un id o/y un texto que deba estar en el nombre y haga clic sobre el botón Filtrar para filtrar."  
 }

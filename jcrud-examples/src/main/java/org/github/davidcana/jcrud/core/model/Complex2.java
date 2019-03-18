@@ -9,7 +9,7 @@ import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.model.storages.Complex2Detail2JDBCStorage;
 import org.github.davidcana.jcrud.core.model.storages.Complex2DetailJDBCStorage;
-import org.github.davidcana.jcrud.core.model.storages.ComplexJDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Complex2JDBCStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
@@ -17,23 +17,23 @@ import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOneToMany;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;
 
 @JCRUDEntity(
-		storage = ComplexJDBCStorage.class,
+		storage = Complex2JDBCStorage.class,
 		jsFilePath="target/jcrud-examples-0.1/javascript/options/complex2.js",
 		jsFileVarName="constants.options.complex2"
 )
-@JDBCEntity(table = "complex")
+@JDBCEntity(table = "complex2")
 public class Complex2 implements ZCrudEntity {
 	/*jcrud-class
     saveUserPreferences: true,
     
     pageConf: {
         defaultPageConf: {
-            updateURL: 'CRUDManager.do?cmd=BATCH_UPDATE&table=complex',
-            getRecordURL: 'CRUDManager.do?cmd=GET&table=complex'
+            updateURL: 'CRUDManager.do?cmd=BATCH_UPDATE&table=complex2',
+            getRecordURL: 'CRUDManager.do?cmd=GET&table=complex2'
         },
         pages: {
             list: {
-                getGroupOfRecordsURL: 'CRUDManager.do?cmd=LIST&table=complex',
+                getGroupOfRecordsURL: 'CRUDManager.do?cmd=LIST&table=complex2',
                 fields: [
                     {
                         type: 'fieldsGroup',
@@ -91,8 +91,8 @@ public class Complex2 implements ZCrudEntity {
     i18n: {
         language: 'es',
         files: { 
-            en: [ 'en-common.json', 'en-complex.json' ],
-            es: [ 'es-common.json', 'es-complex.json' ] 
+            en: [ 'en-common.json', 'en-complex2.json' ],
+            es: [ 'es-common.json', 'es-complex2.json' ] 
         }
     },
 
