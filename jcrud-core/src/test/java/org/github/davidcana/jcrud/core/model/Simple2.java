@@ -6,11 +6,11 @@ import java.util.List;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDId;
+import org.github.davidcana.jcrud.core.model.storages.Simple2VoidStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
-import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
 
 @JCRUDEntity(
-		storage = SimpleVoidStorage.class,
+		storage = Simple2VoidStorage.class,
 		jsFilePath="target/classes/simple2.js",
 		jsFileVarName="constants.options.simple2"
 )

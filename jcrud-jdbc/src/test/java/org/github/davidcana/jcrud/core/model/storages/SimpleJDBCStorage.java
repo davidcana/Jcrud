@@ -1,10 +1,9 @@
-package org.github.davidcana.jcrud.storages.JDBC;
+package org.github.davidcana.jcrud.core.model.storages;
 
 import org.github.davidcana.jcrud.core.model.Simple;
+import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
-public class SimpleJDBCStorage extends AbstractJDBCStorage<Simple, Integer, Simple> {
-	
-	static public final String TABLE_PARAMETER_VALUE = "simple";
+public class SimpleJDBCStorage extends JDBCStorage<Simple, Integer, Simple> {
 	
 	static private SimpleJDBCStorage instance; 
 	

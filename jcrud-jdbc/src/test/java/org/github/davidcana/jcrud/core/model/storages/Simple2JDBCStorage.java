@@ -1,8 +1,9 @@
-package org.github.davidcana.jcrud.storages.JDBC;
+package org.github.davidcana.jcrud.core.model.storages;
 
 import org.github.davidcana.jcrud.core.model.Simple2;
+import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
-public class Simple2JDBCStorage extends AbstractJDBCStorage<Simple2, Integer, Simple2> {
+public class Simple2JDBCStorage extends JDBCStorage<Simple2, Integer, Simple2> {
 	
 	static private Simple2JDBCStorage instance; 
 	

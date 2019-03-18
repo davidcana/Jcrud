@@ -3,21 +3,26 @@ package org.github.davidcana.jcrud.core.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
+import org.github.davidcana.jcrud.core.model.storages.Complex2Detail2JDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Complex2DetailJDBCStorage;
 import org.github.davidcana.jcrud.core.model.storages.ComplexJDBCStorage;
+import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
+import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOneToMany;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;
 
 @JCRUDEntity(
 		storage = ComplexJDBCStorage.class,
-		jsFilePath="target/jcrud-examples-0.1/javascript/options/complex.js",
-		jsFileVarName="constants.options.complex"
+		jsFilePath="target/jcrud-examples-0.1/javascript/options/complex2.js",
+		jsFileVarName="constants.options.complex2"
 )
 @JDBCEntity(table = "complex")
-public class Complex implements ZCrudEntity {
+public class Complex2 implements ZCrudEntity {
 	/*jcrud-class
     saveUserPreferences: true,
     
@@ -32,7 +37,7 @@ public class Complex implements ZCrudEntity {
                 fields: [
                     {
                         type: 'fieldsGroup',
-                        except: [ 'description' ]
+                        except: [ 'description', 'details', 'details2' ]
                     }
                 ],
                 components: {
@@ -141,8 +146,102 @@ public class Complex implements ZCrudEntity {
 	/*jcrud-field
 			type: 'datetime'
 	 */
+	private List<Complex2Detail> details;
+	/*jcrud-field
+		type: 'subform',
+		subformKey: 'id',
+		fields: {
+	        id: {
 	
-	public Complex(){}
+	        },
+	        name: {
+	
+	        },
+	        description: {
+				type: 'textarea'
+	
+	        },
+	        secondaryId: {
+				type: 'select',
+				options: '/jcrud/OptionsManager.do?table=secondary'
+	
+	        },
+	        important: {
+				type: 'checkbox'
+	
+	        },
+	        numberFloat: {
+	
+	        },
+	        numberInteger: {
+	
+	        },
+	        birth: {
+				type: 'date'
+	
+	        },
+	        recordTime: {
+				type: 'time'
+	
+	        },
+	        recordDateTime: {
+				type: 'datetime'
+	
+	        }
+		}
+	 */
+	private List<Complex2Detail2> details2;
+	/*jcrud-field
+		type: 'subform',
+		subformKey: 'id',
+		fields: {
+	        id: {
+	
+	        },
+	        name: {
+	
+	        },
+	        description: {
+				type: 'textarea'
+	
+	        },
+	        secondaryId: {
+				type: 'select',
+				options: '/jcrud/OptionsManager.do?table=secondary'
+	
+	        },
+	        important: {
+				type: 'checkbox'
+	
+	        },
+	        numberFloat: {
+	
+	        },
+	        numberInteger: {
+	
+	        },
+	        birth: {
+				type: 'date'
+	
+	        },
+	        recordTime: {
+				type: 'time'
+	
+	        },
+	        recordDateTime: {
+				type: 'datetime'
+	
+	        }
+		}
+	 */
+	
+	@JDBCOneToMany(storage = Complex2DetailJDBCStorage.class)
+	private transient ZCrudRecords<Complex2Detail> detailsZCrudRecords;
+	
+	@JDBCOneToMany(storage = Complex2Detail2JDBCStorage.class)
+	private transient ZCrudRecords<Complex2Detail2> details2ZCrudRecords;
+	
+	public Complex2(){}
 	
 	public Integer getId() {
 		return id;
@@ -226,9 +325,42 @@ public class Complex implements ZCrudEntity {
 
 	@Override
 	public String toString() {
-		return "Complex [id=" + id + ", name=" + name + ", description=" + description + ", secondaryId=" + secondaryId
+		return "Complex2 [id=" + id + ", name=" + name + ", description=" + description + ", secondaryId=" + secondaryId
 				+ ", important=" + important + ", numberFloat=" + numberFloat + ", numberInteger=" + numberInteger
-				+ ", birth=" + birth + ", recordTime=" + recordTime + ", recordDateTime=" + recordDateTime + "]";
+				+ ", birth=" + birth + ", recordTime=" + recordTime + ", recordDateTime=" + recordDateTime
+				+ ", details=" + details + ", details2=" + details2 + "]";
+	}
+
+	public List<Complex2Detail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<Complex2Detail> details) {
+		this.details = details;
+	}
+
+	public List<Complex2Detail2> getDetails2() {
+		return details2;
+	}
+
+	public void setDetails2(List<Complex2Detail2> details2) {
+		this.details2 = details2;
+	}
+
+	public ZCrudRecords<Complex2Detail> getDetailsZCrudRecords() {
+		return detailsZCrudRecords;
+	}
+
+	public void setDetailsZCrudRecords(ZCrudRecords<Complex2Detail> detailsZCrudRecords) {
+		this.detailsZCrudRecords = detailsZCrudRecords;
+	}
+
+	public ZCrudRecords<Complex2Detail2> getDetails2ZCrudRecords() {
+		return details2ZCrudRecords;
+	}
+
+	public void setDetails2ZCrudRecords(ZCrudRecords<Complex2Detail2> details2zCrudRecords) {
+		details2ZCrudRecords = details2zCrudRecords;
 	}
 
 	@Override
@@ -237,6 +369,8 @@ public class Complex implements ZCrudEntity {
 		int result = 1;
 		result = prime * result + ((birth == null) ? 0 : birth.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
+		result = prime * result + ((details2 == null) ? 0 : details2.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((important == null) ? 0 : important.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -256,7 +390,7 @@ public class Complex implements ZCrudEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Complex other = (Complex) obj;
+		Complex2 other = (Complex2) obj;
 		if (birth == null) {
 			if (other.birth != null)
 				return false;
@@ -266,6 +400,16 @@ public class Complex implements ZCrudEntity {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (details == null) {
+			if (other.details != null)
+				return false;
+		} else if (!details.equals(other.details))
+			return false;
+		if (details2 == null) {
+			if (other.details2 != null)
+				return false;
+		} else if (!details2.equals(other.details2))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -300,9 +444,7 @@ public class Complex implements ZCrudEntity {
 		if (recordTime == null) {
 			if (other.recordTime != null)
 				return false;
-		} else if (recordTime.getHour() != other.recordTime.getHour())
-			return false;
-		else if (recordTime.getMinute() != other.recordTime.getMinute())
+		} else if (!recordTime.equals(other.recordTime))
 			return false;
 		if (secondaryId == null) {
 			if (other.secondaryId != null)

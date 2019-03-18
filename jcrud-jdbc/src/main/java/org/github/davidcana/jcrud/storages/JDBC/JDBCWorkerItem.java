@@ -15,14 +15,14 @@ import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
 
 public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
-	private AbstractJDBCStorage<T, K, F> storage;
+	private JDBCStorage<T, K, F> storage;
 	private IZCrudRecords<T> zcrudRecords;
 	private List<PreparedStatement> stList; 
 	private Connection connection;
-	private AbstractJDBCStorage parentStorage;
+	private JDBCStorage parentStorage;
 	private Object parentKey;
 	
-	public JDBCWorkerItem(AbstractJDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection) throws StorageException {
+	public JDBCWorkerItem(JDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection) throws StorageException {
 		
 		this.storage = storage;
 		this.zcrudRecords = zcrudRecords;
@@ -32,7 +32,7 @@ public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		this.generateIds();
 	}
 	
-	public JDBCWorkerItem(AbstractJDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection, AbstractJDBCStorage parentStorage, Object parentKey) throws StorageException {
+	public JDBCWorkerItem(JDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection, JDBCStorage parentStorage, Object parentKey) throws StorageException {
 		
 		this(storage, zcrudRecords, stList, connection);
 		this.parentStorage = parentStorage;

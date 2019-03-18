@@ -1,6 +1,6 @@
 package org.github.davidcana.jcrud.core.responses;
 
-import org.github.davidcana.jcrud.storages.JDBC.SimpleJDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.SimpleJDBCStorage;
 import org.junit.Test;
 
 public class SimpleFolderTest extends AbstractZCrudResponseTest {

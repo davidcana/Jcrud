@@ -2,9 +2,9 @@ package org.github.davidcana.jcrud.core.model;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
+import org.github.davidcana.jcrud.core.model.storages.SecondaryJDBCStorage;
 import org.github.davidcana.jcrud.core.options.Option;
 import org.github.davidcana.jcrud.core.options.OptionProvider;
-import org.github.davidcana.jcrud.storages.JDBC.SecondaryJDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;

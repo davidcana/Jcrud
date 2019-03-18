@@ -3,9 +3,9 @@ package org.github.davidcana.jcrud.core.model;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDId;
-import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
+import org.github.davidcana.jcrud.core.model.storages.Simple2DetailVoidStorage;
 
-@JCRUDEntity(storage = SimpleVoidStorage.class)
+@JCRUDEntity(storage = Simple2DetailVoidStorage.class)
 public class Simple2Detail implements ZCrudEntity {
 	
 	@JCRUDId

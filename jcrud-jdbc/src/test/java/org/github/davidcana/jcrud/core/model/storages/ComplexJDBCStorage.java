@@ -1,8 +1,9 @@
-package org.github.davidcana.jcrud.storages.JDBC;
+package org.github.davidcana.jcrud.core.model.storages;
 
 import org.github.davidcana.jcrud.core.model.Complex;
+import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
-public class ComplexJDBCStorage extends AbstractJDBCStorage<Complex, Integer, Complex> {
+public class ComplexJDBCStorage extends JDBCStorage<Complex, Integer, Complex> {
 	
 	static private ComplexJDBCStorage instance; 
 	

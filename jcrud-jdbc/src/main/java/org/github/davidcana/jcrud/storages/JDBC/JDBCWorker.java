@@ -17,10 +17,10 @@ import org.github.davidcana.jcrud.storages.StorageException;
 
 public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
-	private AbstractJDBCStorage<T, K, F> storage;
+	private JDBCStorage<T, K, F> storage;
 	private IZCrudRecords<T> zcrudRecords;
 	
-	public JDBCWorker(AbstractJDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords){
+	public JDBCWorker(JDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords){
 		this.storage = storage;
 		this.zcrudRecords = zcrudRecords;
 	}

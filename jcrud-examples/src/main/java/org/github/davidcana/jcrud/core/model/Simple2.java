@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
+import org.github.davidcana.jcrud.core.model.storages.Simple2Detail2JDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Simple2DetailJDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Simple2JDBCStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
-import org.github.davidcana.jcrud.storages.JDBC.Simple2Detail2JDBCStorage;
-import org.github.davidcana.jcrud.storages.JDBC.Simple2DetailJDBCStorage;
-import org.github.davidcana.jcrud.storages.JDBC.Simple2JDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOneToMany;

@@ -6,9 +6,9 @@ import java.io.IOException;
 
 import org.github.davidcana.jcrud.core.AbstractTest;
 import org.github.davidcana.jcrud.core.ObjectMapperProviderForTest;
+import org.github.davidcana.jcrud.core.model.storages.SimpleVoidStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRequest;
 import org.github.davidcana.jcrud.core.servletsHelpers.DefaultCRUDManager;
-import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
 import org.junit.After;
 import org.junit.Before;
 

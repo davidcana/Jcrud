@@ -32,30 +32,30 @@ import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOneToMany;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;
 
-abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extends AbstractStorage<T, K, F> implements Storage<T, K, F> {
+public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extends AbstractStorage<T, K, F> implements Storage<T, K, F> {
 	
 	private String tableName;
 	private Field keyField;
 	private String defaultOrderFieldName;
 	private String defaultOrderType;
-	protected Map<String, Class<? extends AbstractJDBCStorage>> allSubformStorageClass = new HashMap<>();
+	protected Map<String, Class<? extends JDBCStorage>> allSubformStorageClass = new HashMap<>();
 	protected Map<String, JDBCOneToMany> allJDBCOneToMany = new HashMap<>();
-	protected Map<String, AbstractJDBCStorage> allSubformStorage = new HashMap<>();
+	protected Map<String, JDBCStorage> allSubformStorage = new HashMap<>();
 	protected JDBCId jdbcId;
 	protected FilterManager<F> filterManager = new DefaultFilterManager<F>();
-	protected AbstractJDBCStorage parentStorage;
+	protected JDBCStorage parentStorage;
 	
-	protected AbstractJDBCStorage() {
+	public JDBCStorage() {
 		super();
 		this.resolveAll();
 	}
-	protected AbstractJDBCStorage(AbstractJDBCStorage parentStorage) {
+	protected JDBCStorage(JDBCStorage parentStorage) {
 		super();
 		this.resolveAll();
 		this.parentStorage = parentStorage;
 	}
 	
-	public AbstractJDBCStorage getParentStorage() {
+	public JDBCStorage getParentStorage() {
 		
 		if (parentStorage == null){
 			throw new IllegalArgumentException("parentStorage not set!");
@@ -151,7 +151,7 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 	
 	private void resolveJDBCOneToMany(JDBCOneToMany jdbcOneToMany, Field field) {
 		
-		Class<? extends AbstractJDBCStorage> storageClass = jdbcOneToMany.storage();
+		Class<? extends JDBCStorage> storageClass = jdbcOneToMany.storage();
 		this.allSubformStorageClass.put(field.getName(), storageClass);
 		this.allJDBCOneToMany.put(field.getName(), jdbcOneToMany);
 	}
@@ -265,7 +265,7 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 		}
 	}
 	
-	protected void add1SubformToInstance(T instance, AbstractJDBCStorage subformStorage, List list) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
+	protected void add1SubformToInstance(T instance, JDBCStorage subformStorage, List list) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
 		
 		list.clear();
 		subformStorage.buildSubformList(
@@ -428,20 +428,20 @@ abstract public class AbstractJDBCStorage<T extends ZCrudEntity, K, F extends ZC
 	}
 	*/
 	
-	public AbstractJDBCStorage getSubformStorage(String fieldName) throws StorageException {
+	public JDBCStorage getSubformStorage(String fieldName) throws StorageException {
 		
 		if (this.allSubformStorage.containsKey(fieldName)) {
 			return this.allSubformStorage.get(fieldName);
 		}
 		
-		Class<? extends AbstractJDBCStorage> storageClass = this.allSubformStorageClass.get(fieldName);
+		Class<? extends JDBCStorage> storageClass = this.allSubformStorageClass.get(fieldName);
 		
 		if (storageClass == null) {
 			throw new IllegalArgumentException("Storage for field '" + fieldName + "' not set in annotation!");
 		}
 		
 		try {
-			AbstractJDBCStorage subformStorage = (AbstractJDBCStorage) StorageResolver.getInstance().resolve(storageClass);
+			JDBCStorage subformStorage = (JDBCStorage) StorageResolver.getInstance().resolve(storageClass);
 			this.allSubformStorage.put(fieldName, subformStorage);
 			return subformStorage;
 			

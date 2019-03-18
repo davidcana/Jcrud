@@ -6,14 +6,14 @@ import java.time.LocalTime;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
-import org.github.davidcana.jcrud.core.model.storages.ComplexJDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Complex2Detail2JDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCId;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOrderedByDefault;
 
-@JCRUDEntity(storage = ComplexJDBCStorage.class)
-@JDBCEntity(table = "complex")
-public class Complex implements ZCrudEntity {
+@JCRUDEntity(storage = Complex2Detail2JDBCStorage.class)
+@JDBCEntity(table = "complex2Detail2")
+public class Complex2Detail2 implements ZCrudEntity {
 	
 	@JDBCId
 	@JDBCOrderedByDefault(type = "ASC")
@@ -28,7 +28,7 @@ public class Complex implements ZCrudEntity {
 	private LocalTime recordTime;
 	private Timestamp recordDateTime;
 	
-	public Complex(){}
+	public Complex2Detail2(){}
 	
 	public Integer getId() {
 		return id;
@@ -142,7 +142,7 @@ public class Complex implements ZCrudEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Complex other = (Complex) obj;
+		Complex2Detail2 other = (Complex2Detail2) obj;
 		if (birth == null) {
 			if (other.birth != null)
 				return false;

@@ -6,10 +6,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import org.github.davidcana.jcrud.storages.JDBC.AbstractJDBCStorage;
+import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface JDBCOneToMany {
-	Class<? extends AbstractJDBCStorage> storage();
+	Class<? extends JDBCStorage> storage();
 }

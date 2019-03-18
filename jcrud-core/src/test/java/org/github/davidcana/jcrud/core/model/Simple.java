@@ -3,8 +3,7 @@ package org.github.davidcana.jcrud.core.model;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDId;
-import org.github.davidcana.jcrud.storages.SimpleVoidStorage;
-
+import org.github.davidcana.jcrud.core.model.storages.SimpleVoidStorage;
 @JCRUDEntity(
 		storage = SimpleVoidStorage.class, 
 		jsFilePath="target/classes/simple.js"

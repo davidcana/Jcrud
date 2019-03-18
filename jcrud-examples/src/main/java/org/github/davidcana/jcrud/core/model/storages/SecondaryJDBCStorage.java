@@ -1,10 +1,10 @@
-package org.github.davidcana.jcrud.storages.JDBC;
+package org.github.davidcana.jcrud.core.model.storages;
 
 import org.github.davidcana.jcrud.core.model.Secondary;
+import org.github.davidcana.jcrud.core.model.storages.SecondaryJDBCStorage;
+import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
-public class SecondaryJDBCStorage extends AbstractJDBCStorage<Secondary, Integer, Secondary> {
-	
-	static public final String TABLE_PARAMETER_VALUE = "secondary";
+public class SecondaryJDBCStorage extends JDBCStorage<Secondary, Integer, Secondary> {
 	
 	static private SecondaryJDBCStorage instance; 
 	
