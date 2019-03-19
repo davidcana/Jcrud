@@ -1,0 +1,82 @@
+{
+    "items": [
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 1,
+                        "name": "Phillip Greer",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 44.22,
+                        "numberInteger": 98,
+                        "birth": 951174000000,
+                        "recordTime": "06:33",
+                        "recordDateTime": 1381258489000
+                    },
+                    {
+                        "id": 2,
+                        "name": "Clinton Roth",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 95.77,
+                        "numberInteger": 24,
+                        "birth": 950482800000,
+                        "recordTime": "10:13",
+                        "recordDateTime": 1051875643000
+                    },
+                    {
+                        "id": 3,
+                        "name": "Wyatt Gibbs",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 31.86,
+                        "numberInteger": 98,
+                        "birth": 975193200000,
+                        "recordTime": "22:46",
+                        "recordDateTime": 1529034869000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    },
+                    {
+                        "id": 5,
+                        "name": "Wesley Miller",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 38.81,
+                        "numberInteger": 90,
+                        "birth": 968277600000,
+                        "recordTime": "05:17",
+                        "recordDateTime": 1331136188000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        }
+    ]
+}
+

@@ -1,0 +1,1530 @@
+{
+    "items": [
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 2,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 6,
+                        "name": "Francis Barr",
+                        "description": "Lorem ipsum dolor sit",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 97.71,
+                        "numberInteger": 38,
+                        "birth": 953766000000,
+                        "recordTime": "05:04",
+                        "recordDateTime": 1165801453000
+                    },
+                    {
+                        "id": 7,
+                        "name": "Jack Reid",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 98.24,
+                        "numberInteger": 98,
+                        "birth": 962661600000,
+                        "recordTime": "00:48",
+                        "recordDateTime": 1004572319000
+                    },
+                    {
+                        "id": 8,
+                        "name": "Dillon Santana",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 73.24,
+                        "numberInteger": 39,
+                        "birth": 967845600000,
+                        "recordTime": "01:17",
+                        "recordDateTime": 964462750000
+                    },
+                    {
+                        "id": 9,
+                        "name": "Arden Foreman",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 28.76,
+                        "numberInteger": 88,
+                        "birth": 960328800000,
+                        "recordTime": "14:20",
+                        "recordDateTime": 1373579747000
+                    },
+                    {
+                        "id": 10,
+                        "name": "Aladdin Richardson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 45.27,
+                        "numberInteger": 89,
+                        "birth": 957650400000,
+                        "recordTime": "03:40",
+                        "recordDateTime": 1139264383000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "id",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 91,
+                        "name": "Plato Velazquez",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 41.54,
+                        "numberInteger": 91,
+                        "birth": 976662000000,
+                        "recordTime": "12:25",
+                        "recordDateTime": 1416248825000
+                    },
+                    {
+                        "id": 92,
+                        "name": "Lucius Craft",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 25.85,
+                        "numberInteger": 35,
+                        "birth": 973810800000,
+                        "recordTime": "23:20",
+                        "recordDateTime": 1296910930000
+                    },
+                    {
+                        "id": 93,
+                        "name": "Armand Palmer",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 41.35,
+                        "numberInteger": 38,
+                        "birth": 951519600000,
+                        "recordTime": "12:26",
+                        "recordDateTime": 1000289340000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "secondaryId",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 28,
+                        "name": "Caldwell Black",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 77.31,
+                        "numberInteger": 56,
+                        "birth": 971301600000,
+                        "recordTime": "02:29",
+                        "recordDateTime": 1019687040000
+                    },
+                    {
+                        "id": 78,
+                        "name": "Curran Carr",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 41.06,
+                        "numberInteger": 1,
+                        "birth": 950482800000,
+                        "recordTime": "10:10",
+                        "recordDateTime": 1043023802000
+                    },
+                    {
+                        "id": 27,
+                        "name": "Mufutau Kelly",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 51.57,
+                        "numberInteger": 76,
+                        "birth": 968796000000,
+                        "recordTime": "12:31",
+                        "recordDateTime": 1403660546000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "secondaryId",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 3,
+                        "name": "Wyatt Gibbs",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 31.86,
+                        "numberInteger": 98,
+                        "birth": 975193200000,
+                        "recordTime": "22:46",
+                        "recordDateTime": 1529034869000
+                    },
+                    {
+                        "id": 9,
+                        "name": "Arden Foreman",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 28.76,
+                        "numberInteger": 88,
+                        "birth": 960328800000,
+                        "recordTime": "14:20",
+                        "recordDateTime": 1373579747000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    },
+                    {
+                        "id": 12,
+                        "name": "Xenos Webster",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 93.31,
+                        "numberInteger": 18,
+                        "birth": 963093600000,
+                        "recordTime": "20:52",
+                        "recordDateTime": 1130015835000
+                    },
+                    {
+                        "id": 2,
+                        "name": "Clinton Roth",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 95.77,
+                        "numberInteger": 24,
+                        "birth": 950482800000,
+                        "recordTime": "10:13",
+                        "recordDateTime": 1051875643000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 2,
+                "pageSize": 5,
+                "sortFieldId": "secondaryId",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 12,
+                        "name": "Xenos Webster",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 93.31,
+                        "numberInteger": 18,
+                        "birth": 963093600000,
+                        "recordTime": "20:52",
+                        "recordDateTime": 1130015835000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    },
+                    {
+                        "id": 9,
+                        "name": "Arden Foreman",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 28.76,
+                        "numberInteger": 88,
+                        "birth": 960328800000,
+                        "recordTime": "14:20",
+                        "recordDateTime": 1373579747000
+                    },
+                    {
+                        "id": 25,
+                        "name": "Abbot Herrera",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 86.24,
+                        "numberInteger": 45,
+                        "birth": 968018400000,
+                        "recordTime": "14:49",
+                        "recordDateTime": 1068005955000
+                    },
+                    {
+                        "id": 24,
+                        "name": "Amery Robbins",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 61.61,
+                        "numberInteger": 69,
+                        "birth": 948582000000,
+                        "recordTime": "22:24",
+                        "recordDateTime": 1467289817000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 2,
+                "pageSize": 5,
+                "sortFieldId": "important",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 16,
+                        "name": "Fitzgerald Macdonald",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 3,
+                        "important": false,
+                        "numberFloat": 19.81,
+                        "numberInteger": 80,
+                        "birth": 967154400000,
+                        "recordTime": "15:43",
+                        "recordDateTime": 1397046709000
+                    },
+                    {
+                        "id": 8,
+                        "name": "Dillon Santana",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 73.24,
+                        "numberInteger": 39,
+                        "birth": 967845600000,
+                        "recordTime": "01:17",
+                        "recordDateTime": 964462750000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    },
+                    {
+                        "id": 10,
+                        "name": "Aladdin Richardson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 45.27,
+                        "numberInteger": 89,
+                        "birth": 957650400000,
+                        "recordTime": "03:40",
+                        "recordDateTime": 1139264383000
+                    },
+                    {
+                        "id": 20,
+                        "name": "Finn Mcpherson",
+                        "description": "Lorem",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 37.51,
+                        "numberInteger": 50,
+                        "birth": 971388000000,
+                        "recordTime": "10:58",
+                        "recordDateTime": 1526365630000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "important",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 6,
+                        "name": "Francis Barr",
+                        "description": "Lorem ipsum dolor sit",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 97.71,
+                        "numberInteger": 38,
+                        "birth": 953766000000,
+                        "recordTime": "05:04",
+                        "recordDateTime": 1165801453000
+                    },
+                    {
+                        "id": 8,
+                        "name": "Dillon Santana",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 73.24,
+                        "numberInteger": 39,
+                        "birth": 967845600000,
+                        "recordTime": "01:17",
+                        "recordDateTime": 964462750000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    },
+                    {
+                        "id": 2,
+                        "name": "Clinton Roth",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 95.77,
+                        "numberInteger": 24,
+                        "birth": 950482800000,
+                        "recordTime": "10:13",
+                        "recordDateTime": 1051875643000
+                    },
+                    {
+                        "id": 10,
+                        "name": "Aladdin Richardson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 45.27,
+                        "numberInteger": 89,
+                        "birth": 957650400000,
+                        "recordTime": "03:40",
+                        "recordDateTime": 1139264383000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "numberFloat",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 65,
+                        "name": "Francis Richardson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 10.35,
+                        "numberInteger": 13,
+                        "birth": 977958000000,
+                        "recordTime": "15:44",
+                        "recordDateTime": 1106564335000
+                    },
+                    {
+                        "id": 81,
+                        "name": "Brenden Cash",
+                        "description": "Lorem ipsum dolor",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 10.88,
+                        "numberInteger": 23,
+                        "birth": 974329200000,
+                        "recordTime": "16:09",
+                        "recordDateTime": 1054342518000
+                    },
+                    {
+                        "id": 32,
+                        "name": "Benedict Carrillo",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 10.95,
+                        "numberInteger": 39,
+                        "birth": 966981600000,
+                        "recordTime": "11:01",
+                        "recordDateTime": 1369745103000
+                    },
+                    {
+                        "id": 85,
+                        "name": "Leo Schmidt",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 14.33,
+                        "numberInteger": 2,
+                        "birth": 970005600000,
+                        "recordTime": "18:43",
+                        "recordDateTime": 963073849000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "numberFloat",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 7,
+                        "name": "Jack Reid",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 98.24,
+                        "numberInteger": 98,
+                        "birth": 962661600000,
+                        "recordTime": "00:48",
+                        "recordDateTime": 1004572319000
+                    },
+                    {
+                        "id": 19,
+                        "name": "Oleg Kerr",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 98.3,
+                        "numberInteger": 88,
+                        "birth": 975193200000,
+                        "recordTime": "07:09",
+                        "recordDateTime": 1286973454000
+                    },
+                    {
+                        "id": 26,
+                        "name": "Jelani Matthews",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 98.54,
+                        "numberInteger": 28,
+                        "birth": 960674400000,
+                        "recordTime": "01:29",
+                        "recordDateTime": 1292043658000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "numberFloat",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 65,
+                        "name": "Francis Richardson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 10.35,
+                        "numberInteger": 13,
+                        "birth": 977958000000,
+                        "recordTime": "15:44",
+                        "recordDateTime": 1106564335000
+                    },
+                    {
+                        "id": 81,
+                        "name": "Brenden Cash",
+                        "description": "Lorem ipsum dolor",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 10.88,
+                        "numberInteger": 23,
+                        "birth": 974329200000,
+                        "recordTime": "16:09",
+                        "recordDateTime": 1054342518000
+                    },
+                    {
+                        "id": 32,
+                        "name": "Benedict Carrillo",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 10.95,
+                        "numberInteger": 39,
+                        "birth": 966981600000,
+                        "recordTime": "11:01",
+                        "recordDateTime": 1369745103000
+                    },
+                    {
+                        "id": 85,
+                        "name": "Leo Schmidt",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 14.33,
+                        "numberInteger": 2,
+                        "birth": 970005600000,
+                        "recordTime": "18:43",
+                        "recordDateTime": 963073849000
+                    },
+                    {
+                        "id": 4,
+                        "name": "Harding Sims",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 16.5,
+                        "numberInteger": 74,
+                        "birth": 963525600000,
+                        "recordTime": "06:42",
+                        "recordDateTime": 1269722957000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "numberInteger",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 78,
+                        "name": "Curran Carr",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 41.06,
+                        "numberInteger": 1,
+                        "birth": 950482800000,
+                        "recordTime": "10:10",
+                        "recordDateTime": 1043023802000
+                    },
+                    {
+                        "id": 39,
+                        "name": "Thor Osborne",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 44.87,
+                        "numberInteger": 1,
+                        "birth": 960069600000,
+                        "recordTime": "03:29",
+                        "recordDateTime": 1088774917000
+                    },
+                    {
+                        "id": 52,
+                        "name": "Adam Slater",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 98.17,
+                        "numberInteger": 2,
+                        "birth": 966204000000,
+                        "recordTime": "20:38",
+                        "recordDateTime": 1327356319000
+                    },
+                    {
+                        "id": 85,
+                        "name": "Leo Schmidt",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 14.33,
+                        "numberInteger": 2,
+                        "birth": 970005600000,
+                        "recordTime": "18:43",
+                        "recordDateTime": 963073849000
+                    },
+                    {
+                        "id": 67,
+                        "name": "Noble Morgan",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 30.69,
+                        "numberInteger": 2,
+                        "birth": 965512800000,
+                        "recordTime": "11:43",
+                        "recordDateTime": 1241323302000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "numberInteger",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 7,
+                        "name": "Jack Reid",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 98.24,
+                        "numberInteger": 98,
+                        "birth": 962661600000,
+                        "recordTime": "00:48",
+                        "recordDateTime": 1004572319000
+                    },
+                    {
+                        "id": 1,
+                        "name": "Phillip Greer",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 44.22,
+                        "numberInteger": 98,
+                        "birth": 951174000000,
+                        "recordTime": "06:33",
+                        "recordDateTime": 1381258489000
+                    },
+                    {
+                        "id": 3,
+                        "name": "Wyatt Gibbs",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 31.86,
+                        "numberInteger": 98,
+                        "birth": 975193200000,
+                        "recordTime": "22:46",
+                        "recordDateTime": 1529034869000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "numberInteger",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 78,
+                        "name": "Curran Carr",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 41.06,
+                        "numberInteger": 1,
+                        "birth": 950482800000,
+                        "recordTime": "10:10",
+                        "recordDateTime": 1043023802000
+                    },
+                    {
+                        "id": 39,
+                        "name": "Thor Osborne",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 44.87,
+                        "numberInteger": 1,
+                        "birth": 960069600000,
+                        "recordTime": "03:29",
+                        "recordDateTime": 1088774917000
+                    },
+                    {
+                        "id": 52,
+                        "name": "Adam Slater",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 98.17,
+                        "numberInteger": 2,
+                        "birth": 966204000000,
+                        "recordTime": "20:38",
+                        "recordDateTime": 1327356319000
+                    },
+                    {
+                        "id": 85,
+                        "name": "Leo Schmidt",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 14.33,
+                        "numberInteger": 2,
+                        "birth": 970005600000,
+                        "recordTime": "18:43",
+                        "recordDateTime": 963073849000
+                    },
+                    {
+                        "id": 67,
+                        "name": "Noble Morgan",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 30.69,
+                        "numberInteger": 2,
+                        "birth": 965512800000,
+                        "recordTime": "11:43",
+                        "recordDateTime": 1241323302000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "birth",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 15,
+                        "name": "Bradley Sweet",
+                        "description": "Lorem ipsum dolor sit",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 32.73,
+                        "numberInteger": 59,
+                        "birth": 946767600000,
+                        "recordTime": "07:15",
+                        "recordDateTime": 1064730767000
+                    },
+                    {
+                        "id": 17,
+                        "name": "Lester Hodge",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 41.64,
+                        "numberInteger": 90,
+                        "birth": 947026800000,
+                        "recordTime": "00:06",
+                        "recordDateTime": 1005681659000
+                    },
+                    {
+                        "id": 83,
+                        "name": "Keane Bryant",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 45.27,
+                        "numberInteger": 60,
+                        "birth": 947199600000,
+                        "recordTime": "20:37",
+                        "recordDateTime": 1185560989000
+                    },
+                    {
+                        "id": 40,
+                        "name": "Amos Gibbs",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 38.58,
+                        "numberInteger": 50,
+                        "birth": 947372400000,
+                        "recordTime": "04:04",
+                        "recordDateTime": 994164992000
+                    },
+                    {
+                        "id": 72,
+                        "name": "Sebastian Barlow",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 3,
+                        "important": false,
+                        "numberFloat": 91.78,
+                        "numberInteger": 46,
+                        "birth": 947372400000,
+                        "recordTime": "01:58",
+                        "recordDateTime": 1256259841000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "birth",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 70,
+                        "name": "Upton Peterson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 65.75,
+                        "numberInteger": 20,
+                        "birth": 977266800000,
+                        "recordTime": "12:59",
+                        "recordDateTime": 950004186000
+                    },
+                    {
+                        "id": 49,
+                        "name": "Wyatt Dodson",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 85.77,
+                        "numberInteger": 91,
+                        "birth": 977612400000,
+                        "recordTime": "22:27",
+                        "recordDateTime": 1490676700000
+                    },
+                    {
+                        "id": 65,
+                        "name": "Francis Richardson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 10.35,
+                        "numberInteger": 13,
+                        "birth": 977958000000,
+                        "recordTime": "15:44",
+                        "recordDateTime": 1106564335000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "birth",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 15,
+                        "name": "Bradley Sweet",
+                        "description": "Lorem ipsum dolor sit",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 32.73,
+                        "numberInteger": 59,
+                        "birth": 946767600000,
+                        "recordTime": "07:15",
+                        "recordDateTime": 1064730767000
+                    },
+                    {
+                        "id": 17,
+                        "name": "Lester Hodge",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 41.64,
+                        "numberInteger": 90,
+                        "birth": 947026800000,
+                        "recordTime": "00:06",
+                        "recordDateTime": 1005681659000
+                    },
+                    {
+                        "id": 83,
+                        "name": "Keane Bryant",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 45.27,
+                        "numberInteger": 60,
+                        "birth": 947199600000,
+                        "recordTime": "20:37",
+                        "recordDateTime": 1185560989000
+                    },
+                    {
+                        "id": 40,
+                        "name": "Amos Gibbs",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 38.58,
+                        "numberInteger": 50,
+                        "birth": 947372400000,
+                        "recordTime": "04:04",
+                        "recordDateTime": 994164992000
+                    },
+                    {
+                        "id": 72,
+                        "name": "Sebastian Barlow",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 3,
+                        "important": false,
+                        "numberFloat": 91.78,
+                        "numberInteger": 46,
+                        "birth": 947372400000,
+                        "recordTime": "01:58",
+                        "recordDateTime": 1256259841000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "recordTime",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 17,
+                        "name": "Lester Hodge",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 41.64,
+                        "numberInteger": 90,
+                        "birth": 947026800000,
+                        "recordTime": "00:06",
+                        "recordDateTime": 1005681659000
+                    },
+                    {
+                        "id": 87,
+                        "name": "Alden Dunlap",
+                        "description": "Lorem",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 95.98,
+                        "numberInteger": 2,
+                        "birth": 948063600000,
+                        "recordTime": "00:17",
+                        "recordDateTime": 1148815356000
+                    },
+                    {
+                        "id": 66,
+                        "name": "Barrett Joyner",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 35.64,
+                        "numberInteger": 94,
+                        "birth": 953334000000,
+                        "recordTime": "00:31",
+                        "recordDateTime": 1386039464000
+                    },
+                    {
+                        "id": 7,
+                        "name": "Jack Reid",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 98.24,
+                        "numberInteger": 98,
+                        "birth": 962661600000,
+                        "recordTime": "00:48",
+                        "recordDateTime": 1004572319000
+                    },
+                    {
+                        "id": 46,
+                        "name": "Valentine Britt",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 16.74,
+                        "numberInteger": 41,
+                        "birth": 971992800000,
+                        "recordTime": "00:50",
+                        "recordDateTime": 1347178070000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "recordTime",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 86,
+                        "name": "Griffith Riley",
+                        "description": "Lorem",
+                        "secondaryId": 3,
+                        "important": false,
+                        "numberFloat": 19.3,
+                        "numberInteger": 97,
+                        "birth": 957391200000,
+                        "recordTime": "23:27",
+                        "recordDateTime": 1301691441000
+                    },
+                    {
+                        "id": 41,
+                        "name": "Zachery Woodard",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 25.73,
+                        "numberInteger": 80,
+                        "birth": 952210800000,
+                        "recordTime": "23:33",
+                        "recordDateTime": 1006520792000
+                    },
+                    {
+                        "id": 37,
+                        "name": "Dante Middleton",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 51.6,
+                        "numberInteger": 58,
+                        "birth": 962748000000,
+                        "recordTime": "23:45",
+                        "recordDateTime": 1046375570000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "recordTime",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 17,
+                        "name": "Lester Hodge",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 41.64,
+                        "numberInteger": 90,
+                        "birth": 947026800000,
+                        "recordTime": "00:06",
+                        "recordDateTime": 1005681659000
+                    },
+                    {
+                        "id": 87,
+                        "name": "Alden Dunlap",
+                        "description": "Lorem",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 95.98,
+                        "numberInteger": 2,
+                        "birth": 948063600000,
+                        "recordTime": "00:17",
+                        "recordDateTime": 1148815356000
+                    },
+                    {
+                        "id": 66,
+                        "name": "Barrett Joyner",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 4,
+                        "important": false,
+                        "numberFloat": 35.64,
+                        "numberInteger": 94,
+                        "birth": 953334000000,
+                        "recordTime": "00:31",
+                        "recordDateTime": 1386039464000
+                    },
+                    {
+                        "id": 7,
+                        "name": "Jack Reid",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+                        "secondaryId": 3,
+                        "important": true,
+                        "numberFloat": 98.24,
+                        "numberInteger": 98,
+                        "birth": 962661600000,
+                        "recordTime": "00:48",
+                        "recordDateTime": 1004572319000
+                    },
+                    {
+                        "id": 46,
+                        "name": "Valentine Britt",
+                        "description": "Lorem ipsum",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 16.74,
+                        "numberInteger": 41,
+                        "birth": 971992800000,
+                        "recordTime": "00:50",
+                        "recordDateTime": 1347178070000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "recordDateTime",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 70,
+                        "name": "Upton Peterson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 65.75,
+                        "numberInteger": 20,
+                        "birth": 977266800000,
+                        "recordTime": "12:59",
+                        "recordDateTime": 950004186000
+                    },
+                    {
+                        "id": 73,
+                        "name": "Porter Valencia",
+                        "description": "Lorem ipsum dolor",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 68.77,
+                        "numberInteger": 6,
+                        "birth": 949878000000,
+                        "recordTime": "12:03",
+                        "recordDateTime": 951707759000
+                    },
+                    {
+                        "id": 44,
+                        "name": "Malcolm Cooper",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 23.22,
+                        "numberInteger": 95,
+                        "birth": 956008800000,
+                        "recordTime": "14:58",
+                        "recordDateTime": 952638684000
+                    },
+                    {
+                        "id": 89,
+                        "name": "Simon Gonzalez",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 78.23,
+                        "numberInteger": 46,
+                        "birth": 958341600000,
+                        "recordTime": "04:34",
+                        "recordDateTime": 953009642000
+                    },
+                    {
+                        "id": 51,
+                        "name": "Fritz Boone",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 77.49,
+                        "numberInteger": 90,
+                        "birth": 957304800000,
+                        "recordTime": "22:50",
+                        "recordDateTime": 956054112000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 19,
+                "pageSize": 5,
+                "sortFieldId": "recordDateTime",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 45,
+                        "name": "Reuben Workman",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 82.33,
+                        "numberInteger": 92,
+                        "birth": 963698400000,
+                        "recordTime": "12:12",
+                        "recordDateTime": 1540824789000
+                    },
+                    {
+                        "id": 90,
+                        "name": "Xenos Phillips",
+                        "description": "Lorem ipsum dolor sit",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 21.66,
+                        "numberInteger": 66,
+                        "birth": 973983600000,
+                        "recordTime": "12:33",
+                        "recordDateTime": 1570998811000
+                    },
+                    {
+                        "id": 71,
+                        "name": "Hu Marks",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 20.45,
+                        "numberInteger": 67,
+                        "birth": 977094000000,
+                        "recordTime": "07:55",
+                        "recordDateTime": 1572955168000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        },
+        {
+            "listRequest": {
+                "filter": {},
+                "pageNumber": 1,
+                "pageSize": 5,
+                "sortFieldId": "recordDateTime",
+                "sortType": "asc",
+                "command": "listRecords"
+            },
+            "listResponse": {
+                "result": "OK",
+                "message": null,
+                "records": [
+                    {
+                        "id": 70,
+                        "name": "Upton Peterson",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 1,
+                        "important": false,
+                        "numberFloat": 65.75,
+                        "numberInteger": 20,
+                        "birth": 977266800000,
+                        "recordTime": "12:59",
+                        "recordDateTime": 950004186000
+                    },
+                    {
+                        "id": 73,
+                        "name": "Porter Valencia",
+                        "description": "Lorem ipsum dolor",
+                        "secondaryId": 1,
+                        "important": true,
+                        "numberFloat": 68.77,
+                        "numberInteger": 6,
+                        "birth": 949878000000,
+                        "recordTime": "12:03",
+                        "recordDateTime": 951707759000
+                    },
+                    {
+                        "id": 44,
+                        "name": "Malcolm Cooper",
+                        "description": "Lorem ipsum dolor sit amet,",
+                        "secondaryId": 2,
+                        "important": false,
+                        "numberFloat": 23.22,
+                        "numberInteger": 95,
+                        "birth": 956008800000,
+                        "recordTime": "14:58",
+                        "recordDateTime": 952638684000
+                    },
+                    {
+                        "id": 89,
+                        "name": "Simon Gonzalez",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+                        "secondaryId": 2,
+                        "important": true,
+                        "numberFloat": 78.23,
+                        "numberInteger": 46,
+                        "birth": 958341600000,
+                        "recordTime": "04:34",
+                        "recordDateTime": 953009642000
+                    },
+                    {
+                        "id": 51,
+                        "name": "Fritz Boone",
+                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                        "secondaryId": 4,
+                        "important": true,
+                        "numberFloat": 77.49,
+                        "numberInteger": 90,
+                        "birth": 957304800000,
+                        "recordTime": "22:50",
+                        "recordDateTime": 956054112000
+                    }
+                ],
+                "totalNumberOfRecords": 93
+            }
+        }
+    ]
+}
