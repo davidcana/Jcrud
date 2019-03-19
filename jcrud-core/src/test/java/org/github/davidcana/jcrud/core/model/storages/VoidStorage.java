@@ -31,11 +31,6 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public T get(String key) throws StorageException {
-		throw new StorageException("Not implemented method!");
-	}
-
-	@Override
 	protected boolean resolveClassAnnotation(Annotation annotation) {
 		return false;
 	}

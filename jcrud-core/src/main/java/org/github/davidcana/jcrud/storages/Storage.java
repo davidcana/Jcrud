@@ -20,8 +20,6 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public void doCRUD(UpdateZCrudRequest<T> updateCRUDRequest) throws StorageException;
 	
-	public T get(String key) throws StorageException;
-	
 	public long getNumberOfRecords(ListZCrudRequest<F> listCRUDRequest) throws StorageException;
 	
 	public Class<?> getDeserializeClass();

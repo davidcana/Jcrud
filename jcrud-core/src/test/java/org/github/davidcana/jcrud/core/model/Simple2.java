@@ -11,7 +11,7 @@ import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
 
 @JCRUDEntity(
 		storage = Simple2VoidStorage.class,
-		jsFilePath="target/classes/simple2.js",
+		jsFilePath="target/simple2.js",
 		jsFileVarName="constants.options.simple2"
 )
 public class Simple2 implements ZCrudEntity {

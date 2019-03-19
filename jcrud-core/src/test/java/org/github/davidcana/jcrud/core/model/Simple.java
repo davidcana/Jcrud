@@ -6,7 +6,7 @@ import org.github.davidcana.jcrud.core.annotations.JCRUDId;
 import org.github.davidcana.jcrud.core.model.storages.SimpleVoidStorage;
 @JCRUDEntity(
 		storage = SimpleVoidStorage.class, 
-		jsFilePath="target/classes/simple.js"
+		jsFilePath="target/simple.js"
 )
 public class Simple implements ZCrudEntity {
 	/*jcrud-class

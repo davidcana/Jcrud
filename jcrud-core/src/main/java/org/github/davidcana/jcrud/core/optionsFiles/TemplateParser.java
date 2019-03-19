@@ -37,13 +37,14 @@ public class TemplateParser {
 		this.configuration = new Configuration(Configuration.VERSION_2_3_28);
 		
         // Where do we load the templates from:
-		this.configuration.setDirectoryForTemplateLoading(
+		this.configuration.setClassForTemplateLoading(this.getClass(), "/");
+		/*this.configuration.setDirectoryForTemplateLoading(
 				new File(
 						CoreUtils.getInstance().getProjectFullPath() 
 						+ File.separator 
 						+ Constants.TEMPLATE_FOLDER
 				)
-		);
+		);*/
 
 		// Don't escape anything
 		this.configuration.setOutputFormat(JavaScriptOutputFormat.INSTANCE);

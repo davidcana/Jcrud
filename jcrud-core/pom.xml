@@ -83,6 +83,12 @@
                     <include>LICENSE*</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+					<include>**/*.ftl</include>
+                </includes>
+            </resource>
         </resources>
         
         <plugins>

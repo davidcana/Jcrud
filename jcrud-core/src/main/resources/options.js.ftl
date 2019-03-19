@@ -8,7 +8,10 @@ var ${varName} = {
     entityId: '${entityId}',
 ${classContents},
 
+<#if key??>
     key: '${key}',
+<#else>
+</#if>
     fields: {
 	<#list fields as field>
         ${field.id}: {

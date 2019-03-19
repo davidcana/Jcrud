@@ -9,7 +9,7 @@ public class OptionsFilesTest extends AbstractOptionsFilesTest {
         
 		this.testJavascript(
         		"simple", 
-        		"target/classes/simple.js"
+        		"target/simple.js"
         );
 	}
 	
@@ -18,7 +18,7 @@ public class OptionsFilesTest extends AbstractOptionsFilesTest {
         
 		this.testJavascript(
         		"simple2", 
-        		"target/classes/simple2.js"
+        		"target/simple2.js"
         );
 	}
 	
