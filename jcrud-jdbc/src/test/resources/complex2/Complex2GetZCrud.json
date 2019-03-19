@@ -1,0 +1,102 @@
+{
+  "items" : [ {
+    "getRequest" : {
+      "command" : "getRecord",
+      "key" : "1"
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "id" : 1,
+        "name" : "Phillip Greer",
+        "description" : "Lorem ipsum dolor sit amet,",
+        "secondaryId" : 2,
+        "important" : true,
+        "numberFloat" : 44.22,
+        "numberInteger" : 98,
+        "birth" : 951174000000,
+        "recordTime" : "06:33",
+        "recordDateTime" : 1381258489000,
+        "details" : [ {
+          "id" : "0000000182",
+          "name" : "Kaseem Gibbs",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer",
+          "secondaryId" : 2,
+          "important" : false,
+          "numberFloat" : 83.4,
+          "numberInteger" : 3,
+          "birth" : 949618800000,
+          "recordTime" : "11:56",
+          "recordDateTime" : 1279609180000
+        }, {
+          "id" : "0000000187",
+          "name" : "Gregory Mueller",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+          "secondaryId" : 2,
+          "important" : true,
+          "numberFloat" : 72.57,
+          "numberInteger" : 95,
+          "birth" : 971215200000,
+          "recordTime" : "11:08",
+          "recordDateTime" : 1382764121000
+        } ],
+        "details2" : [ {
+          "id" : "0000000097",
+          "name" : "Bevis Bowen",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+          "secondaryId" : 3,
+          "important" : true,
+          "numberFloat" : 97.7,
+          "numberInteger" : 92,
+          "birth" : 974847600000,
+          "recordTime" : "04:50",
+          "recordDateTime" : 1279320336000
+        }, {
+          "id" : "0000000101",
+          "name" : "Yasir Walker",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur",
+          "secondaryId" : 2,
+          "important" : true,
+          "numberFloat" : 42.55,
+          "numberInteger" : 5,
+          "birth" : 947113200000,
+          "recordTime" : "08:07",
+          "recordDateTime" : 1554546128000
+        }, {
+          "id" : "0000000140",
+          "name" : "Keith Morin",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+          "secondaryId" : 1,
+          "important" : false,
+          "numberFloat" : 26.16,
+          "numberInteger" : 52,
+          "birth" : 961020000000,
+          "recordTime" : "17:01",
+          "recordDateTime" : 1490000910000
+        }, {
+          "id" : "0000000144",
+          "name" : "Colorado Bond",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+          "secondaryId" : 3,
+          "important" : false,
+          "numberFloat" : 71.14,
+          "numberInteger" : 10,
+          "birth" : 960933600000,
+          "recordTime" : "20:52",
+          "recordDateTime" : 1305029734000
+        }, {
+          "id" : "0000000150",
+          "name" : "Zachery Harris",
+          "description" : "Lorem ipsum dolor",
+          "secondaryId" : 2,
+          "important" : false,
+          "numberFloat" : 95.1,
+          "numberInteger" : 91,
+          "birth" : 965253600000,
+          "recordTime" : "09:59",
+          "recordDateTime" : 1342786123000
+        } ]
+      }
+    }
+  } ]
+}
