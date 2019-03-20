@@ -152,6 +152,9 @@ $( '#container' ).zcrud(
     'init',
     options,
     function( options ){
-        $( '#container' ).zcrud( 'renderList' );
+    	var isForm = type == 'form';
+        $( '#container' ).zcrud( 
+        		isForm? 'renderForm': 'renderList'
+        );
     }
 );

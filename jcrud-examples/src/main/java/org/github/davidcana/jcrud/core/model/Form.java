@@ -4,17 +4,20 @@ import java.util.List;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
-import org.github.davidcana.jcrud.core.model.storages.Simple2JDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.FormStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @JCRUDEntity(
-		storage = Simple2JDBCStorage.class,
+		storage = FormStorage.class,
 		jsFilePath="target/jcrud-examples-0.1/javascript/options/form.js",
 		jsFileVarName="constants.options.form"
 )
 public class Form implements ZCrudEntity {
 	/*jcrud-class
-    saveUserPreferences: true,
+    saveUserPreferences: false,
     
     pageConf: {
         defaultPageConf: {
@@ -23,48 +26,57 @@ public class Form implements ZCrudEntity {
         },
         pages: {
             list: {
-                getGroupOfRecordsURL: 'CRUDManager.do?cmd=LIST&table=form',
-                fields: [
-                    {
-                        type: 'fieldsGroup',
-                        except: [ 'details', 'details2' ]
-                    }
+                template: "formDefaultTemplate@templates/forms.html",
+                fields: [ 
+                    'originalMembers', 
+                    'verifiedMembers'
                 ],
                 components: {
                     paging: {
-                        defaultPageSize: 5,
-                        pageSizes: [5, 10, 15, 50, 100]
+                        isOn: false
                     },
-                    sorting: {
+                    filtering: {
                         isOn: true,
-                        default: {
-                            fieldId: 'id',
-                            type: 'asc'
-                        },
-                        allowUser: true
-                    }
+                        forceToFilter: true,
+                        fields: [ 
+                            {
+                                id: 'year',
+                                type: 'select',
+                                translateOptions: false,
+                                options: function(){
+                                    var result = [];
+                                    for ( var i = 2010; i < 2020; ++i ){
+                                        result.push( i );
+                                    }
+                                    return result;
+                                }
+                            }
+                        ]
+                    }   
+                },
+                buttons: {
+                    toolbar: [ 
+                        'undo', 
+                        'redo', 
+                        'form_submit',
+                        {
+                            type: 'form_copySubformRows',
+                            source: 'originalMembers',
+                            target: 'verifiedMembers',
+                            onlySelected: true,
+                            removeFromSource: false,
+                            deselect: true,
+                            title: 'Copy original members',
+                            textsBundle: {
+                                title: undefined,
+                                content: {
+                                    translate: false,
+                                    text: 'Copy original members'
+                                }  
+                            }
+                        }
+                    ]
                 }
-            }, 
-            create: {
-                fields: [
-                    {
-                        type: 'fieldsGroup'
-                    }
-                ]
-            }, 
-            update: {
-                fields: [
-                    {
-                        type: 'fieldsGroup'
-                    }
-                ]
-            }, 
-            delete: {
-                fields: [
-                    {
-                        type: 'fieldsGroup'
-                    }
-                ]
             }
         }
     },
@@ -95,65 +107,83 @@ public class Form implements ZCrudEntity {
     key: 'id'
 	 */
 	
-	private List<Member> originalMember;
+	private List<Member> originalMembers;
 	/*jcrud-field
-		type: 'subform',
-		subformKey: 'id',
-		fields: {
-		    id: {},
-			name: {},
-			country: {
-	            type: 'select',
-	            translateOptions: false,
-	            options: [
-	                { value: 1, displayText: 'France' }, 
-	                { value: 2, displayText: 'Italy' },
-	                { value: 3, displayText: 'Portugal' }, 
-	                { value: 4, displayText: 'Spain' }, 
-	                { value: 5, displayText: 'UK' }
-	            ],
-	            defaultValue: '4'
+			type: 'subform',
+			getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=members',
+            readOnly: true,
+			subformKey: 'id',
+			fields: {
+			    id: {},
+				name: {},
+				country: {
+		            type: 'select',
+		            translateOptions: false,
+		            options: [
+		                { value: 1, displayText: 'France' }, 
+		                { value: 2, displayText: 'Italy' },
+		                { value: 3, displayText: 'Portugal' }, 
+		                { value: 4, displayText: 'Spain' }, 
+		                { value: 5, displayText: 'UK' }
+		            ],
+		            defaultValue: '4'
+				},
+				recordDateTime: {
+					type: 'datetime'
+				}
 			},
-			dateTime: {
-				type: 'datetime'
-			}
-		}
+            components: {
+                paging: {
+                    isOn: true
+                },
+                selecting: {
+                    isOn: true
+                }
+            },
+            buttons: {
+                toolbar: [],
+                byRow: []
+            }
 	 */
 	private List<Member> verifiedMembers;
 	/*jcrud-field
-		type: 'subform',
-		subformKey: 'id',
-		fields: {
-		    id: {},
-			name: {},
-			country: {
-	            type: 'select',
-	            translateOptions: false,
-	            options: [
-	                { value: 1, displayText: 'France' }, 
-	                { value: 2, displayText: 'Italy' },
-	                { value: 3, displayText: 'Portugal' }, 
-	                { value: 4, displayText: 'Spain' }, 
-	                { value: 5, displayText: 'UK' }
-	            ],
-	            defaultValue: '4'
+			type: 'subform',
+			subformKey: 'id',
+			fields: {
+			    id: {},
+				name: {},
+				country: {
+		            type: 'select',
+		            translateOptions: false,
+		            options: [
+		                { value: 1, displayText: 'France' }, 
+		                { value: 2, displayText: 'Italy' },
+		                { value: 3, displayText: 'Portugal' }, 
+		                { value: 4, displayText: 'Spain' }, 
+		                { value: 5, displayText: 'UK' }
+		            ],
+		            defaultValue: '4'
+				},
+				recordDateTime: {
+					type: 'datetime'
+				}
 			},
-			dateTime: {
-				type: 'datetime'
-			}
-		}
+            buttons: {
+                toolbar: [ 'subform_addNewRow' ]
+            }
 	 */
-	
+
+	@JsonInclude(Include.NON_NULL)
 	private transient ZCrudRecords<Member> verifiedMembersZCrudRecords;
 	
 	public Form(){}
 
-	public List<Member> getOriginalMember() {
-		return originalMember;
+	public List<Member> getOriginalMembers() {
+		return originalMembers;
 	}
 
-	public void setOriginalMember(List<Member> originalMember) {
-		this.originalMember = originalMember;
+	public void setOriginalMembers(List<Member> originalMember) {
+		this.originalMembers = originalMember;
 	}
 
 	public List<Member> getVerifiedMembers() {
@@ -174,14 +204,14 @@ public class Form implements ZCrudEntity {
 
 	@Override
 	public String toString() {
-		return "Form [originalMember=" + originalMember + ", verifiedMembers=" + verifiedMembers + "]";
+		return "Form [originalMembers=" + originalMembers + ", verifiedMembers=" + verifiedMembers + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((originalMember == null) ? 0 : originalMember.hashCode());
+		result = prime * result + ((originalMembers == null) ? 0 : originalMembers.hashCode());
 		result = prime * result + ((verifiedMembers == null) ? 0 : verifiedMembers.hashCode());
 		return result;
 	}
@@ -195,10 +225,10 @@ public class Form implements ZCrudEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		Form other = (Form) obj;
-		if (originalMember == null) {
-			if (other.originalMember != null)
+		if (originalMembers == null) {
+			if (other.originalMembers != null)
 				return false;
-		} else if (!originalMember.equals(other.originalMember))
+		} else if (!originalMembers.equals(other.originalMembers))
 			return false;
 		if (verifiedMembers == null) {
 			if (other.verifiedMembers != null)

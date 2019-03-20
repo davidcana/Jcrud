@@ -16,7 +16,7 @@ public class Member implements ZCrudEntity {
 	private Integer id;
 	private String name;
 	private Integer country;
-	private Timestamp dateTime;
+	private Timestamp recordDateTime;
 	
 	public Member(){}
 
@@ -44,17 +44,17 @@ public class Member implements ZCrudEntity {
 		this.country = country;
 	}
 
-	public Timestamp getDateTime() {
-		return dateTime;
+	public Timestamp getRecordDateTime() {
+		return recordDateTime;
 	}
 
-	public void setDateTime(Timestamp dateTime) {
-		this.dateTime = dateTime;
+	public void setRecordDateTime(Timestamp dateTime) {
+		this.recordDateTime = dateTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", name=" + name + ", country=" + country + ", dateTime=" + dateTime + "]";
+		return "Member [id=" + id + ", name=" + name + ", country=" + country + ", recordDateTime=" + recordDateTime + "]";
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class Member implements ZCrudEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
+		result = prime * result + ((recordDateTime == null) ? 0 : recordDateTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -82,10 +82,10 @@ public class Member implements ZCrudEntity {
 				return false;
 		} else if (!country.equals(other.country))
 			return false;
-		if (dateTime == null) {
-			if (other.dateTime != null)
+		if (recordDateTime == null) {
+			if (other.recordDateTime != null)
 				return false;
-		} else if (!dateTime.equals(other.dateTime))
+		} else if (!recordDateTime.equals(other.recordDateTime))
 			return false;
 		if (id == null) {
 			if (other.id != null)

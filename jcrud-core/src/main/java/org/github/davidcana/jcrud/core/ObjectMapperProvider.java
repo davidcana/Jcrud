@@ -50,7 +50,7 @@ public class ObjectMapperProvider {
 		module2.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
 		mapper.registerModule(module2);
 		
-		mapper.setSerializationInclusion(Include.NON_EMPTY);
+		//mapper.setSerializationInclusion(Include.NON_EMPTY);
 		
 		return mapper;
 	}

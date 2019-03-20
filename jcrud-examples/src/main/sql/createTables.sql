@@ -105,4 +105,22 @@ CREATE TABLE complex2_detail2 (
 );
 GRANT SELECT, INSERT, UPDATE, DELETE ON complex2_detail2 TO jcrud_user;
 
+/* Members */
+DROP TABLE original_members CASCADE;
+CREATE TABLE original_members (
+	id integer PRIMARY KEY,
+    name varchar(100) UNIQUE NOT NULL,
+	record_datetime timestamp NOT NULL,
+    country integer
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON original_members TO jcrud_user;
+
+DROP TABLE verified_members CASCADE;
+CREATE TABLE verified_members (
+	id integer PRIMARY KEY,
+    name varchar(100) UNIQUE NOT NULL,
+	record_datetime timestamp NOT NULL,
+    country integer
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON verified_members TO jcrud_user;
 

@@ -1,0 +1,27 @@
+{
+    "/CONF/": {
+        "language": "es",
+        "locale": "es-ES"
+    },
+
+    "_general": "",
+    "general_entityName": "Form",
+
+    "_fields": "",
+    "originalMembers_title": "Miembros originales",
+    "originalMembers_description": "La lista inicial de miembros",
+    "verifiedMembers_title": "Miembros verificados",
+    "verifiedMembers_description": "La lista de miembros verificados",
+    "people_filter_description": "¡Por favor, filtre las personas a mostrar!",
+    "originalMembers_filter_description": "¡Por favor, filtre los miembros a mostrar!",
+
+    "id_title": "Id",
+    "id_description": "Un identificador único",
+    "name_title": "Nombre",
+    "name_description": "El nombre",
+    "country_title": "País",
+    "country_description": "Un país",
+    "recordDateTime_title": "Fecha/hora",
+    "recordDateTime_description": "Una fecha/hora",
+	"form_filter_description": "Por favor, escriba un id y/o un texto y haga clic en el botón Filtrar para filtrar."
+}

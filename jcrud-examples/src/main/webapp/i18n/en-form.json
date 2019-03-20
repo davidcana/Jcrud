@@ -1,0 +1,27 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_general": "",
+    "general_entityName": "Form",
+    
+    "_fields": "",
+    "originalMembers_title": "Original members",
+    "originalMembers_description": "The initial list of members",
+    "verifiedMembers_title": "Verified members",
+    "verifiedMembers_description": "The list of verified members",
+    "people_filter_description": "Please, filter the people to view!",
+    "originalMembers_filter_description": "Please, filter the members to view!",
+
+    "id_title": "Id",
+    "id_description": "An unique id",
+    "name_title": "Name",
+    "name_description": "The name",
+    "country_title": "Country",
+    "country_description": "A country",
+    "recordDateTime_title": "Datetime",
+    "recordDateTime_description": "A datetime value",
+	"form_filter_description": "Please, select an id or/and a text inside the name and click the Filter button to filter."
+}
