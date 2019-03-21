@@ -25,9 +25,8 @@ public class FormStorage implements Storage<Form, Integer, Form> {
 		
 		// Create an instance of Form
 		Form form = new Form();
-		form.setOriginalMembers(
-				getOriginalMembers(getCRUDRequest)
-		);
+		addOriginalMembersToResponse(form, getCRUDResponse, getCRUDRequest);
+		
 		form.setVerifiedMembers(
 				getVerifiedMembers(getCRUDRequest)
 		);
@@ -36,7 +35,7 @@ public class FormStorage implements Storage<Form, Integer, Form> {
 		getCRUDResponse.setRecord(form);
 	}
 
-	static private List<OriginalMember> getOriginalMembers(GetZCrudRequest<Form> getCRUDRequest) throws StorageException{
+	static private void addOriginalMembersToResponse(Form form, GetZCrudResponse<Form> getCRUDResponse, GetZCrudRequest<Form> getCRUDRequest) throws StorageException{
 		
 		// Build list request
 		ListZCrudRequest<Form> listCRUDRequest = new ListZCrudRequest<>();
@@ -47,14 +46,15 @@ public class FormStorage implements Storage<Form, Integer, Form> {
 		listCRUDRequest.setSortType("ASC");
 		listCRUDRequest.setFilter(
 				getCRUDRequest.getFilter() != null? getCRUDRequest.getFilter(): new Form()
-						
 		);
 		
 		// Build list response
 		ListZCrudResponse<OriginalMember> listCRUDResponse = new ListZCrudResponse<>();
 		
 		OriginalMemberJDBCStorage.getInstance().fillListCRUDResponse(listCRUDResponse, listCRUDRequest);
-		return listCRUDResponse.getRecords();
+		form.setOriginalMembers(
+				listCRUDResponse.getRecords()
+		);
 		
 		/*List<Member> originalMembers = new ArrayList<>();
 		return originalMembers;*/
