@@ -3456,23 +3456,7 @@ Checkbox.prototype.getValueFromRecord = function( record ){
     var value = record[ this.id ];
     return value == undefined? false: value;
 };
-/*
-Checkbox.prototype.getValueFromRecord = function( record, params ){
-    var value = record[ this.id ];
-    value = value == undefined? false: value;
 
-    switch( params.source ) {
-        case 'create':
-        case 'update':
-            return value;
-        case 'delete':
-        case 'list':
-            return value? context.translate( 'true' ): context.translate( 'false' )
-        default:
-            throw "Unknown source in checkbox field: " + params.source;
-    }
-};
-*/
 Checkbox.prototype.getViewValueFromRecord = function( record ){
     
     var value = record[ this.id ];
@@ -3671,24 +3655,10 @@ Datetime.prototype.getValue = function( $this ){
 Datetime.prototype.afterProcessTemplateForField = function( params, $selection ){
     
     if ( this.isReadOnly() ){
-    //if ( this.page.isReadOnly() ){
         return;
     }
     
     this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
-    /*
-    switch( params.source ) {
-        case 'create':
-        case 'update':
-        case 'list':
-            this.afterProcessTemplateForFieldInCreateOrUpdate( params, $selection );
-            break;
-        case 'delete':
-            // Nothing to do
-            break; 
-        default:
-            throw "Unknown source in Datetime: " + params.source;
-    }*/
 };
 
 Datetime.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( params, $selection ){
@@ -9839,9 +9809,18 @@ FormPage.prototype.addToDataToSend = function( dataToSend ){
         var fieldDataToSend = field.buildDataToSend();
 
         if ( fieldDataToSend && ! $.isEmptyObject( fieldDataToSend ) ){
-            dataToSend[ field.id ] = fieldDataToSend;
+            this.addFieldToDataToSend( dataToSend, fieldDataToSend, field );
         }
     }
+};
+
+FormPage.prototype.addFieldToDataToSend = function( dataToSend, fieldDataToSend, field ){
+    
+    if ( ! dataToSend.searchFieldsData ){
+        dataToSend.searchFieldsData = {};
+    }
+    
+    dataToSend.searchFieldsData[ field.id ] = fieldDataToSend;
 };
 
 FormPage.prototype.getToolbarButtons = function(){

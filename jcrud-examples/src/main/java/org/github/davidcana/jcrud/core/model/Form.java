@@ -176,6 +176,8 @@ public class Form implements ZCrudEntity {
 	@JsonInclude(Include.NON_NULL)
 	private transient ZCrudRecords<Member> verifiedMembersZCrudRecords;
 	
+	private Integer year;
+	
 	public Form(){}
 
 	public List<Member> getOriginalMembers() {
@@ -202,9 +204,18 @@ public class Form implements ZCrudEntity {
 		this.verifiedMembersZCrudRecords = verifiedMembersZCrudRecords;
 	}
 
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	@Override
 	public String toString() {
-		return "Form [originalMembers=" + originalMembers + ", verifiedMembers=" + verifiedMembers + "]";
+		return "Form [originalMembers=" + originalMembers + ", verifiedMembers=" + verifiedMembers + ", year=" + year
+				+ "]";
 	}
 
 	@Override
@@ -213,6 +224,7 @@ public class Form implements ZCrudEntity {
 		int result = 1;
 		result = prime * result + ((originalMembers == null) ? 0 : originalMembers.hashCode());
 		result = prime * result + ((verifiedMembers == null) ? 0 : verifiedMembers.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 
@@ -234,6 +246,11 @@ public class Form implements ZCrudEntity {
 			if (other.verifiedMembers != null)
 				return false;
 		} else if (!verifiedMembers.equals(other.verifiedMembers))
+			return false;
+		if (year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!year.equals(other.year))
 			return false;
 		return true;
 	}

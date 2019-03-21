@@ -23,5 +23,11 @@
     "country_description": "Un país",
     "recordDateTime_title": "Fecha/hora",
     "recordDateTime_description": "Una fecha/hora",
-	"form_filter_description": "Por favor, escriba un id y/o un texto y haga clic en el botón Filtrar para filtrar."
+	"form_filter_description": "Por favor, escriba un id y/o un texto y haga clic en el botón Filtrar para filtrar.",
+
+    "_buttons": "",
+    "Copy original members": "Copiar miembros originales",
+
+    "_filters": "",
+    "year_title": "Año"
 }

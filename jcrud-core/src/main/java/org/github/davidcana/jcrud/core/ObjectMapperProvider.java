@@ -50,7 +50,7 @@ public class ObjectMapperProvider {
 		module2.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
 		mapper.registerModule(module2);
 		
-		//mapper.setSerializationInclusion(Include.NON_EMPTY);
+		mapper.setSerializationInclusion(Include.NON_NULL);
 		
 		return mapper;
 	}
@@ -63,7 +63,9 @@ public class ObjectMapperProvider {
 	}
 	@SuppressWarnings("rawtypes")
 	public GetZCrudRequest getGetRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
-		return (GetZCrudRequest) this.get().readValue(json, GetZCrudRequest.class);
+		
+		JavaType type = this.get().getTypeFactory().constructParametricType(GetZCrudRequest.class, storage.getDeserializeClass());
+		return (GetZCrudRequest) this.get().readValue(json, type);
 	}
 	@SuppressWarnings("rawtypes")
 	public UpdateZCrudRequest getUpdateRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {

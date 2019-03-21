@@ -23,5 +23,11 @@
     "country_description": "A country",
     "recordDateTime_title": "Datetime",
     "recordDateTime_description": "A datetime value",
-	"form_filter_description": "Please, select an id or/and a text inside the name and click the Filter button to filter."
+	"form_filter_description": "Please, select an id or/and a text inside the name and click the Filter button to filter.",
+
+    "_buttons": "",
+    "Copy original members": "Copy original members",
+
+    "_filters": "",
+    "year_title": "Year"
 }
