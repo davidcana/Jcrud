@@ -107,7 +107,7 @@ public class Form implements ZCrudEntity {
     key: 'id'
 	 */
 	
-	private List<Member> originalMembers;
+	private List<OriginalMember> originalMembers;
 	/*jcrud-field
 			type: 'subform',
 			getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=members',
@@ -145,7 +145,7 @@ public class Form implements ZCrudEntity {
                 byRow: []
             }
 	 */
-	private List<Member> verifiedMembers;
+	private List<VerifiedMember> verifiedMembers;
 	/*jcrud-field
 			type: 'subform',
 			subformKey: 'id',
@@ -174,33 +174,35 @@ public class Form implements ZCrudEntity {
 	 */
 
 	@JsonInclude(Include.NON_NULL)
-	private transient ZCrudRecords<Member> verifiedMembersZCrudRecords;
+	private transient ZCrudRecords<OriginalMember> verifiedMembersZCrudRecords;
 	
 	private Integer year;
 	
 	public Form(){}
 
-	public List<Member> getOriginalMembers() {
+	public List<OriginalMember> getOriginalMembers() {
 		return originalMembers;
 	}
 
-	public void setOriginalMembers(List<Member> originalMember) {
-		this.originalMembers = originalMember;
+	public void setOriginalMembers(List<OriginalMember> originalMembers) {
+		this.originalMembers = originalMembers;
 	}
 
-	public List<Member> getVerifiedMembers() {
+
+	public List<VerifiedMember> getVerifiedMembers() {
 		return verifiedMembers;
 	}
 
-	public void setVerifiedMembers(List<Member> verifiedMembers) {
+	public void setVerifiedMembers(List<VerifiedMember> verifiedMembers) {
 		this.verifiedMembers = verifiedMembers;
 	}
 
-	public ZCrudRecords<Member> getVerifiedMembersZCrudRecords() {
+
+	public ZCrudRecords<OriginalMember> getVerifiedMembersZCrudRecords() {
 		return verifiedMembersZCrudRecords;
 	}
 
-	public void setVerifiedMembersZCrudRecords(ZCrudRecords<Member> verifiedMembersZCrudRecords) {
+	public void setVerifiedMembersZCrudRecords(ZCrudRecords<OriginalMember> verifiedMembersZCrudRecords) {
 		this.verifiedMembersZCrudRecords = verifiedMembersZCrudRecords;
 	}
 

@@ -16,7 +16,7 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest<F> listCRUDRequest) throws StorageException;
 
-	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest getCRUDRequest) throws StorageException;
+	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getCRUDRequest) throws StorageException;
 	
 	public void doCRUD(UpdateZCrudRequest<T> updateCRUDRequest) throws StorageException;
 	

@@ -202,7 +202,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest getRequest) throws StorageException {
+	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getRequest) throws StorageException {
 		
 		T record = this.get(getRequest.getKey());
 		getCRUDResponse.setRecord(record);

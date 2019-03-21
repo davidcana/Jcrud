@@ -47,7 +47,7 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest getCRUDRequest)
+	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getCRUDRequest)
 			throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
