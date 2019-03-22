@@ -117,7 +117,7 @@ public class Form implements ZCrudEntity {
 	private List<OriginalMember> originalMembers;
 	/*jcrud-field
 			type: 'subform',
-			getGroupOfRecordsURL: 'http://localhost/CRUDManager.do?cmd=LIST&table=members',
+			getGroupOfRecordsURL: 'CRUDManager.do?cmd=LIST&table=originalMember',
             readOnly: true,
 			subformKey: 'id',
 			fields: {
