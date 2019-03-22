@@ -2,7 +2,7 @@ package org.github.davidcana.jcrud.core.requests;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-public class SearchFieldData<F extends ZCrudEntity> {
+public class SearchFieldData<F extends ZCrudEntity> implements ISearchFieldData<F> {
 
 	private int pageNumber;
 	private int pageSize;
@@ -11,7 +11,8 @@ public class SearchFieldData<F extends ZCrudEntity> {
 	private F filter;
 	
 	public SearchFieldData(){}
-
+	
+	@Override
 	public int getPageNumber() {
 		return pageNumber;
 	}
@@ -19,7 +20,8 @@ public class SearchFieldData<F extends ZCrudEntity> {
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
 	}
-
+	
+	@Override
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -27,7 +29,8 @@ public class SearchFieldData<F extends ZCrudEntity> {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
+	
+	@Override
 	public String getSortFieldId() {
 		return sortFieldId;
 	}
@@ -35,7 +38,8 @@ public class SearchFieldData<F extends ZCrudEntity> {
 	public void setSortFieldId(String sortFieldId) {
 		this.sortFieldId = sortFieldId;
 	}
-
+	
+	@Override
 	public String getSortType() {
 		return sortType;
 	}
@@ -43,7 +47,8 @@ public class SearchFieldData<F extends ZCrudEntity> {
 	public void setSortType(String sortType) {
 		this.sortType = sortType;
 	}
-
+	
+	@Override
 	public F getFilter() {
 		return filter;
 	}

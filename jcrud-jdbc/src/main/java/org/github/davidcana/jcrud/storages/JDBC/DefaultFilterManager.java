@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
-import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
+import org.github.davidcana.jcrud.core.requests.ISearchFieldData;
 import org.github.davidcana.jcrud.storages.StorageException;
 
 public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManager<F> {
@@ -12,36 +12,48 @@ public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManag
 	DefaultFilterManager(){}
 
 	@Override
-	public String buildWhere(ListZCrudRequest<F> listRequest) throws StorageException {
+	public String buildWhere(ISearchFieldData<F> iSearchFieldData, String addToWhere) throws StorageException {
 		
 		try {
 			StringBuilder sb = new StringBuilder();
 			
-			F filter = listRequest.getFilter();
-			SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(filter);
-			
-			/*
-			Map<String, Object> values = sqlFieldGroup.getValues();
-			for (Map.Entry<String, Object> entry : values.entrySet()){
-				String fieldName = entry.getKey();
-				Object value = entry.getValue();
-				this.appendPart(fieldName, value, ++c);
-			}
-			*/
-			int c = 0;
-			for (Field field : sqlFieldGroup.getFields()){
-				String fieldName = field.getName();
-				String sqlName = SQLFieldGroup.buildSQLName(fieldName);
-				Object value = sqlFieldGroup.getValue(fieldName);
-				String type = SQLFieldGroup.getType(field);
-				c += this.appendPart(sb, type, sqlName, value, c);
+			F filter = iSearchFieldData.getFilter();
+			if (filter != null){
+				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(filter);
+				
+				int c = 0;
+				for (Field field : sqlFieldGroup.getFields()){
+					String fieldName = field.getName();
+					String sqlName = SQLFieldGroup.buildSQLName(fieldName);
+					Object value = sqlFieldGroup.getValue(fieldName);
+					String type = SQLFieldGroup.getType(field);
+					c += this.appendPart(sb, type, sqlName, value, c);
+				}
 			}
 			
-			return sb.length() == 0? "": "WHERE " + sb.toString();
-
+			//return sb.length() == 0? "": "WHERE " + sb.toString();
+			return add(sb.toString(), addToWhere);
+			
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}
+	}
+	
+	static protected String add(String sb, String addToWhere){
+		
+		if (sb.length() == 0 && addToWhere == null){
+			return "";
+		}
+		
+		if (addToWhere == null){
+			return "WHERE " + sb.toString();
+		}
+		
+		if (sb.length() == 0){
+			return "WHERE " + addToWhere;
+		}
+		
+		return "WHERE " + sb.toString() + " AND " + addToWhere;
 	}
 	
 	protected int appendPart(StringBuilder sb, String type, String sqlName, Object value, Integer c) {
@@ -82,10 +94,10 @@ public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManag
 	};
 	
 	@Override
-	public void updateStatement(ListZCrudRequest<F> listRequest, PreparedStatement preparedStatement) throws StorageException {
+	public void updateStatement(ISearchFieldData<F> iSearchFieldData, PreparedStatement preparedStatement) throws StorageException {
 
 		try {
-			F filter = listRequest.getFilter();
+			F filter = iSearchFieldData.getFilter();
 			SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(filter);
 			int pos = 0;
 			for (Field field : sqlFieldGroup.getFields()){

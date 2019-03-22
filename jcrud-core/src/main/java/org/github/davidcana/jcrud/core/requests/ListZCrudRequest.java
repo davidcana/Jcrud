@@ -5,7 +5,7 @@ import org.github.davidcana.jcrud.core.commands.ListZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequest {
+public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest  implements ISearchFieldData<F>  {
 
 	//pageNumber=1&pageSize=15&sortFieldId=name&sortType=asc&command=listRecords
 	
@@ -13,10 +13,11 @@ public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudReques
 	private int pageSize;
 	private String sortFieldId;
 	private String sortType;
-	private T filter;
+	private F filter;
 	
 	public ListZCrudRequest(){}
 
+	@Override
 	public int getPageNumber() {
 		return pageNumber;
 	}
@@ -24,7 +25,8 @@ public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudReques
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
 	}
-
+	
+	@Override
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -32,7 +34,8 @@ public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudReques
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
+	
+	@Override
 	public String getSortFieldId() {
 		return sortFieldId;
 	}
@@ -40,7 +43,8 @@ public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudReques
 	public void setSortFieldId(String sortFieldId) {
 		this.sortFieldId = sortFieldId;
 	}
-
+	
+	@Override
 	public String getSortType() {
 		return sortType;
 	}
@@ -48,12 +52,13 @@ public class ListZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudReques
 	public void setSortType(String sortType) {
 		this.sortType = sortType;
 	}
-
-	public T getFilter() {
+	
+	@Override
+	public F getFilter() {
 		return filter;
 	}
 
-	public void setFilter(T filter) {
+	public void setFilter(F filter) {
 		this.filter = filter;
 	}
 

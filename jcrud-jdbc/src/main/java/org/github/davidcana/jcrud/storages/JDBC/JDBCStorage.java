@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
+import org.github.davidcana.jcrud.core.requests.ISearchFieldData;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.SearchFieldData;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
@@ -237,7 +238,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				throw new SQLException("No result found in table " + this.getTableName() + " using key: " + key);
 			}
 			
-			this.addSubformsToInstance(result, true);
+			this.addSubformsToInstance(result, true, searchFieldsData);
 			
 			return result;
 
@@ -253,7 +254,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		try {
 			T result = this.buildInstance();
 			
-			this.addSubformsToInstance(result, false);
+			this.addSubformsToInstance(result, false, searchFieldsData);
 			
 			return result;
 
@@ -264,7 +265,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
-	protected void addSubformsToInstance(T instance, boolean useKey) throws StorageException {
+	protected void addSubformsToInstance(T instance, boolean useKey, Map<String, SearchFieldData<F>> searchFieldsData) throws StorageException {
 		
 		try {
 			for (Map.Entry<String, JDBCOneToMany> entry : this.allJDBCOneToMany.entrySet()){
@@ -278,11 +279,18 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 					this.setSetterValue(instance, fieldName, list);
 				}
 				
+				// Get an instance of SearchFieldData, built it if it is null
+				SearchFieldData subformSearchFieldData = searchFieldsData == null? null: searchFieldsData.get(fieldName);
+				if (subformSearchFieldData == null){
+					subformSearchFieldData = new SearchFieldData();
+				}
+				
 				this.add1SubformToInstance(
 						instance, 
 						this.getSubformStorage(zcrudRecordsFieldName), 
 						list,
-						useKey
+						useKey,
+						subformSearchFieldData
 				);
 			}
 
@@ -291,13 +299,14 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
-	protected void add1SubformToInstance(T instance, JDBCStorage subformStorage, List list, boolean useKey) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
+	protected void add1SubformToInstance(T instance, JDBCStorage subformStorage, List list, boolean useKey, SearchFieldData searchFieldData) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
 		
 		list.clear();
 		subformStorage.buildSubformList(
 				list, 
 				useKey? this.getKey(instance).toString(): null,
-				useKey
+				useKey,
+				searchFieldData
 		);
 	}
 	
@@ -326,12 +335,12 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		SQLFieldGroup.setValueOfStatement(preparedStatement, pos, value, type);
 	}
 	
-	private String getLimitPart(ListZCrudRequest<F> listRequest){
+	private String getLimitPart(ISearchFieldData<F> iSearchFieldData){
 		
 		StringBuilder sb = new StringBuilder();
 		
-		int limit = listRequest.getPageSize();
-		int offset = (listRequest.getPageNumber() - 1) * limit;
+		int limit = iSearchFieldData.getPageSize();
+		int offset = (iSearchFieldData.getPageNumber() - 1) * limit;
 		if (limit > 0) {
 			sb.append("LIMIT ")
 				.append(limit)
@@ -346,18 +355,18 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		return sb.toString();
 	}
 
-	private String buildGetRecordsSQL(ListZCrudRequest<F> listRequest) throws StorageException {
+	private String buildGetRecordsSQL(ISearchFieldData<F> iSearchFieldData, String addToWhere) throws StorageException {
 		
 		// Order
-		String orderFieldId = listRequest.getSortFieldId() != null? listRequest.getSortFieldId(): this.getDefaultOrderFieldName();
+		String orderFieldId = iSearchFieldData.getSortFieldId() != null? iSearchFieldData.getSortFieldId(): this.getDefaultOrderFieldName();
 		String orderSQLFieldId = SQLFieldGroup.buildSQLName(orderFieldId);
-		String orderType = listRequest.getSortType() != null? listRequest.getSortType(): this.getDefaultOrderType();
+		String orderType = iSearchFieldData.getSortType() != null? iSearchFieldData.getSortType(): this.getDefaultOrderType();
 		String orderBy = orderSQLFieldId != null && orderType != null?
-				" ORDER BY " + orderSQLFieldId + " " + orderType + " " + getLimitPart(listRequest):
+				" ORDER BY " + orderSQLFieldId + " " + orderType + " " + getLimitPart(iSearchFieldData):
 				"";
 		
 		// Where
-		String where = this.filterManager.buildWhere(listRequest);
+		String where = this.filterManager.buildWhere(iSearchFieldData, addToWhere);
 		
 		// Sample: SELECT * FROM TABLE LIMIT 10, OFFSET 20 ORDER BY id;
 		return "SELECT *"
@@ -388,7 +397,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	
 	protected List<T> getListRequestRecordsObjects(ListZCrudRequest<F> listRequest) throws StorageException {
 		
-		String sql = this.buildGetRecordsSQL(listRequest);
+		String sql = this.buildGetRecordsSQL(listRequest, null);
 		
 		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
 			
@@ -415,7 +424,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	public long getNumberOfRecords(ListZCrudRequest<F> listZCrudRequest) throws StorageException {
 		
 		// Build SQL
-		String where = this.filterManager.buildWhere(listZCrudRequest);
+		String where = this.filterManager.buildWhere(listZCrudRequest, null);
 		String sql = "SELECT COUNT(*) FROM " + this.getTableName() + " " + where + ";";
 		
 		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
@@ -544,11 +553,17 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		);
 	}
 	
-	public List<T> buildSubformList(List<T> subformList, String masterKey, boolean useMasterKey) throws SQLException, StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
+	public List<T> buildSubformList(List<T> subformList, String masterKey, boolean useMasterKey, SearchFieldData searchFieldData) throws SQLException, StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
 		
+		/*
 		String sql = useMasterKey?
 				"SELECT * FROM " + this.getTableName() + " WHERE " + this.buildParentKeyFieldName() + "=?" + this.buildOrderBy() + ";":
 				"SELECT * FROM " + this.getTableName() + " " + this.buildOrderBy() + ";";
+		*/
+		String sql = this.buildGetRecordsSQL(
+				searchFieldData, 
+				useMasterKey? this.buildParentKeyFieldName() + "=?": null
+		);
 		
 		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
 
