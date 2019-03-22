@@ -19,6 +19,7 @@ import java.util.Map;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
+import org.github.davidcana.jcrud.core.requests.SearchFieldData;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
@@ -204,11 +205,19 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	@Override
 	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getRequest) throws StorageException {
 		
-		T record = this.get(getRequest.getKey());
+		// Build record
+		String key = getRequest.getKey();
+		T record = key == null? 
+				this.get(
+						getRequest.getSearchFieldsData()): 
+				this.get(
+						getRequest.getSearchFieldsData(), key);
+		
+		// Set record to getCRUDResponse
 		getCRUDResponse.setRecord(record);
 	}
 	
-	public T get(String key) throws StorageException {
+	protected T get(Map<String, SearchFieldData<F>> searchFieldsData, String key) throws StorageException {
 		
 		String sql = "SELECT * FROM " + this.getTableName() + " WHERE " + this.getKeyFieldName() + "=?;";
 		
@@ -228,7 +237,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				throw new SQLException("No result found in table " + this.getTableName() + " using key: " + key);
 			}
 			
-			this.addSubformsToInstance(result);
+			this.addSubformsToInstance(result, true);
 			
 			return result;
 
@@ -239,7 +248,23 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
-	protected void addSubformsToInstance(T instance) throws StorageException {
+	protected T get(Map<String, SearchFieldData<F>> searchFieldsData) throws StorageException {
+		
+		try {
+			T result = this.buildInstance();
+			
+			this.addSubformsToInstance(result, false);
+			
+			return result;
+
+		} catch ( StorageException e ) {
+			throw e;
+		} catch ( Exception e ) {
+			throw new StorageException(e);
+		}
+	}
+	
+	protected void addSubformsToInstance(T instance, boolean useKey) throws StorageException {
 		
 		try {
 			for (Map.Entry<String, JDBCOneToMany> entry : this.allJDBCOneToMany.entrySet()){
@@ -256,7 +281,8 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				this.add1SubformToInstance(
 						instance, 
 						this.getSubformStorage(zcrudRecordsFieldName), 
-						list
+						list,
+						useKey
 				);
 			}
 
@@ -265,12 +291,13 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
-	protected void add1SubformToInstance(T instance, JDBCStorage subformStorage, List list) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
+	protected void add1SubformToInstance(T instance, JDBCStorage subformStorage, List list, boolean useKey) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
 		
 		list.clear();
 		subformStorage.buildSubformList(
 				list, 
-				this.getKey(instance).toString()
+				useKey? this.getKey(instance).toString(): null,
+				useKey
 		);
 	}
 	
@@ -517,19 +544,23 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		);
 	}
 	
-	public List<T> buildSubformList(List<T> subformList, String masterKey) throws SQLException, StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
+	public List<T> buildSubformList(List<T> subformList, String masterKey, boolean useMasterKey) throws SQLException, StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
 		
-		String sql = "SELECT * FROM " + this.getTableName() + " WHERE " + this.buildParentKeyFieldName() + "=?" + this.buildOrderBy() + ";";
+		String sql = useMasterKey?
+				"SELECT * FROM " + this.getTableName() + " WHERE " + this.buildParentKeyFieldName() + "=?" + this.buildOrderBy() + ";":
+				"SELECT * FROM " + this.getTableName() + " " + this.buildOrderBy() + ";";
 		
 		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
 
-			this.setMasterKey(masterKey, 1, preparedStatement);
+			if (useMasterKey){
+				this.setMasterKey(masterKey, 1, preparedStatement);
+			}
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
 				subformList.add(
-						this.buildInstance(rs, true)
+						this.buildInstance(rs, useMasterKey)
 				);
 			}
 			return subformList;

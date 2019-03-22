@@ -5,7 +5,13 @@ import java.util.List;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.model.storages.FormStorage;
+import org.github.davidcana.jcrud.core.model.storages.OriginalMemberJDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Simple2Detail2JDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.Simple2DetailJDBCStorage;
+import org.github.davidcana.jcrud.core.model.storages.VerifiedMemberJDBCStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
+import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;
+import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCOneToMany;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -15,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 		jsFilePath="target/jcrud-examples-0.1/javascript/options/form.js",
 		jsFileVarName="constants.options.form"
 )
+@JDBCEntity(table = "")
 public class Form implements ZCrudEntity {
 	/*jcrud-class
     saveUserPreferences: false,
@@ -173,8 +180,12 @@ public class Form implements ZCrudEntity {
             }
 	 */
 
-	@JsonInclude(Include.NON_NULL)
-	private transient ZCrudRecords<OriginalMember> verifiedMembersZCrudRecords;
+	@JDBCOneToMany(storage = OriginalMemberJDBCStorage.class)
+	private transient ZCrudRecords<OriginalMember> originalMembersZCrudRecords;
+	
+	@JsonInclude(Include.NON_NULL)	
+	@JDBCOneToMany(storage = VerifiedMemberJDBCStorage.class)
+	private transient ZCrudRecords<VerifiedMember> verifiedMembersZCrudRecords;
 	
 	private Integer year;
 	
@@ -188,7 +199,6 @@ public class Form implements ZCrudEntity {
 		this.originalMembers = originalMembers;
 	}
 
-
 	public List<VerifiedMember> getVerifiedMembers() {
 		return verifiedMembers;
 	}
@@ -197,12 +207,19 @@ public class Form implements ZCrudEntity {
 		this.verifiedMembers = verifiedMembers;
 	}
 
+	public ZCrudRecords<OriginalMember> getOriginalMembersZCrudRecords() {
+		return originalMembersZCrudRecords;
+	}
 
-	public ZCrudRecords<OriginalMember> getVerifiedMembersZCrudRecords() {
+	public void setOriginalMembersZCrudRecords(ZCrudRecords<OriginalMember> originalMembersZCrudRecords) {
+		this.originalMembersZCrudRecords = originalMembersZCrudRecords;
+	}
+
+	public ZCrudRecords<VerifiedMember> getVerifiedMembersZCrudRecords() {
 		return verifiedMembersZCrudRecords;
 	}
 
-	public void setVerifiedMembersZCrudRecords(ZCrudRecords<OriginalMember> verifiedMembersZCrudRecords) {
+	public void setVerifiedMembersZCrudRecords(ZCrudRecords<VerifiedMember> verifiedMembersZCrudRecords) {
 		this.verifiedMembersZCrudRecords = verifiedMembersZCrudRecords;
 	}
 

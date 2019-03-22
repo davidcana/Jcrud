@@ -1374,4 +1374,14 @@ INSERT INTO original_members VALUES (1,'Colette Holden','2011-11-01 17:20:38',5)
 (187,'Scarlet Perry','2019-10-15 11:25:42',4),
 (188,'Jenna Oliver','2018-03-23 09:13:00',1);
 
+INSERT INTO verified_members VALUES (1,'Colette Holden','2011-11-01 17:20:38',5),
+(2,'Scarlet Chen','2017-05-22 19:43:57',5),
+(3,'Elijah Meyer','2010-10-09 19:43:56',5),
+(4,'Ima Dominguez','2010-12-12 23:01:02',1),
+(5,'Melvin Carlson','2013-03-08 17:41:21',3),
+(6,'Lilah Duke','2010-03-08 08:03:51',5),
+(7,'Xander Gilbert','2019-08-24 00:29:55',3),
+(8,'Jana Shaw','2015-10-11 17:50:10',3),
+(9,'Salvador Bishop','2016-05-24 06:56:22',1),
+(10,'Cheryl Jefferson','2016-10-30 12:51:52',5);
 

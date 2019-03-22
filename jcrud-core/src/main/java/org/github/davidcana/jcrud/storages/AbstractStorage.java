@@ -53,9 +53,10 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 	    	return;
 	    }
 	    
-	    if (! this.resolveClassAnnotation(annotation)){
+	    this.resolveClassAnnotation(annotation);
+	    /*if (! this.resolveClassAnnotation(annotation)){
 	    	throw new IllegalArgumentException("Unknown class annotation: " + annotation);
-	    }
+	    }*/
 	}
 	
 	abstract protected boolean resolveClassAnnotation(Annotation annotation);
@@ -65,10 +66,11 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 	}
 	
 	private void resolveSuperFieldAnnotation(Annotation annotation, Field field){
-	    
-		if (! this.resolveFieldAnnotation(annotation, field)){
+		
+		this.resolveFieldAnnotation(annotation, field);
+		/*if (! this.resolveFieldAnnotation(annotation, field)){
 	    	throw new IllegalArgumentException("Unknown field annotation: " + annotation);
-		}
+		}*/
 	}
 	
 	abstract protected boolean resolveFieldAnnotation(Annotation annotation, Field field);
