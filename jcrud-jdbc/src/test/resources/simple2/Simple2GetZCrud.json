@@ -40,6 +40,14 @@
           "name" : "Neil Ayers",
           "description" : "Lorem ipsum dolor"
         } ]
+      },
+      "fieldsData" : {
+        "details2" : {
+          "totalNumberOfRecords" : 200
+        },
+        "details" : {
+          "totalNumberOfRecords" : 200
+        }
       }
     }
   } ]

@@ -96,6 +96,14 @@
           "recordTime" : "09:59",
           "recordDateTime" : 1342786123000
         } ]
+      },
+      "fieldsData" : {
+        "details2" : {
+          "totalNumberOfRecords" : 200
+        },
+        "details" : {
+          "totalNumberOfRecords" : 200
+        }
       }
     }
   } ]

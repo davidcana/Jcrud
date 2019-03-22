@@ -98,6 +98,9 @@ public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManag
 
 		try {
 			F filter = iSearchFieldData.getFilter();
+			if (filter == null){
+				return;
+			}
 			SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(filter);
 			int pos = 0;
 			for (Field field : sqlFieldGroup.getFields()){

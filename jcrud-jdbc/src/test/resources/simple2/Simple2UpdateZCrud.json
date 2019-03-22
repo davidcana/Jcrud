@@ -1,267 +1,240 @@
 {
-    "items": [
-        {
-            "listRequest": {
-                "filter": {},
-                "pageNumber": 1,
-                "pageSize": 5,
-                "sortFieldId": "id",
-                "sortType": "asc",
-                "command": "listRecords"
-            },
-            "listResponse": {
-                "result": "OK",
-                "records": [
-                    {
-                        "id": 1,
-                        "name": "Igor Cooley",
-                        "description": "Lorem ipsum dolor"
-                    },
-                    {
-                        "id": 2,
-                        "name": "Trevor Pennington",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
-                    },
-                    {
-                        "id": 3,
-                        "name": "Acton Waller",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer"
-                    },
-                    {
-                        "id": 4,
-                        "name": "Hamilton Prince",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                    },
-                    {
-                        "id": 5,
-                        "name": "Griffith Jefferson",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                    }
-                ],
-                "totalNumberOfRecords": 94
-            }
+  "items" : [ {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor"
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+      }, {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
+      }, {
+        "id" : 4,
+        "name" : "Hamilton Prince",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+      }, {
+        "id" : 5,
+        "name" : "Griffith Jefferson",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+      } ],
+      "totalNumberOfRecords" : 94
+    }
+  }, {
+    "getRequest" : {
+      "command" : "getRecord",
+      "key" : "1"
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor",
+        "details" : [ {
+          "id" : "0000000115",
+          "name" : "Myles Rojas",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+        } ],
+        "details2" : [ {
+          "id" : "0000000019",
+          "name" : "Griffin Lamb",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+        }, {
+          "id" : "0000000035",
+          "name" : "Uriel Mack",
+          "description" : "Lorem ipsum dolor sit"
+        }, {
+          "id" : "0000000057",
+          "name" : "Abel Houston",
+          "description" : "Lorem ipsum dolor sit amet,"
+        }, {
+          "id" : "0000000069",
+          "name" : "Jameson Cote",
+          "description" : "Lorem ipsum dolor sit"
+        }, {
+          "id" : "0000000080",
+          "name" : "Nash Serrano",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+        }, {
+          "id" : "0000000139",
+          "name" : "Neil Ayers",
+          "description" : "Lorem ipsum dolor"
+        } ]
+      },
+      "fieldsData" : {
+        "details2" : {
+          "totalNumberOfRecords" : 200
         },
-        {
-            "getRequest": {
-                "key": "1",
-                "command": "getRecord"
-            },
-            "getResponse": {
-                "result": "OK",
-                "record": {
-                    "id": 1,
-                    "name": "Igor Cooley",
-                    "description": "Lorem ipsum dolor",
-                    "details": [
-                        {
-                            "id": "0000000115",
-                            "name": "Myles Rojas",
-                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                        }
-                    ],
-                    "details2": [
-                        {
-                            "id": "0000000019",
-                            "name": "Griffin Lamb",
-                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
-                        },
-                        {
-                            "id": "0000000035",
-                            "name": "Uriel Mack",
-                            "description": "Lorem ipsum dolor sit"
-                        },
-                        {
-                            "id": "0000000057",
-                            "name": "Abel Houston",
-                            "description": "Lorem ipsum dolor sit amet,"
-                        },
-                        {
-                            "id": "0000000069",
-                            "name": "Jameson Cote",
-                            "description": "Lorem ipsum dolor sit"
-                        },
-                        {
-                            "id": "0000000080",
-                            "name": "Nash Serrano",
-                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
-                        },
-                        {
-                            "id": "0000000139",
-                            "name": "Neil Ayers",
-                            "description": "Lorem ipsum dolor"
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "updateRequest": {
-                "existingRecords": {
-                    "1": {
-                        "name": "Igor Cooley Junior",
-                        "detailsZCrudRecords": {
-                            "existingRecords": {
-                                "0000000115": {
-                                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur est"
-                                }
-                            },
-                            "newRecords": [],
-                            "recordsToRemove": []
-                        },
-                        "details2ZCrudRecords": {
-                            "existingRecords": {
-                                "0000000035": {
-                                    "name": "Uriel Mack Senior"
-                                }
-                            },
-                            "newRecords": [],
-                            "recordsToRemove": []
-                        }
-                    }
-                },
-                "newRecords": [],
-                "recordsToRemove": [],
-                "url": "CRUDManager.do?cmd=BATCH_UPDATE&table=simple2",
-                "command": "batchUpdate"
-            },
-            "updateResponse": {
-                "result": "OK"
-            }
-        },
-        {
-            "listRequest": {
-                "filter": {},
-                "pageNumber": 1,
-                "pageSize": 5,
-                "sortFieldId": "id",
-                "sortType": "asc",
-                "command": "listRecords"
-            },
-            "listResponse": {
-                "result": "OK",
-                "records": [
-                    {
-                        "id": 1,
-                        "name": "Igor Cooley Junior",
-                        "description": "Lorem ipsum dolor"
-                    },
-                    {
-                        "id": 2,
-                        "name": "Trevor Pennington",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
-                    },
-                    {
-                        "id": 3,
-                        "name": "Acton Waller",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer"
-                    },
-                    {
-                        "id": 4,
-                        "name": "Hamilton Prince",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                    },
-                    {
-                        "id": 5,
-                        "name": "Griffith Jefferson",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                    }
-                ],
-                "totalNumberOfRecords": 94
-            }
-        },
-        {
-            "getRequest": {
-                "key": "1",
-                "command": "getRecord"
-            },
-            "getResponse": {
-                "result": "OK",
-                "record": {
-                    "id": 1,
-                    "name": "Igor Cooley Junior",
-                    "description": "Lorem ipsum dolor",
-                    "details": [
-                        {
-                            "id": "0000000115",
-                            "name": "Myles Rojas",
-                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur est"
-                        }
-                    ],
-                    "details2": [
-                        {
-                            "id": "0000000019",
-                            "name": "Griffin Lamb",
-                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
-                        },
-                        {
-                            "id": "0000000035",
-                            "name": "Uriel Mack Senior",
-                            "description": "Lorem ipsum dolor sit"
-                        },
-                        {
-                            "id": "0000000057",
-                            "name": "Abel Houston",
-                            "description": "Lorem ipsum dolor sit amet,"
-                        },
-                        {
-                            "id": "0000000069",
-                            "name": "Jameson Cote",
-                            "description": "Lorem ipsum dolor sit"
-                        },
-                        {
-                            "id": "0000000080",
-                            "name": "Nash Serrano",
-                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
-                        },
-                        {
-                            "id": "0000000139",
-                            "name": "Neil Ayers",
-                            "description": "Lorem ipsum dolor"
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "listRequest": {
-                "filter": {},
-                "pageNumber": 1,
-                "pageSize": 5,
-                "sortFieldId": "id",
-                "sortType": "asc",
-                "command": "listRecords"
-            },
-            "listResponse": {
-                "result": "OK",
-                "records": [
-                    {
-                        "id": 1,
-                        "name": "Igor Cooley Junior",
-                        "description": "Lorem ipsum dolor"
-                    },
-                    {
-                        "id": 2,
-                        "name": "Trevor Pennington",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
-                    },
-                    {
-                        "id": 3,
-                        "name": "Acton Waller",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer"
-                    },
-                    {
-                        "id": 4,
-                        "name": "Hamilton Prince",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                    },
-                    {
-                        "id": 5,
-                        "name": "Griffith Jefferson",
-                        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
-                    }
-                ],
-                "totalNumberOfRecords": 94
-            }
+        "details" : {
+          "totalNumberOfRecords" : 200
         }
-    ]
+      }
+    }
+  }, {
+    "updateRequest" : {
+      "command" : "batchUpdate",
+      "url" : "CRUDManager.do?cmd=BATCH_UPDATE&table=simple2",
+      "newRecords" : [ ],
+      "recordsToRemove" : [ ],
+      "existingRecords" : {
+        "1" : {
+          "name" : "Igor Cooley Junior",
+          "detailsZCrudRecords" : {
+            "newRecords" : [ ],
+            "recordsToRemove" : [ ],
+            "existingRecords" : {
+              "0000000115" : {
+                "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur est"
+              }
+            }
+          },
+          "details2ZCrudRecords" : {
+            "newRecords" : [ ],
+            "recordsToRemove" : [ ],
+            "existingRecords" : {
+              "0000000035" : {
+                "name" : "Uriel Mack Senior"
+              }
+            }
+          }
+        }
+      }
+    },
+    "updateResponse" : {
+      "result" : "OK"
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley Junior",
+        "description" : "Lorem ipsum dolor"
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+      }, {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
+      }, {
+        "id" : 4,
+        "name" : "Hamilton Prince",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+      }, {
+        "id" : 5,
+        "name" : "Griffith Jefferson",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+      } ],
+      "totalNumberOfRecords" : 94
+    }
+  }, {
+    "getRequest" : {
+      "command" : "getRecord",
+      "key" : "1"
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "id" : 1,
+        "name" : "Igor Cooley Junior",
+        "description" : "Lorem ipsum dolor",
+        "details" : [ {
+          "id" : "0000000115",
+          "name" : "Myles Rojas",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur est"
+        } ],
+        "details2" : [ {
+          "id" : "0000000019",
+          "name" : "Griffin Lamb",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+        }, {
+          "id" : "0000000035",
+          "name" : "Uriel Mack Senior",
+          "description" : "Lorem ipsum dolor sit"
+        }, {
+          "id" : "0000000057",
+          "name" : "Abel Houston",
+          "description" : "Lorem ipsum dolor sit amet,"
+        }, {
+          "id" : "0000000069",
+          "name" : "Jameson Cote",
+          "description" : "Lorem ipsum dolor sit"
+        }, {
+          "id" : "0000000080",
+          "name" : "Nash Serrano",
+          "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+        }, {
+          "id" : "0000000139",
+          "name" : "Neil Ayers",
+          "description" : "Lorem ipsum dolor"
+        } ]
+      },
+      "fieldsData" : {
+        "details2" : {
+          "totalNumberOfRecords" : 200
+        },
+        "details" : {
+          "totalNumberOfRecords" : 200
+        }
+      }
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley Junior",
+        "description" : "Lorem ipsum dolor"
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed"
+      }, {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
+      }, {
+        "id" : 4,
+        "name" : "Hamilton Prince",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+      }, {
+        "id" : 5,
+        "name" : "Griffith Jefferson",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur"
+      } ],
+      "totalNumberOfRecords" : 94
+    }
+  } ]
 }
