@@ -6,8 +6,6 @@ import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.model.storages.FormStorage;
 import org.github.davidcana.jcrud.core.model.storages.OriginalMemberJDBCStorage;
-import org.github.davidcana.jcrud.core.model.storages.Simple2Detail2JDBCStorage;
-import org.github.davidcana.jcrud.core.model.storages.Simple2DetailJDBCStorage;
 import org.github.davidcana.jcrud.core.model.storages.VerifiedMemberJDBCStorage;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
 import org.github.davidcana.jcrud.storages.JDBC.annotations.JDBCEntity;

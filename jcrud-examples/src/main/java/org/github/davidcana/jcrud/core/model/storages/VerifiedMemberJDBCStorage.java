@@ -2,6 +2,7 @@ package org.github.davidcana.jcrud.core.model.storages;
 
 import org.github.davidcana.jcrud.core.model.Form;
 import org.github.davidcana.jcrud.core.model.VerifiedMember;
+import org.github.davidcana.jcrud.core.model.filters.FormFilterManager;
 import org.github.davidcana.jcrud.core.model.storages.VerifiedMemberJDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
@@ -11,6 +12,8 @@ public class VerifiedMemberJDBCStorage extends JDBCStorage<VerifiedMember, Integ
 	
 	private VerifiedMemberJDBCStorage() {
 		super();
+		
+		this.filterManager = FormFilterManager.getInstance();
 	}
 
 	static public VerifiedMemberJDBCStorage getInstance() {

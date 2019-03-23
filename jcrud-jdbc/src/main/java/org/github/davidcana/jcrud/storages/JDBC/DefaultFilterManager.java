@@ -2,6 +2,7 @@ package org.github.davidcana.jcrud.storages.JDBC;
 
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.requests.ISearchFieldData;
@@ -9,7 +10,7 @@ import org.github.davidcana.jcrud.storages.StorageException;
 
 public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManager<F> {
 	
-	DefaultFilterManager(){}
+	public DefaultFilterManager(){}
 
 	@Override
 	public String buildWhere(ISearchFieldData<F> iSearchFieldData, String addToWhere) throws StorageException {
@@ -27,19 +28,18 @@ public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManag
 					String sqlName = SQLFieldGroup.buildSQLName(fieldName);
 					Object value = sqlFieldGroup.getValue(fieldName);
 					String type = SQLFieldGroup.getType(field);
-					c += this.appendPart(sb, type, sqlName, value, c);
+					c += this.appendPart(fieldName, sqlName, type, value, c, sb);
 				}
 			}
 			
-			//return sb.length() == 0? "": "WHERE " + sb.toString();
-			return add(sb.toString(), addToWhere);
+			return this.add(sb.toString(), addToWhere);
 			
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}
 	}
 	
-	static protected String add(String sb, String addToWhere){
+	protected String add(String sb, String addToWhere){
 		
 		if (sb.length() == 0 && addToWhere == null){
 			return "";
@@ -56,7 +56,7 @@ public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManag
 		return "WHERE " + sb.toString() + " AND " + addToWhere;
 	}
 	
-	protected int appendPart(StringBuilder sb, String type, String sqlName, Object value, Integer c) {
+	protected int appendPart(String fieldName, String sqlName, String type, Object value, Integer c, StringBuilder sb) {
 		
 		String operator = " AND ";
 		
@@ -104,20 +104,27 @@ public class DefaultFilterManager<F  extends ZCrudEntity> implements FilterManag
 			SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(filter);
 			int pos = 0;
 			for (Field field : sqlFieldGroup.getFields()){
-				String fieldName = field.getName();
-				Object value = sqlFieldGroup.getValue(fieldName);
-				String type = SQLFieldGroup.getType(field);
-				SQLFieldGroup.setValueOfStatement(
-						preparedStatement, 
-						++pos, 
-						type.equals("string")? "%" + value + "%": value, 
-						type
-				);
+				pos = this.updateStatement(field, preparedStatement, sqlFieldGroup, pos);
 			}
 			
 		} catch (Exception e) {
 			throw new StorageException(e);
 		}
+	}
+
+	protected int updateStatement(Field field, PreparedStatement preparedStatement, SQLFieldGroup sqlFieldGroup, int pos) throws SQLException {
+		
+		String fieldName = field.getName();
+		Object value = sqlFieldGroup.getValue(fieldName);
+		String type = SQLFieldGroup.getType(field);
+		SQLFieldGroup.setValueOfStatement(
+				preparedStatement, 
+				++pos, 
+				type.equals("string")? "%" + value + "%": value, 
+				type
+		);
+		
+		return pos;
 	}
 
 }

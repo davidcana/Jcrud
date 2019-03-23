@@ -577,6 +577,8 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				this.setMasterKey(masterKey, 1, preparedStatement);
 			}
 			
+			this.filterManager.updateStatement(searchFieldData, preparedStatement);
+			
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
