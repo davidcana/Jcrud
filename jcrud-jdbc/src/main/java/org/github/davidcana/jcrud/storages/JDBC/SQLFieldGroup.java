@@ -108,7 +108,7 @@ public class SQLFieldGroup {
 			sb.append('?');
 		}
 		
-		if (this.storage != null){
+		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
 			if (c++ > 0) {
 				sb.append(',');
 			}
@@ -146,7 +146,7 @@ public class SQLFieldGroup {
 			}
 		}
 		
-		if (this.storage != null){
+		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
 			if (c++ > 0) {
 				sb.append(", ");
 			}
@@ -243,7 +243,7 @@ public class SQLFieldGroup {
 			}
 		}
 		
-		if (this.storage != null){
+		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
 			Field parentKeyField = this.parentStorage.getKeyField();
 			String type = getType(parentKeyField);
 			Class<?> parentClass = parentKeyField.getClass();

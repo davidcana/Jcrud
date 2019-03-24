@@ -9,6 +9,8 @@ public class FormStorage extends JDBCStorage<Form, Integer, Form> {
 	
 	public FormStorage(){
 		super();
+		
+		this.keyNeeded = false;
 	}
 
 	static public FormStorage getInstance() {

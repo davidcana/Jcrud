@@ -58,8 +58,11 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		
 		List<JDBCWorkerItem<T, K, F>> workerItemsList = new ArrayList<>();
 		
-		workerItemsList.add(
-				new JDBCWorkerItem<>(this.storage, this.zcrudRecords, stList, connection));
+		if (this.storage.isKeyNeeded()) {
+			workerItemsList.add(
+					new JDBCWorkerItem<>(this.storage, this.zcrudRecords, stList, connection)
+			);
+		}
 		
 		this.addWorkersOfSubformsFromExistingRecords(connection, stList, workerItemsList);
 		this.addWorkersOfSubformsFromNewRecords(connection, stList, workerItemsList);
@@ -81,7 +84,11 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 			throws IllegalArgumentException, IllegalAccessException, StorageException, InvocationTargetException, IntrospectionException {
 		
 		for (T record : this.zcrudRecords.getNewRecords()){
-			String key = this.storage.getKey(record).toString();
+			
+			// Get the key as a String
+			String key = this.storage.isKeyNeeded()? this.storage.getKey(record).toString(): null;
+			
+			// Add workers of this record
 			this.addWorkersOfSubform(connection, stList, workerItemsList, record, true, key);
 		}
 	}
@@ -101,7 +108,7 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 							stList, 
 							connection,
 							this.storage,
-							this.castParentKey(key)
+							this.storage.isKeyNeeded()? this.castParentKey(key): null
 					)
 			);
 		}

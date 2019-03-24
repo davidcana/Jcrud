@@ -11,15 +11,16 @@ import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.options.Option;
 import org.github.davidcana.jcrud.core.options.OptionProvider;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> implements Storage<T, K, F> {
 	
 	protected Class<T> clazz;
+	protected TypeReference<?> updateRequestTypeReference;
+	protected boolean keyNeeded = true;
 	
 	protected AbstractStorage(){
 		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	}
-	protected AbstractStorage(Class<T> clazz){
-		this.clazz = clazz;
 	}
 	
 	@Override
@@ -45,7 +46,17 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 	public Class<?> getDeserializeClass() {
 		return this.clazz;
 	}
-	
+
+	@Override
+	public void setUpdateRequestTypeReference(TypeReference<?> updateRequestTypeReference) {
+		this.updateRequestTypeReference = updateRequestTypeReference;
+	}
+
+	@Override
+	public TypeReference<?> getUpdateRequestTypeReference() {
+		return updateRequestTypeReference;
+	}
+
 	private void resolveSuperClassAnnotation(Annotation annotation){
 		
 	    if (annotation instanceof JCRUDEntity){
@@ -88,6 +99,11 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 				this.resolveSuperFieldAnnotation(annotation, field);
 			}
 		}
+	}
+
+	@Override
+	public boolean isKeyNeeded() {
+		return this.keyNeeded;
 	}
 	
 }

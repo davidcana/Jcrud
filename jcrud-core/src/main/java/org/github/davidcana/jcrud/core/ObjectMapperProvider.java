@@ -16,6 +16,7 @@ import org.github.davidcana.jcrud.storages.Storage;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,6 +70,11 @@ public class ObjectMapperProvider {
 	}
 	@SuppressWarnings("rawtypes")
 	public UpdateZCrudRequest getUpdateRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
+		
+		TypeReference<?> typeReference = storage.getUpdateRequestTypeReference();
+		if (typeReference != null) {
+			return (UpdateZCrudRequest) this.get().readValue(json, typeReference);
+		}
 		
 		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudRequest.class, storage.getDeserializeClass());
 		return (UpdateZCrudRequest) this.get().readValue(json, type);

@@ -14,6 +14,7 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 	private List<T> newRecords;
 	private List<String> recordsToRemove;
 	private Map<String, T> existingRecords;
+	private T filter;
 	
 	public UpdateZCrudRequest(){}
 
@@ -49,6 +50,14 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 		this.existingRecords = existingRecords;
 	}
 
+	public Object getFilter() {
+		return filter;
+	}
+
+	public void setFilter(T filter) {
+		this.filter = filter;
+	}
+
 	@Override
 	public ZCrudCommand buildCommand(Storage storage) {
 		return new UpdateZCrudCommand(this, storage);
@@ -59,6 +68,7 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((existingRecords == null) ? 0 : existingRecords.hashCode());
+		result = prime * result + ((filter == null) ? 0 : filter.hashCode());
 		result = prime * result + ((newRecords == null) ? 0 : newRecords.hashCode());
 		result = prime * result + ((recordsToRemove == null) ? 0 : recordsToRemove.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
@@ -73,12 +83,16 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		@SuppressWarnings("rawtypes")
 		UpdateZCrudRequest other = (UpdateZCrudRequest) obj;
 		if (existingRecords == null) {
 			if (other.existingRecords != null)
 				return false;
 		} else if (!existingRecords.equals(other.existingRecords))
+			return false;
+		if (filter == null) {
+			if (other.filter != null)
+				return false;
+		} else if (!filter.equals(other.filter))
 			return false;
 		if (newRecords == null) {
 			if (other.newRecords != null)
@@ -101,7 +115,7 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 	@Override
 	public String toString() {
 		return "UpdateZCrudRequest [url=" + url + ", newRecords=" + newRecords + ", recordsToRemove=" + recordsToRemove
-				+ ", existingRecords=" + existingRecords + ", getCommand()=" + getCommand() + "]";
+				+ ", existingRecords=" + existingRecords + ", filter=" + filter + "]";
 	}
 	
 }

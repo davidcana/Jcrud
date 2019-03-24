@@ -11,6 +11,8 @@ import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public List<T> getAll() throws StorageException;
@@ -25,5 +27,10 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public Class<?> getDeserializeClass();
 	
+	public void setUpdateRequestTypeReference(TypeReference<?> typeReference);
+	public TypeReference<?> getUpdateRequestTypeReference();
+	
 	public List<Option<K>> getAllAsOptions() throws StorageException;
+	
+	public boolean isKeyNeeded();
 }
