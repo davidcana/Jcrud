@@ -16,6 +16,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> implements Storage<T, K, F> {
 	
 	protected Class<T> clazz;
+	protected TypeReference<?> listRequestTypeReference;
+	protected TypeReference<?> getRequestTypeReference;
 	protected TypeReference<?> updateRequestTypeReference;
 	protected boolean keyNeeded = true;
 	
@@ -48,8 +50,28 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 	}
 
 	@Override
-	public void setUpdateRequestTypeReference(TypeReference<?> updateRequestTypeReference) {
-		this.updateRequestTypeReference = updateRequestTypeReference;
+	public void setListRequestTypeReference(TypeReference<?> typeReference) {
+		this.listRequestTypeReference = typeReference;
+	}
+
+	@Override
+	public TypeReference<?> getListRequestTypeReference() {
+		return listRequestTypeReference;
+	}
+
+	@Override
+	public void setGetRequestTypeReference(TypeReference<?> typeReference) {
+		this.getRequestTypeReference = typeReference;
+	}
+
+	@Override
+	public TypeReference<?> getGetRequestTypeReference() {
+		return getRequestTypeReference;
+	}
+
+	@Override
+	public void setUpdateRequestTypeReference(TypeReference<?> typeReference) {
+		this.updateRequestTypeReference = typeReference;
 	}
 
 	@Override

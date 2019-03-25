@@ -8,9 +8,6 @@ import org.github.davidcana.jcrud.core.JSON.serializers.LocalTimeSerializer;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
-import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
-import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
-import org.github.davidcana.jcrud.core.responses.UpdateZCrudResponse;
 import org.github.davidcana.jcrud.storages.Storage;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -59,15 +56,31 @@ public class ObjectMapperProvider {
 	@SuppressWarnings("rawtypes")
 	public ListZCrudRequest getListRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(ListZCrudRequest.class, storage.getDeserializeClass());
-		return (ListZCrudRequest) this.get().readValue(json, type);
+		TypeReference<?> typeReference = storage.getListRequestTypeReference();
+		if (typeReference != null) {
+			return (ListZCrudRequest) this.get().readValue(json, typeReference);
+		}
+		
+		return (ListZCrudRequest) this.get().readValue(
+				json, 
+				this.constructParametricType(ListZCrudRequest.class, storage)
+		);
 	}
+	
 	@SuppressWarnings("rawtypes")
 	public GetZCrudRequest getGetRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(GetZCrudRequest.class, storage.getDeserializeClass());
-		return (GetZCrudRequest) this.get().readValue(json, type);
+		TypeReference<?> typeReference = storage.getGetRequestTypeReference();
+		if (typeReference != null) {
+			return (GetZCrudRequest) this.get().readValue(json, typeReference);
+		}
+		
+		return (GetZCrudRequest) this.get().readValue(
+				json,
+				this.constructParametricType(GetZCrudRequest.class, storage)
+		);
 	}
+	
 	@SuppressWarnings("rawtypes")
 	public UpdateZCrudRequest getUpdateRequest(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
@@ -76,10 +89,22 @@ public class ObjectMapperProvider {
 			return (UpdateZCrudRequest) this.get().readValue(json, typeReference);
 		}
 		
-		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudRequest.class, storage.getDeserializeClass());
-		return (UpdateZCrudRequest) this.get().readValue(json, type);
+		return (UpdateZCrudRequest) this.get().readValue(
+				json, 
+				this.constructParametricType(UpdateZCrudRequest.class, storage)
+		);
 	}
 	
+	@SuppressWarnings("rawtypes")
+	private JavaType constructParametricType(Class<?> clazz, Storage storage){
+		
+		return this.get().getTypeFactory().constructParametricType(
+				clazz, 
+				storage.getDeserializeClass()
+		);
+	}
+	
+	/*
 	@SuppressWarnings("rawtypes")
 	public ListZCrudResponse getListResponse(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
 		
@@ -98,6 +123,7 @@ public class ObjectMapperProvider {
 		JavaType type = this.get().getTypeFactory().constructParametricType(UpdateZCrudResponse.class, storage.getDeserializeClass());
 		return (UpdateZCrudResponse) this.get().readValue(json, type);
 	}
+	*/
 	
 	static public ObjectMapperProvider getInstance(){
 		
