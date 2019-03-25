@@ -10,6 +10,7 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +68,7 @@ public class SQLFieldGroup {
 		this.fields = new ArrayList<>();
 		this.values = new HashMap<>();
 		
-		for (Field field : record.getClass().getDeclaredFields()) {
+		for (Field field : getAllModelFields(record.getClass())) {
 			field.setAccessible(true);
 			Object value = field.get(record);
 			if (value != null) {
@@ -81,6 +82,17 @@ public class SQLFieldGroup {
 				}
 			}
 		}
+	}
+	
+	static private List<Field> getAllModelFields(Class<?> clazz) {
+		
+	    List<Field> fields = new ArrayList<>();
+	    do {
+	        Collections.addAll(fields, clazz.getDeclaredFields());
+	        clazz = clazz.getSuperclass();
+	    } while (clazz != null);
+	    
+	    return fields;
 	}
 	
 	public boolean isUpdatable() {
