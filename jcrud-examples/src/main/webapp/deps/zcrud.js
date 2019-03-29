@@ -3452,16 +3452,14 @@ Checkbox.prototype.setValueToForm = function( value, $this ){
 };
 
 Checkbox.prototype.getValueFromRecord = function( record ){
-    
+
     var value = record[ this.id ];
-    return value == undefined? false: value;
+    return value === false || value === true? value: value == 'true';
 };
 
 Checkbox.prototype.getViewValueFromRecord = function( record ){
-    
-    var value = record[ this.id ];
-    value = value == undefined? false: value;
 
+    var value = this.getValueFromRecord( record );
     return value? context.translate( 'true' ): context.translate( 'false' )
 };
 
@@ -3736,34 +3734,6 @@ Datetime.prototype.getValueFromRecord = function( record ){
 
     throw 'Unknown type in Datetime: ' + this.type;
 };
-/*
-Datetime.prototype.getValueFromRecord = function( record, params ){
-    
-    var value = record[ this.id ];
-    if ( ! value || value.length == 0 ){
-        return value;
-    }
-
-    switch( this.type ) {
-        case 'date':
-        case 'datetime':
-            var dateInstance = new Date( value );
-            switch( params.source ) {
-                case 'create':
-                case 'update':
-                case 'list':
-                    return dateInstance;
-                case 'delete':
-                    return this.formatToClient( dateInstance );
-                default:
-                    throw "Unknown source in Datetime: " + params.source;
-            }
-        case 'time':
-            return value;
-    }
-
-    throw 'Unknown type in Datetime: ' + this.type;
-};*/
 
 Datetime.prototype.getViewValueFromRecord = function( record ){
 
@@ -5664,32 +5634,6 @@ OptionsField.prototype.getValue = function( $this ){
     throw "Unknown field type in optionsField: " + this.type;
 };
 
-/*
-OptionsField.prototype.getValueFromRecord = function( record, params ){
-
-    switch( params.source ) {
-        case 'create':
-        case 'update':
-            return record[ this.id ];
-        case 'delete':
-        case 'list':
-            var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );
-            var tempValue = record[ this.id ];
-            try {
-                var map = this.getDisplayTextMapFromArrayOptions( optionsList );
-                if ( this.type == 'checkboxes' ){
-                    return this.getMultipleValueFromRecord( map, tempValue );
-                }
-                var inMapValue = map[ tempValue ];
-                return inMapValue? inMapValue: tempValue;
-            } catch ( e ){
-                return tempValue;
-            }
-        default:
-            throw "Unknown source in OptionsField: " + params.source;
-    }
-};
-*/
 OptionsField.prototype.getViewValueFromRecord = function( record ){
 
         var optionsList = this.getOptionsFromRecord( record, this.page.getOptions() );
@@ -5836,9 +5780,8 @@ Subform.prototype.filterValue = function( record ){
     return newRecords;
 };
 
-Subform.prototype.getValueFromRecord = function( record, params ){
+Subform.prototype.getValueFromRecord = function( record ){
     
-    var dictionary = this.page.getDictionary();
     var subformRecords = record[ this.id ] || [];
     var subformFields = this.fields;
 
@@ -5846,9 +5789,7 @@ Subform.prototype.getValueFromRecord = function( record, params ){
         var subformRecord = subformRecords[ i ];
         for ( var c in subformFields ){
             var subformField = subformFields[ c ];
-            subformRecord[ subformField.id ] = subformField.getValueFromRecord(  
-                subformRecord, 
-                this.buildProcessTemplateParams( subformField, subformRecord, dictionary, params ) );
+            subformRecord[ subformField.id ] = subformField.getValueFromRecord( subformRecord );
         }
     }
 
@@ -6294,29 +6235,38 @@ Subform.prototype.buildDataToSend = function(){
 Subform.prototype.beforeProcessTemplate = function( data ){
     
     this.componentsMap.dataFromServer( data );
-    this.updateRecords( data.records );    
+    this.page.filterArrayOfRecordsFromServerData( data.records, this.fieldsArray );
+    this.updateRecords( data.records );
 };
 
 Subform.prototype.clientAndServerSuccessFunction = function( data, root, dictionaryExtension, callback ){
 
     this.beforeProcessTemplate( data );
-    
-    context.getZPTParser().run({
-        root: root || [ 
-                this.get$().find( 'tbody' )[0], 
-                this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
-        ],
-        dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
-        notRemoveGeneratedTags: false
-    });
-    
-    this.afterProcessTemplateForField(
-        this.page.buildProcessTemplateParams( this )
-    );
+    this.buildHTMLAndJavascript( root, dictionaryExtension );
+    this.afterProcessTemplate();
     
     if ( callback ){
         callback( true );
     }
+};
+
+Subform.prototype.buildHTMLAndJavascript = function( root, dictionaryExtension ){
+    
+    context.getZPTParser().run({
+        root: root || [ 
+            this.get$().find( 'tbody' )[0], 
+            this.getPagingComponent()? this.getPagingComponent().get$()[0]: undefined
+        ],
+        dictionary: this.buildDictionaryForUpdate( dictionaryExtension ),
+        notRemoveGeneratedTags: false
+    });
+};
+
+Subform.prototype.afterProcessTemplate = function(){
+    
+    this.afterProcessTemplateForField(
+        this.page.buildProcessTemplateParams( this )
+    );
 };
 
 Subform.prototype.buildDictionaryForUpdate = function( dictionaryExtension ){
@@ -9141,20 +9091,17 @@ FormPage.prototype.buildDataUsingRecord = function( recordToUse ) {
     
 FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension, root, callback, dataFromServer ) {
 
-    // Update record
-    if ( ! recordToUse ){
-        throw "No record to show in form!";
-    }
-    this.record = recordToUse;
+    this.beforeProcessTemplate( recordToUse, dictionaryExtension, dataFromServer );
+    this.buildHTMLAndJavascript( root );
+    this.afterProcessTemplate( this.get$form() );
 
-    // Process dataFromServer
-    if ( ! dataFromServer ){
-        dataFromServer = this.buildDataUsingRecord( this.record );
+    if ( callback ){
+        callback( true );
     }
-    this.processDataFromServer( dataFromServer );
+}
 
-    // Render template
-    this.beforeProcessTemplate( dictionaryExtension );
+FormPage.prototype.buildHTMLAndJavascript = function( root ) {
+    
     if ( ! root ){
         pageUtils.configureTemplate( 
             this.options, 
@@ -9167,14 +9114,8 @@ FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension,
         declaredRemotePageUrls: this.options.templates.declaredRemotePageUrls,
         notRemoveGeneratedTags: false
     });
-    this.afterProcessTemplate( this.get$form() );
+};
 
-    // Process callback
-    if ( callback ){
-        callback( true );
-    }
-}
-    
 FormPage.prototype.show = function( params ){
 
     // Init params
@@ -9247,16 +9188,14 @@ FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExte
         this.options 
     );
 };
-    
+
 FormPage.prototype.buildRecordForDictionary = function(){
 
     var newRecord = {};
 
     for ( var c = 0; c < this.fields.length; c++ ) {
         var field = this.fields[ c ];
-        newRecord[ field.id ] = field.getValueFromRecord( 
-            this.record, 
-            this.buildProcessTemplateParams( field ) );
+        newRecord[ field.id ] = this.record[ field.id ];
     }
 
     // Add key if there is no field key
@@ -9267,7 +9206,25 @@ FormPage.prototype.buildRecordForDictionary = function(){
 
     return newRecord;
 };
-    
+/*
+FormPage.prototype.buildRecordForDictionary = function(){
+
+    var newRecord = {};
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        newRecord[ field.id ] = field.getValueFromRecord( this.record );
+    }
+
+    // Add key if there is no field key
+    var key = this.getKey();
+    if ( newRecord[ key ] == undefined ){
+        newRecord[ key ] = this.record[ key ];
+    }
+
+    return newRecord;
+};
+*/
 FormPage.prototype.updateDictionary = function( dictionaryExtension ){
 
     var thisDictionary = $.extend( 
@@ -9305,7 +9262,22 @@ FormPage.prototype.buildProcessTemplateParams = function( field ){
     };
 };
     
-FormPage.prototype.beforeProcessTemplate = function( dictionaryExtension ){        
+FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExtension, dataFromServer ){
+    
+    // Update record
+    if ( ! recordToUse ){
+        throw "No record to show in form!";
+    }
+    this.record = recordToUse;
+
+    // Process dataFromServer
+    if ( dataFromServer ){
+        this.filterRecordFromServerData( dataFromServer.record, this.fields );
+    } else {
+        dataFromServer = this.buildDataUsingRecord( this.record );
+    }
+    this.processDataFromServer( dataFromServer );
+    
     this.updateDictionary( dictionaryExtension );
 };
     
@@ -10055,6 +10027,7 @@ ListPage.prototype.showUsingServer = function( dictionaryExtension, root, callba
 ListPage.prototype.beforeProcessTemplate = function( data, dictionaryExtension ){
 
     this.componentsMap.dataFromServer( data );
+    this.filterArrayOfRecordsFromServerData( data.records, this.fields );
     this.updateRecords( data.records );
     this.updateDictionary( data.records, dictionaryExtension );
 };
@@ -10553,6 +10526,24 @@ Page.prototype.showStatusMessage = function( dictionaryExtension ){
         dictionaryExtension, 
         context 
     );
+};
+
+Page.prototype.filterRecordFromServerData = function( serverDataRecord, thisFields ){
+    
+    for ( var c = 0; c < thisFields.length; c++ ) {
+        var field = thisFields[ c ];
+        if ( serverDataRecord.hasOwnProperty( field.id ) ){
+            serverDataRecord[ field.id ] = field.getValueFromRecord( serverDataRecord );
+        }
+    }
+};
+
+Page.prototype.filterArrayOfRecordsFromServerData = function( serverDataArrayOfRecords, thisFields ){
+
+    for ( var c = 0; c < serverDataArrayOfRecords.length; c++ ) {
+        var record = serverDataArrayOfRecords[ c ];
+        this.filterRecordFromServerData( record, thisFields );
+    }
 };
 
 Page.doSuperClassOf = function( ChildClass ){
