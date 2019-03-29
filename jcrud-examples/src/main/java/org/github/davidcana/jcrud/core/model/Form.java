@@ -185,8 +185,6 @@ public class Form implements ZCrudEntity {
 	@JDBCOneToMany(storage = VerifiedMemberJDBCStorage.class)
 	private transient ZCrudRecords<VerifiedMember> verifiedMembersZCrudRecords;
 	
-	private Integer year;
-	
 	public Form(){}
 
 	public List<OriginalMember> getOriginalMembers() {
@@ -221,18 +219,9 @@ public class Form implements ZCrudEntity {
 		this.verifiedMembersZCrudRecords = verifiedMembersZCrudRecords;
 	}
 
-	public Integer getYear() {
-		return year;
-	}
-
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-
 	@Override
 	public String toString() {
-		return "Form [originalMembers=" + originalMembers + ", verifiedMembers=" + verifiedMembers + ", year=" + year
-				+ "]";
+		return "Form [originalMembers=" + originalMembers + ", verifiedMembers=" + verifiedMembers + "]";
 	}
 
 	@Override
@@ -241,7 +230,6 @@ public class Form implements ZCrudEntity {
 		int result = 1;
 		result = prime * result + ((originalMembers == null) ? 0 : originalMembers.hashCode());
 		result = prime * result + ((verifiedMembers == null) ? 0 : verifiedMembers.hashCode());
-		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 
@@ -263,11 +251,6 @@ public class Form implements ZCrudEntity {
 			if (other.verifiedMembers != null)
 				return false;
 		} else if (!verifiedMembers.equals(other.verifiedMembers))
-			return false;
-		if (year == null) {
-			if (other.year != null)
-				return false;
-		} else if (!year.equals(other.year))
 			return false;
 		return true;
 	}
