@@ -76,7 +76,7 @@ public class JavaParser {
 
 	private static ASTParser buildASTParser() {
 		
-		ASTParser parser = ASTParser.newParser(AST.JLS3);		
+		ASTParser parser = ASTParser.newParser(AST.JLS11);		
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		
 		return parser;
