@@ -44,14 +44,14 @@ public class StorageResolver {
 	@SuppressWarnings("rawtypes")
 	private Storage resolveStorage(JCRUDEntity jcrudEntity) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
-		Class<? extends Storage> storageClass = jcrudEntity.storage();
+		Class<? extends Storage<?,?,?>> storageClass = jcrudEntity.storage();
 		return this.resolve(storageClass);
 	}
 
-	public Storage resolve(Class<? extends Storage> storageClass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+	public Storage<?,?,?> resolve(Class<? extends Storage<?,?,?>> storageClass) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 		
 		Method method = storageClass.getMethod("getInstance");
-		return (Storage) method.invoke(method);
+		return (Storage<?,?,?>) method.invoke(method);
 	}
 
 	static private String resolveKey(JCRUDEntity jcrudEntity, Class<?> clazz) {

@@ -27,7 +27,7 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public void doCRUD(UpdateZCrudRequest<T> updateRequest) throws StorageException {
+	public void doCRUD(UpdateZCrudRequest<T, F> updateRequest) throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 

@@ -7,7 +7,7 @@ import org.github.davidcana.jcrud.core.commands.GetZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class GetZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest {
+public class GetZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest<F> {
 	
 	private String key;
 	private F filter;
@@ -62,7 +62,7 @@ public class GetZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GetZCrudRequest other = (GetZCrudRequest) obj;
+		GetZCrudRequest<F> other = (GetZCrudRequest<F>) obj;
 		if (filter == null) {
 			if (other.filter != null)
 				return false;

@@ -8,13 +8,13 @@ import org.github.davidcana.jcrud.core.commands.UpdateZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequest implements IZCrudRecords<T> {
+public class UpdateZCrudRequest<T extends ZCrudEntity, F extends ZCrudEntity> extends AbstractZCrudRequest implements IZCrudRecords<T> {
 	
 	private String url;
 	private List<T> newRecords;
 	private List<String> recordsToRemove;
 	private Map<String, T> existingRecords;
-	private T filter;
+	private F filter;
 	
 	public UpdateZCrudRequest(){}
 
@@ -50,11 +50,11 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 		this.existingRecords = existingRecords;
 	}
 
-	public Object getFilter() {
+	public F getFilter() {
 		return filter;
 	}
 
-	public void setFilter(T filter) {
+	public void setFilter(F filter) {
 		this.filter = filter;
 	}
 
@@ -83,7 +83,7 @@ public class UpdateZCrudRequest<T extends ZCrudEntity> extends AbstractZCrudRequ
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UpdateZCrudRequest other = (UpdateZCrudRequest) obj;
+		UpdateZCrudRequest<T,F> other = (UpdateZCrudRequest<T,F>) obj;
 		if (existingRecords == null) {
 			if (other.existingRecords != null)
 				return false;

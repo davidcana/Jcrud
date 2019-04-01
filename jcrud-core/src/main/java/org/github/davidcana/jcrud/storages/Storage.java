@@ -21,11 +21,12 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 
 	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getCRUDRequest) throws StorageException;
 	
-	public void doCRUD(UpdateZCrudRequest<T> updateCRUDRequest) throws StorageException;
+	public void doCRUD(UpdateZCrudRequest<T, F> updateCRUDRequest) throws StorageException;
 	
 	public long getNumberOfRecords(ISearchFieldData<F> iSearchFieldData) throws StorageException;
 	
 	public Class<?> getDeserializeClass();
+	public Class<?> getFilterDeserializeClass();
 	
 	public void setListRequestTypeReference(TypeReference<?> typeReference);
 	public TypeReference<?> getListRequestTypeReference();

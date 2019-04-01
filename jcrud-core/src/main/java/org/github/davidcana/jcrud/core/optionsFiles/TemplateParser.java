@@ -1,12 +1,9 @@
 package org.github.davidcana.jcrud.core.optionsFiles;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 
 import org.apache.log4j.varia.NullAppender;
-import org.github.davidcana.jcrud.core.Constants;
-import org.github.davidcana.jcrud.core.utils.CoreUtils;
 
 import freemarker.core.JavaScriptOutputFormat;
 import freemarker.core.ParseException;

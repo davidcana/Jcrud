@@ -2,10 +2,8 @@ package org.github.davidcana.jcrud.core;
 
 import java.io.IOException;
 
-import org.github.davidcana.jcrud.storages.Storage;
-
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,10 +24,8 @@ public class ObjectMapperProviderForTest {
 		return this.mapper;
 	}
 
-	public ClientServerTalking getClientServerTalking(String json, Storage storage) throws IOException, JsonParseException, JsonMappingException {
-		
-		JavaType type = this.get().getTypeFactory().constructParametricType(ClientServerTalking.class, storage.getDeserializeClass());
-		return (ClientServerTalking) this.get().readValue(json, type);
+	public ClientServerTalking<?,?,?> getClientServerTalking(String json, TypeReference<?> typeReference) throws IOException, JsonParseException, JsonMappingException {
+		return (ClientServerTalking<?,?,?>) this.get().readValue(json, typeReference);
 	}
 	
 	static private ObjectMapper instanceObjectMapper(){

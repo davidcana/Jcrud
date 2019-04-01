@@ -1,16 +1,17 @@
 package org.github.davidcana.jcrud.core.commands;
 
+import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.AbstractZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class ListZCrudCommand implements ZCrudCommand {
+public class ListZCrudCommand<T extends ZCrudEntity, K, F extends ZCrudEntity> implements ZCrudCommand {
 
-	private ListZCrudRequest zCrudRequest;
-	private Storage storage;
+	private ListZCrudRequest<F> zCrudRequest;
+	private Storage<T,K,F> storage;
 	
-	public ListZCrudCommand(ListZCrudRequest zCrudRequest, Storage storage) {
+	public ListZCrudCommand(ListZCrudRequest<F> zCrudRequest, Storage<T,K,F> storage) {
 		super();
 		this.zCrudRequest = zCrudRequest;
 		this.storage = storage;
@@ -19,7 +20,7 @@ public class ListZCrudCommand implements ZCrudCommand {
 	@Override
 	public AbstractZCrudResponse buildResponse() {
 		
-		ListZCrudResponse zcrudResponse = new ListZCrudResponse();
+		ListZCrudResponse<T> zcrudResponse = new ListZCrudResponse<>();
 		
 		try {			
 			this.storage.fillListCRUDResponse(zcrudResponse, this.zCrudRequest);

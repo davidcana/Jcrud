@@ -1,6 +1,8 @@
 package org.github.davidcana.jcrud.core.requests;
 
-abstract public class AbstractZCrudRequest implements ZCrudRequest {
+import org.github.davidcana.jcrud.core.ZCrudEntity;
+
+abstract public class AbstractZCrudRequest<F extends ZCrudEntity>  implements ZCrudRequest<F> {
 
 	private String command;
 	
@@ -32,7 +34,7 @@ abstract public class AbstractZCrudRequest implements ZCrudRequest {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AbstractZCrudRequest other = (AbstractZCrudRequest) obj;
+		AbstractZCrudRequest<F> other = (AbstractZCrudRequest<F>) obj;
 		if (command == null) {
 			if (other.command != null)
 				return false;

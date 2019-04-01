@@ -12,11 +12,11 @@ import java.io.StringReader;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
 
 import org.github.davidcana.jcrud.core.ClientServerTalking;
 import org.github.davidcana.jcrud.core.ClientServerTalkingItem;
 import org.github.davidcana.jcrud.core.ObjectMapperProviderForTest;
+import org.github.davidcana.jcrud.core.StorageResolverForTests;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.core.requests.ZCrudRequest;
 import org.github.davidcana.jcrud.core.utils.CoreUtils;
@@ -28,6 +28,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 abstract public class AbstractZCrudResponseTest {
@@ -43,7 +44,7 @@ abstract public class AbstractZCrudResponseTest {
 	public void tearDown() throws Exception {
 	}
 	
-	protected void testTalkingFolder(String folderString, Storage storage) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
+	protected void testTalkingFolder(String folderString, StorageResolverForTests storageResolverForTests, TypeReference<?> typeReference) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
 		
 		File folder = new File(
 				getClass().getResource(
@@ -53,10 +54,12 @@ abstract public class AbstractZCrudResponseTest {
 		this.testTalkingFolder(
 				folder.getName(), 
 				folder, 
-				storage);
+				storageResolverForTests,
+				typeReference
+		);
 	}
 	
-	private void testTalkingFolder(String path, File folder, Storage storage) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
+	private void testTalkingFolder(String path, File folder, StorageResolverForTests storageResolverForTests, TypeReference<?> typeReference) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
 
 		int c = 0;
 		
@@ -66,10 +69,10 @@ abstract public class AbstractZCrudResponseTest {
             String newPath = path + File.separator + file.getName();
             
 	        if (file.isDirectory()) {
-				this.testTalkingFolder(newPath,	file, storage);
+				this.testTalkingFolder(newPath,	file, storageResolverForTests, typeReference);
 				
 	        } else if (newPath.endsWith(EXTENSION)){
-	        	this.testTalking(newPath, storage);
+	        	this.testTalking(newPath, storageResolverForTests, typeReference);
 	        	++c;
 	        }
 	    }
@@ -77,7 +80,7 @@ abstract public class AbstractZCrudResponseTest {
 	    System.err.println("Folder: " + path + " -> " + c + " files tested.");
 	}
 	
-	protected void testTalking(String test, Storage storage) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
+	protected void testTalking(String test, StorageResolverForTests storageResolverForTests, TypeReference<?> typeReference) throws JsonParseException, JsonMappingException, IOException, InterruptedException, StorageException {
 		
         long start = System.currentTimeMillis();
         
@@ -86,8 +89,8 @@ abstract public class AbstractZCrudResponseTest {
         
         String json = CoreUtils.getInstance().getStringFromReader(
         		this.getResourceReader(test));
-        ClientServerTalking expectedTalking = ObjectMapperProviderForTest.getInstance().getClientServerTalking(json, storage);
-        ClientServerTalking talking = this.buildTalking(storage, expectedTalking);
+        ClientServerTalking<?,?,?> expectedTalking = ObjectMapperProviderForTest.getInstance().getClientServerTalking(json, typeReference);
+        ClientServerTalking<?,?,?> talking = this.buildTalking(storageResolverForTests, expectedTalking);
 	
 		if (! expectedTalking.equals(talking)){
 		    fail( "unexpected results: see " + this.saveNew(test, talking) );
@@ -126,24 +129,26 @@ abstract public class AbstractZCrudResponseTest {
 	}*/
 	
 	@SuppressWarnings("rawtypes")
-	private ClientServerTalking buildTalking(Storage storage, ClientServerTalking expectedTalking) throws JsonParseException, JsonMappingException, IOException{
+	private ClientServerTalking buildTalking(StorageResolverForTests storageResolverForTests, ClientServerTalking<?,?,?> expectedTalking) throws JsonParseException, JsonMappingException, IOException{
 		
 		ClientServerTalking talking = new ClientServerTalking();
 		
-        List<ClientServerTalkingItem> expectedItems = expectedTalking.getItems();
-		for (ClientServerTalkingItem expectedItem : expectedItems){
-			ClientServerTalkingItem item = this.buildItem(storage, expectedItem);
+		for (ClientServerTalkingItem<?,?,?> expectedItem : expectedTalking.getItems()){
+			ClientServerTalkingItem<?,?,?> item = this.buildItem(storageResolverForTests, expectedItem);
 			talking.add(item);
         }
 		
 		return talking;
 	}
 	
-	private ClientServerTalkingItem buildItem(Storage storage, ClientServerTalkingItem expectedItem)
+	private ClientServerTalkingItem<?,?,?> buildItem(StorageResolverForTests storageResolverForTests, ClientServerTalkingItem<?,?,?> expectedItem)
 			throws JsonParseException, JsonMappingException, IOException {
 		
 		// Build zcrudRequest
 		ZCrudRequest zcrudRequest = expectedItem.getRequest();
+		
+		// Resolve Storage
+		Storage<?,?,?> storage = storageResolverForTests.resolve(zcrudRequest.getClass());
 		
 		// Build zcrudCommand
 		ZCrudCommand zcrudCommand = zcrudRequest.buildCommand(storage);
@@ -152,13 +157,13 @@ abstract public class AbstractZCrudResponseTest {
 		ZCrudResponse zcrudResponse = zcrudCommand.buildResponse();
 		
 		// Build expected ClientServerTalkingItem
-		ClientServerTalkingItem item = (ClientServerTalkingItem) expectedItem.clone();
+		ClientServerTalkingItem<?,?,?> item = (ClientServerTalkingItem<?,?,?>) expectedItem.clone();
 		item.replaceResponse(zcrudResponse);;
 		
 		return item;
 	}
 
-	protected String saveNew(String test, ClientServerTalking talking) throws IOException{
+	protected String saveNew(String test, ClientServerTalking<?,?,?> talking) throws IOException{
 		
 		StringBuilder buffer = this.buildBuffer(talking);
 		
@@ -182,7 +187,7 @@ abstract public class AbstractZCrudResponseTest {
         fileWriter.close();
 	}
 	
-	private StringBuilder buildBuffer(ClientServerTalking talking) throws IOException {
+	private StringBuilder buildBuffer(ClientServerTalking<?,?,?> talking) throws IOException {
 		
 		String json = ObjectMapperProviderForTest.getInstance().get().writerWithDefaultPrettyPrinter().writeValueAsString(talking);
 		

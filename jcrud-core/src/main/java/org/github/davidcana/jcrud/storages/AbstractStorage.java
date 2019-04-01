@@ -3,6 +3,7 @@ package org.github.davidcana.jcrud.storages;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> implements Storage<T, K, F> {
 	
 	protected Class<T> clazz;
+	protected Class<T> filterClazz;
 	protected TypeReference<?> listRequestTypeReference;
 	protected TypeReference<?> getRequestTypeReference;
 	protected TypeReference<?> updateRequestTypeReference;
 	protected boolean keyNeeded = true;
 	
 	protected AbstractStorage(){
-		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		
+		Type[] actualTypeArguments = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
+		this.clazz = (Class<T>) actualTypeArguments[0];
+		this.filterClazz = (Class<T>) actualTypeArguments[2];
 	}
 	
 	@Override
@@ -48,7 +53,12 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 	public Class<?> getDeserializeClass() {
 		return this.clazz;
 	}
-
+	
+	@Override
+	public Class<?> getFilterDeserializeClass() {
+		return this.filterClazz;
+	}
+	
 	@Override
 	public void setListRequestTypeReference(TypeReference<?> typeReference) {
 		this.listRequestTypeReference = typeReference;

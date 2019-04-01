@@ -41,24 +41,24 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	private Field keyField;
 	private String defaultOrderFieldName;
 	private String defaultOrderType;
-	protected Map<String, Class<? extends JDBCStorage>> allSubformStorageClass = new HashMap<>();
+	protected Map<String, Class<? extends JDBCStorage<?,?,?>>> allSubformStorageClass = new HashMap<>();
 	protected Map<String, JDBCOneToMany> allJDBCOneToMany = new HashMap<>();
-	protected Map<String, JDBCStorage> allSubformStorage = new HashMap<>();
+	protected Map<String, JDBCStorage<?,?,?>> allSubformStorage = new HashMap<>();
 	protected JDBCId jdbcId;
 	protected FilterManager<F> filterManager = new DefaultFilterManager<F>();
-	protected JDBCStorage parentStorage;
+	protected JDBCStorage<?,?,?> parentStorage;
 	
 	public JDBCStorage() {
 		super();
 		this.resolveAll();
 	}
-	protected JDBCStorage(JDBCStorage parentStorage) {
+	protected JDBCStorage(JDBCStorage<?,?,?> parentStorage) {
 		super();
 		this.resolveAll();
 		this.parentStorage = parentStorage;
 	}
 	
-	public JDBCStorage getParentStorage() {
+	public JDBCStorage<?,?,?> getParentStorage() {
 		
 		if (parentStorage == null){
 			throw new IllegalArgumentException("parentStorage not set!");
@@ -154,7 +154,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	
 	private void resolveJDBCOneToMany(JDBCOneToMany jdbcOneToMany, Field field) {
 		
-		Class<? extends JDBCStorage> storageClass = jdbcOneToMany.storage();
+		Class<? extends JDBCStorage<?,?,?>> storageClass = jdbcOneToMany.storage();
 		this.allSubformStorageClass.put(field.getName(), storageClass);
 		this.allJDBCOneToMany.put(field.getName(), jdbcOneToMany);
 	}
@@ -281,7 +281,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				}
 				
 				// Get an instance of SearchFieldData, built it if it is null
-				SearchFieldData subformSearchFieldData = searchFieldsData == null? null: searchFieldsData.get(fieldName);
+				SearchFieldData<?> subformSearchFieldData = searchFieldsData == null? null: searchFieldsData.get(fieldName);
 				if (subformSearchFieldData == null){
 					subformSearchFieldData = new SearchFieldData();
 				}
@@ -302,7 +302,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
-	protected void add1SubformToInstance(String fieldName, T instance, JDBCStorage subformStorage, List list, boolean useKey, SearchFieldData searchFieldData, GetZCrudResponse<T> getCRUDResponse) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
+	protected void add1SubformToInstance(String fieldName, T instance, JDBCStorage subformStorage, List<T> list, boolean useKey, SearchFieldData<?> searchFieldData, GetZCrudResponse<T> getCRUDResponse) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
 		
 		list.clear();
 		subformStorage.buildSubformList(
@@ -452,7 +452,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 	
 	@Override
-	public void doCRUD(UpdateZCrudRequest<T> updateRequest) throws StorageException {
+	public void doCRUD(UpdateZCrudRequest<T, F> updateRequest) throws StorageException {
 		
 		try {
 			JDBCWorker<T, K, F> worker = new JDBCWorker<>(this, updateRequest);
@@ -469,20 +469,20 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 	*/
 	
-	public JDBCStorage getSubformStorage(String fieldName) throws StorageException {
+	public JDBCStorage<?,?,?> getSubformStorage(String fieldName) throws StorageException {
 		
 		if (this.allSubformStorage.containsKey(fieldName)) {
 			return this.allSubformStorage.get(fieldName);
 		}
 		
-		Class<? extends JDBCStorage> storageClass = this.allSubformStorageClass.get(fieldName);
+		Class<? extends JDBCStorage<?,?,?>> storageClass = this.allSubformStorageClass.get(fieldName);
 		
 		if (storageClass == null) {
 			throw new IllegalArgumentException("Storage for field '" + fieldName + "' not set in annotation!");
 		}
 		
 		try {
-			JDBCStorage subformStorage = (JDBCStorage) StorageResolver.getInstance().resolve(storageClass);
+			JDBCStorage<?,?,?> subformStorage = (JDBCStorage<?,?,?>) StorageResolver.getInstance().resolve(storageClass);
 			this.allSubformStorage.put(fieldName, subformStorage);
 			return subformStorage;
 			
@@ -623,9 +623,9 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	    method.invoke(instance, value);
 	}
 	
-	Object getKey(T instance) throws IllegalAccessException, InvocationTargetException, IntrospectionException {
+	K getKey(T instance) throws IllegalAccessException, InvocationTargetException, IntrospectionException {
 		
-		return this.getGetterValue(
+		return (K) this.getGetterValue(
 				instance, 
 				this.getKeyFieldName()
 		);

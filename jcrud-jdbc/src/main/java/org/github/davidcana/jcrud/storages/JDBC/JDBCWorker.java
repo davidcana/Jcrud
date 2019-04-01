@@ -36,7 +36,7 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 			connection.setAutoCommit(false);
 			
 			// Iterate and run
-			for (JDBCWorkerItem<T, K, F> worker : this.buildListOfWorkers(connection, stList)) {
+			for (JDBCWorkerItem<?, ?, ?> worker : this.buildListOfWorkers(connection, stList)) {
 				worker.run();
 			}
 			
@@ -54,9 +54,9 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		}
 	}
 	
-	private List<JDBCWorkerItem<T, K, F>> buildListOfWorkers(Connection connection, List<PreparedStatement> stList) throws IllegalArgumentException, IllegalAccessException, StorageException, InvocationTargetException, IntrospectionException{
+	private List<JDBCWorkerItem<?, ?, ?>> buildListOfWorkers(Connection connection, List<PreparedStatement> stList) throws IllegalArgumentException, IllegalAccessException, StorageException, InvocationTargetException, IntrospectionException{
 		
-		List<JDBCWorkerItem<T, K, F>> workerItemsList = new ArrayList<>();
+		List<JDBCWorkerItem<?, ?, ?>> workerItemsList = new ArrayList<>();
 		
 		if (this.storage.isKeyNeeded()) {
 			workerItemsList.add(
@@ -70,7 +70,7 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		return workerItemsList;
 	}
 
-	private void addWorkersOfSubformsFromExistingRecords(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<T, K, F>> workerItemsList) 
+	private void addWorkersOfSubformsFromExistingRecords(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<?, ?, ?>> workerItemsList) 
 			throws IllegalArgumentException, IllegalAccessException, StorageException {
 		
 		for (Map.Entry<String, T> entry : this.zcrudRecords.getExistingRecords().entrySet()){
@@ -80,7 +80,7 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		}
 	}
 	
-	private void addWorkersOfSubformsFromNewRecords(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<T, K, F>> workerItemsList) 
+	private void addWorkersOfSubformsFromNewRecords(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<?, ?, ?>> workerItemsList) 
 			throws IllegalArgumentException, IllegalAccessException, StorageException, InvocationTargetException, IntrospectionException {
 		
 		for (T record : this.zcrudRecords.getNewRecords()){
@@ -93,11 +93,11 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		}
 	}
 	
-	private void addWorkersOfSubform(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<T, K, F>> workerItemsList, T record, boolean isNew, String key) 
+	private void addWorkersOfSubform(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<?, ?, ?>> workerItemsList, T record, boolean isNew, String key) 
 			throws IllegalArgumentException, IllegalAccessException, StorageException {
 
 		SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
-		for (Map.Entry<String, ZCrudRecords> entry : sqlFieldGroup.getLists().entrySet()){
+		for (Map.Entry<String, ZCrudRecords<?>> entry : sqlFieldGroup.getLists().entrySet()){
 			String fieldName = entry.getKey();
 			ZCrudRecords subformZCrudRecords = entry.getValue();
 			

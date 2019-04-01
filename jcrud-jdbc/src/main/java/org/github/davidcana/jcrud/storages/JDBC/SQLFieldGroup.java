@@ -22,8 +22,8 @@ public class SQLFieldGroup {
 	private List<Field> fields;
 	private Map<String,Object> values = new HashMap<>();
 	private boolean updatable = false;
-	private JDBCStorage storage;
-	private JDBCStorage parentStorage;
+	private JDBCStorage<?,?,?> storage;
+	private JDBCStorage<?,?,?> parentStorage;
 	private Object parentKey;
 	private int size = 0;
 	
@@ -36,7 +36,7 @@ public class SQLFieldGroup {
 	public SQLFieldGroup(Object record) throws IllegalArgumentException, IllegalAccessException {
 		this.build(record);
 	}
-	public SQLFieldGroup(Object record, JDBCStorage storage, JDBCStorage parentStorage, Object parentKey) throws IllegalArgumentException, IllegalAccessException {
+	public SQLFieldGroup(Object record, JDBCStorage<?,?,?> storage, JDBCStorage<?,?,?> parentStorage, Object parentKey) throws IllegalArgumentException, IllegalAccessException {
 		
 		this(record);
 		this.storage = storage;
@@ -258,7 +258,6 @@ public class SQLFieldGroup {
 		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
 			Field parentKeyField = this.parentStorage.getKeyField();
 			String type = getType(parentKeyField);
-			Class<?> parentClass = parentKeyField.getClass();
 			setValueOfStatement(preparedStatement, c++, this.parentKey, type);
 		}
 		
@@ -345,16 +344,16 @@ public class SQLFieldGroup {
 		}
 	}
 	
-	public Map<String, ZCrudRecords> getLists() {
+	public Map<String, ZCrudRecords<?>> getLists() {
 		
-		Map<String, ZCrudRecords> result = new HashMap<>();
+		Map<String, ZCrudRecords<?>> result = new HashMap<>();
 		
 		for (Field field : this.fields) {
 			String type = getType(field);
 			if ("zcrudrecords".equals(type)) {
 				Object value = this.values.get(field.getName());
 				if (value instanceof ZCrudRecords) {
-					ZCrudRecords zCrudRecords = (ZCrudRecords) value;
+					ZCrudRecords<?> zCrudRecords = (ZCrudRecords<?>) value;
 					result.put(
 							field.getName(),
 							zCrudRecords);

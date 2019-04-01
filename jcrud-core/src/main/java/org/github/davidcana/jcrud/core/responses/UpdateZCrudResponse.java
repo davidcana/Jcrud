@@ -39,7 +39,7 @@ public class UpdateZCrudResponse<T extends ZCrudEntity>  extends GenericZCrudRes
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UpdateZCrudResponse other = (UpdateZCrudResponse) obj;
+		UpdateZCrudResponse<T> other = (UpdateZCrudResponse<T>) obj;
 		if (newRecords == null) {
 			if (other.newRecords != null)
 				return false;

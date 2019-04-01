@@ -5,7 +5,7 @@ import org.github.davidcana.jcrud.core.commands.ListZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest  implements ISearchFieldData<F>  {
+public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest<F>  implements ISearchFieldData<F>  {
 
 	//pageNumber=1&pageSize=15&sortFieldId=name&sortType=asc&command=listRecords
 	
@@ -66,7 +66,7 @@ public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudReques
 	public ZCrudCommand buildCommand(Storage storage) {
 		return new ListZCrudCommand(this, storage);
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,7 +87,7 @@ public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudReques
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ListZCrudRequest other = (ListZCrudRequest) obj;
+		ListZCrudRequest<F> other = (ListZCrudRequest<F>) obj;
 		if (filter == null) {
 			if (other.filter != null)
 				return false;

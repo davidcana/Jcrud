@@ -63,7 +63,11 @@ public class ObjectMapperProvider {
 		
 		return (ListZCrudRequest) this.get().readValue(
 				json, 
-				this.constructParametricType(ListZCrudRequest.class, storage)
+				this.constructParametricType(
+						ListZCrudRequest.class, 
+						storage.getFilterDeserializeClass(), 
+						null
+				)
 		);
 	}
 	
@@ -77,7 +81,11 @@ public class ObjectMapperProvider {
 		
 		return (GetZCrudRequest) this.get().readValue(
 				json,
-				this.constructParametricType(GetZCrudRequest.class, storage)
+				this.constructParametricType(
+						GetZCrudRequest.class, 
+						storage.getFilterDeserializeClass(), 
+						null
+				)
 		);
 	}
 	
@@ -91,16 +99,25 @@ public class ObjectMapperProvider {
 		
 		return (UpdateZCrudRequest) this.get().readValue(
 				json, 
-				this.constructParametricType(UpdateZCrudRequest.class, storage)
+				this.constructParametricType(
+						UpdateZCrudRequest.class, 
+						storage.getDeserializeClass(), 
+						storage.getFilterDeserializeClass()
+				)
 		);
 	}
-	
-	@SuppressWarnings("rawtypes")
-	private JavaType constructParametricType(Class<?> clazz, Storage storage){
+
+	private JavaType constructParametricType(Class<?> clazz, Class<?> deserializeClazz, Class<?> filterDeserializeClazz){
 		
-		return this.get().getTypeFactory().constructParametricType(
-				clazz, 
-				storage.getDeserializeClass()
+		return filterDeserializeClazz != null?
+				this.get().getTypeFactory().constructParametricType(
+						clazz, 
+						deserializeClazz,
+						filterDeserializeClazz
+				):
+				this.get().getTypeFactory().constructParametricType(
+						clazz, 
+						deserializeClazz
 		);
 	}
 	

@@ -3,21 +3,21 @@ package org.github.davidcana.jcrud.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientServerTalking<T extends ZCrudEntity> {
+public class ClientServerTalking<T extends ZCrudEntity, F extends ZCrudEntity, U extends ZCrudEntity> {
 
-	private List<ClientServerTalkingItem<T>> items = new ArrayList<>();
+	private List<ClientServerTalkingItem<T, F, U>> items = new ArrayList<>();
 	
 	public ClientServerTalking(){}
 
-	public List<ClientServerTalkingItem<T>> getItems() {
+	public List<ClientServerTalkingItem<T, F, U>> getItems() {
 		return items;
 	}
 
-	public void setItems(List<ClientServerTalkingItem<T>> items) {
+	public void setItems(List<ClientServerTalkingItem<T, F, U>> items) {
 		this.items = items;
 	}
 
-	public void add(ClientServerTalkingItem<T> item){
+	public void add(ClientServerTalkingItem<T, F, U> item){
 		this.items.add(item);
 	}
 	
@@ -42,7 +42,7 @@ public class ClientServerTalking<T extends ZCrudEntity> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClientServerTalking other = (ClientServerTalking) obj;
+		ClientServerTalking<T, F, U> other = (ClientServerTalking<T, F, U>) obj;
 		if (items == null) {
 			if (other.items != null)
 				return false;
