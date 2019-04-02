@@ -3,11 +3,7 @@ package org.github.davidcana.jcrud.core.model.storages;
 import org.github.davidcana.jcrud.core.model.Member;
 import org.github.davidcana.jcrud.core.model.OriginalMember;
 import org.github.davidcana.jcrud.core.model.filters.FormFilterManager;
-import org.github.davidcana.jcrud.core.model.filters.MemberFilter;
-import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 
 public class OriginalMemberJDBCStorage extends JDBCStorage<OriginalMember, Integer, Member> {
 	
@@ -17,11 +13,6 @@ public class OriginalMemberJDBCStorage extends JDBCStorage<OriginalMember, Integ
 		super();
 		
 		this.filterManager = FormFilterManager.getInstance();
-		/*
-		this.setListRequestTypeReference(
-				new TypeReference<ListZCrudRequest<OriginalMember, Integer,MemberFilter>>() { }
-		);
-		*/
 	}
 
 	static public OriginalMemberJDBCStorage getInstance() {

@@ -3,7 +3,6 @@ package org.github.davidcana.jcrud.core.responses;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.github.davidcana.jcrud.core.ClientServerTalking;
 import org.github.davidcana.jcrud.core.StorageResolverForTests;
 import org.github.davidcana.jcrud.core.model.Form;
 import org.github.davidcana.jcrud.core.model.OriginalMember;
@@ -16,9 +15,7 @@ import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.storages.Storage;
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
-public class FormFolderTest extends AbstractZCrudResponseTest {
+public class FormFolderTest extends AbstractZCrudResponseTest<Form, Integer, MemberFilter, OriginalMember> {
 
 	@Test
 	public void test() throws Exception {
@@ -30,8 +27,7 @@ public class FormFolderTest extends AbstractZCrudResponseTest {
 		
         this.testTalkingFolder(
         		"form",
-        		new StorageResolverForTests(storages),
-        		new TypeReference<ClientServerTalking<Form, Integer, MemberFilter, OriginalMember>>() {}
+        		new StorageResolverForTests(storages)
         );
 	}
 

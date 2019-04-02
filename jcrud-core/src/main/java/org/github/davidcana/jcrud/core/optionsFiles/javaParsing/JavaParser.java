@@ -59,6 +59,7 @@ public class JavaParser {
 		);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private OptionsFile parseString(final String str, final boolean print) {
 		
 		this.parser.setSource(str.toCharArray());

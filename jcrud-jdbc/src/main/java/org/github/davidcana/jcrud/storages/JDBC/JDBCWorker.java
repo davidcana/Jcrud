@@ -93,6 +93,7 @@ public class JDBCWorker<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addWorkersOfSubform(Connection connection, List<PreparedStatement> stList, List<JDBCWorkerItem<?, ?, ?>> workerItemsList, T record, boolean isNew, String key) 
 			throws IllegalArgumentException, IllegalAccessException, StorageException {
 

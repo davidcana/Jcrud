@@ -274,6 +274,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				String fieldName = CoreUtils.getInstance().getPropertyIdFromZCrudRecordsFieldName(zcrudRecordsFieldName);
 				
 				// Get the list, initialize it if it is null
+				@SuppressWarnings("unchecked")
 				List<T> list = (List<T>) getGetterValue(instance, fieldName);
 				if (list == null){
 					list = new ArrayList<>();
@@ -302,6 +303,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void add1SubformToInstance(String fieldName, T instance, JDBCStorage subformStorage, List<T> list, boolean useKey, SearchFieldData<?> searchFieldData, GetZCrudResponse<T> getCRUDResponse) throws StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException, InvocationTargetException, IntrospectionException {
 		
 		list.clear();
@@ -558,6 +560,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<T> buildSubformList(String fieldName, List<T> subformList, String masterKey, boolean useMasterKey, SearchFieldData searchFieldData, GetZCrudResponse<T> getCRUDResponse) throws SQLException, StorageException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {
 		
 		long totalNumberOfRecords = this.getNumberOfRecords(searchFieldData);
@@ -623,6 +626,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	    method.invoke(instance, value);
 	}
 	
+	@SuppressWarnings("unchecked")
 	K getKey(T instance) throws IllegalAccessException, InvocationTargetException, IntrospectionException {
 		
 		return (K) this.getGetterValue(

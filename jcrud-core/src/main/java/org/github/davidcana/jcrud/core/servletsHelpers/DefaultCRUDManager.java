@@ -43,6 +43,7 @@ public class DefaultCRUDManager implements Manager {
 			);
 			
 			// Build zcrudCommand
+			@SuppressWarnings("unchecked")
 			ZCrudCommand zcrudCommand = zcrudRequest.buildCommand(storage);
 			
 			// Build zcrudResponse

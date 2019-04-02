@@ -12,15 +12,10 @@ import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.options.Option;
 import org.github.davidcana.jcrud.core.options.OptionProvider;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
 abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> implements Storage<T, K, F> {
 	
 	protected Class<T> clazz;
 	protected Type[] actualTypeArguments;
-	protected TypeReference<?> listRequestTypeReference;
-	protected TypeReference<?> getRequestTypeReference;
-	protected TypeReference<?> updateRequestTypeReference;
 	protected boolean keyNeeded = true;
 	
 	@SuppressWarnings("unchecked")
@@ -28,6 +23,11 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 		
 		this.actualTypeArguments = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
 		this.clazz = (Class<T>) this.actualTypeArguments[0];
+	}
+
+	@Override
+	public Class<?> getDeserializeClass() {
+		return this.clazz;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -46,7 +46,8 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 				@SuppressWarnings("unchecked")
 				OptionProvider<K> optionProvider = (OptionProvider<K>) object;
 				result.add(
-						optionProvider.buildOption());
+						optionProvider.buildOption()
+				);
 			}
 			
 			return result;
@@ -55,43 +56,6 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 			throw new StorageException(e);
 		}
 	}
-
-	@Override
-	public Class<?> getDeserializeClass() {
-		return this.clazz;
-	}
-	
-	/*
-	@Override
-	public void setListRequestTypeReference(TypeReference<?> typeReference) {
-		this.listRequestTypeReference = typeReference;
-	}
-
-	@Override
-	public TypeReference<?> getListRequestTypeReference() {
-		return listRequestTypeReference;
-	}
-
-	@Override
-	public void setGetRequestTypeReference(TypeReference<?> typeReference) {
-		this.getRequestTypeReference = typeReference;
-	}
-
-	@Override
-	public TypeReference<?> getGetRequestTypeReference() {
-		return getRequestTypeReference;
-	}
-
-	@Override
-	public void setUpdateRequestTypeReference(TypeReference<?> typeReference) {
-		this.updateRequestTypeReference = typeReference;
-	}
-
-	@Override
-	public TypeReference<?> getUpdateRequestTypeReference() {
-		return updateRequestTypeReference;
-	}
-	 */
 	
 	private void resolveSuperClassAnnotation(Annotation annotation){
 		

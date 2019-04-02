@@ -26,15 +26,6 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	public Class<?> getDeserializeClass();
 	public Class<?> getActualTypeArguments(int index);
 	
-	/*
-	public void setListRequestTypeReference(TypeReference<?> typeReference);
-	public TypeReference<?> getListRequestTypeReference();
-	public void setGetRequestTypeReference(TypeReference<?> typeReference);
-	public TypeReference<?> getGetRequestTypeReference();
-	public void setUpdateRequestTypeReference(TypeReference<?> typeReference);
-	public TypeReference<?> getUpdateRequestTypeReference();
-	*/
-	
 	public List<Option<K>> getAllAsOptions() throws StorageException;
 	
 	public boolean isKeyNeeded();
