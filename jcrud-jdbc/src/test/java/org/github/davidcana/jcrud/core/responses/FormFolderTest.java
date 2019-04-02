@@ -23,7 +23,7 @@ public class FormFolderTest extends AbstractZCrudResponseTest {
 	@Test
 	public void test() throws Exception {
         
-		Map<Class<?>, Storage<?,?,?>> storages = new HashMap<>();
+		Map<Class<?>, Storage<?, ?, ?>> storages = new HashMap<>();
 		storages.put(GetZCrudRequest.class, FormJDBCStorage.getInstance());
 		storages.put(ListZCrudRequest.class, OriginalMemberJDBCStorage.getInstance());
 		storages.put(UpdateZCrudRequest.class, FormJDBCStorage.getInstance());
@@ -31,7 +31,7 @@ public class FormFolderTest extends AbstractZCrudResponseTest {
         this.testTalkingFolder(
         		"form",
         		new StorageResolverForTests(storages),
-        		new TypeReference<ClientServerTalking<Form, MemberFilter, OriginalMember>>() {}
+        		new TypeReference<ClientServerTalking<Form, Integer, MemberFilter, OriginalMember>>() {}
         );
 	}
 

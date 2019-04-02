@@ -22,8 +22,8 @@ public class SQLFieldGroup {
 	private List<Field> fields;
 	private Map<String,Object> values = new HashMap<>();
 	private boolean updatable = false;
-	private JDBCStorage<?,?,?> storage;
-	private JDBCStorage<?,?,?> parentStorage;
+	private JDBCStorage<?, ?, ?> storage;
+	private JDBCStorage<?, ?, ?> parentStorage;
 	private Object parentKey;
 	private int size = 0;
 	
@@ -36,7 +36,7 @@ public class SQLFieldGroup {
 	public SQLFieldGroup(Object record) throws IllegalArgumentException, IllegalAccessException {
 		this.build(record);
 	}
-	public SQLFieldGroup(Object record, JDBCStorage<?,?,?> storage, JDBCStorage<?,?,?> parentStorage, Object parentKey) throws IllegalArgumentException, IllegalAccessException {
+	public SQLFieldGroup(Object record, JDBCStorage<?, ?, ?> storage, JDBCStorage<?, ?, ?> parentStorage, Object parentKey) throws IllegalArgumentException, IllegalAccessException {
 		
 		this(record);
 		this.storage = storage;

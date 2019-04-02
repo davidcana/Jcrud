@@ -2,7 +2,7 @@ package org.github.davidcana.jcrud.core.requests;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
-abstract public class AbstractZCrudRequest<F extends ZCrudEntity>  implements ZCrudRequest<F> {
+abstract public class AbstractZCrudRequest<T extends ZCrudEntity, K, F extends ZCrudEntity> implements ZCrudRequest<T, K, F> {
 
 	private String command;
 	
@@ -34,7 +34,8 @@ abstract public class AbstractZCrudRequest<F extends ZCrudEntity>  implements ZC
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AbstractZCrudRequest<F> other = (AbstractZCrudRequest<F>) obj;
+		@SuppressWarnings("unchecked")
+		AbstractZCrudRequest<T, K, F> other = (AbstractZCrudRequest<T, K, F>) obj;
 		if (command == null) {
 			if (other.command != null)
 				return false;

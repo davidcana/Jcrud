@@ -13,16 +13,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class ClientServerTalkingItem<T extends ZCrudEntity, F extends ZCrudEntity, U extends ZCrudEntity> {
+public class ClientServerTalkingItem<T extends ZCrudEntity, K, F extends ZCrudEntity, U extends ZCrudEntity> {
 
 	@JsonInclude(Include.NON_NULL)
-	private GetZCrudRequest<F> getRequest;
+	private GetZCrudRequest<T, K, F> getRequest;
 	
 	@JsonInclude(Include.NON_NULL)
-	private ListZCrudRequest<F> listRequest;
+	private ListZCrudRequest<T, K, F> listRequest;
 	
 	@JsonInclude(Include.NON_NULL)
-	private UpdateZCrudRequest<T, F> updateRequest;
+	private UpdateZCrudRequest<T, K, F> updateRequest;
 	
 	@JsonInclude(Include.NON_NULL)
 	private GetZCrudResponse<T> getResponse;
@@ -35,27 +35,27 @@ public class ClientServerTalkingItem<T extends ZCrudEntity, F extends ZCrudEntit
 	
 	public ClientServerTalkingItem(){}
 
-	public GetZCrudRequest<F> getGetRequest() {
+	public GetZCrudRequest<T, K, F> getGetRequest() {
 		return getRequest;
 	}
 
-	public void setGetRequest(GetZCrudRequest<F> getRequest) {
+	public void setGetRequest(GetZCrudRequest<T, K, F> getRequest) {
 		this.getRequest = getRequest;
 	}
 
-	public ListZCrudRequest<F> getListRequest() {
+	public ListZCrudRequest<T, K, F> getListRequest() {
 		return listRequest;
 	}
 
-	public void setListRequest(ListZCrudRequest<F> listRequest) {
+	public void setListRequest(ListZCrudRequest<T, K, F> listRequest) {
 		this.listRequest = listRequest;
 	}
 
-	public UpdateZCrudRequest<T, F> getUpdateRequest() {
+	public UpdateZCrudRequest<T, K, F> getUpdateRequest() {
 		return updateRequest;
 	}
 
-	public void setUpdateRequest(UpdateZCrudRequest<T, F> updateRequest) {
+	public void setUpdateRequest(UpdateZCrudRequest<T, K, F> updateRequest) {
 		this.updateRequest = updateRequest;
 	}
 
@@ -84,7 +84,7 @@ public class ClientServerTalkingItem<T extends ZCrudEntity, F extends ZCrudEntit
 	}
 
 	@JsonIgnore
-	public ZCrudRequest getRequest(){
+	public ZCrudRequest<T, K, F> getRequest(){
 		
 		if (getRequest != null){
 			return getRequest;
@@ -111,6 +111,7 @@ public class ClientServerTalkingItem<T extends ZCrudEntity, F extends ZCrudEntit
 		return updateResponse;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@JsonIgnore
 	public void replaceResponse(ZCrudResponse newResponse){
 		
@@ -155,7 +156,8 @@ public class ClientServerTalkingItem<T extends ZCrudEntity, F extends ZCrudEntit
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClientServerTalkingItem<T, F, U> other = (ClientServerTalkingItem<T, F, U>) obj;
+		@SuppressWarnings("unchecked")
+		ClientServerTalkingItem<T, K, F, U> other = (ClientServerTalkingItem<T, K, F, U>) obj;
 		if (getRequest == null) {
 			if (other.getRequest != null)
 				return false;
@@ -190,9 +192,9 @@ public class ClientServerTalkingItem<T extends ZCrudEntity, F extends ZCrudEntit
 	}
 	
 	@Override
-	public ClientServerTalkingItem<T, F, U> clone() {
+	public ClientServerTalkingItem<T, K, F, U> clone() {
 		
-		ClientServerTalkingItem<T, F, U> result = new ClientServerTalkingItem<>();
+		ClientServerTalkingItem<T, K, F, U> result = new ClientServerTalkingItem<>();
 		
 		result.getRequest = getRequest;
 		result.listRequest = listRequest;

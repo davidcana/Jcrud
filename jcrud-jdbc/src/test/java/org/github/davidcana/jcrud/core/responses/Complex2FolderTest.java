@@ -18,7 +18,7 @@ public class Complex2FolderTest extends AbstractZCrudResponseTest {
         		new StorageResolverForTests(
         				Complex2JDBCStorage.getInstance()
         		),
-        		new TypeReference<ClientServerTalking<Complex2, Complex2, Complex2>>() {}
+        		new TypeReference<ClientServerTalking<Complex2, Integer, Complex2, Complex2>>() {}
         );
 	}
 

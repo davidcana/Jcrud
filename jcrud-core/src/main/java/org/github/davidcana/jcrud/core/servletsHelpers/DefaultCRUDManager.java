@@ -27,7 +27,7 @@ public class DefaultCRUDManager implements Manager {
 	@Override
 	public ZCrudResponse buildZCrudResponse(HttpServletRequest request){
 		
-		ZCrudRequest zcrudRequest = null;
+		ZCrudRequest<?,?,?> zcrudRequest = null;
 		ZCrudResponse zcrudResponse = null;
 		
 		try {
@@ -57,7 +57,7 @@ public class DefaultCRUDManager implements Manager {
 		return zcrudResponse;
 	}
 	
-	public ZCrudRequest getRequest(String cmd, Reader jsonReader, @SuppressWarnings("rawtypes") Storage storage) throws JsonParseException, JsonMappingException, IOException {
+	public ZCrudRequest<?,?,?> getRequest(String cmd, Reader jsonReader, Storage<?,?,?> storage) throws JsonParseException, JsonMappingException, IOException {
 		
 		String json = CoreUtils.getInstance().getStringFromReader(jsonReader);
 		

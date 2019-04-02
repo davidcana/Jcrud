@@ -89,8 +89,8 @@ abstract public class AbstractZCrudResponseTest {
         
         String json = CoreUtils.getInstance().getStringFromReader(
         		this.getResourceReader(test));
-        ClientServerTalking<?,?,?> expectedTalking = ObjectMapperProviderForTest.getInstance().getClientServerTalking(json, typeReference);
-        ClientServerTalking<?,?,?> talking = this.buildTalking(storageResolverForTests, expectedTalking);
+        ClientServerTalking<?,?,?,?> expectedTalking = ObjectMapperProviderForTest.getInstance().getClientServerTalking(json, typeReference);
+        ClientServerTalking<?,?,?,?> talking = this.buildTalking(storageResolverForTests, expectedTalking);
 	
 		if (! expectedTalking.equals(talking)){
 		    fail( "unexpected results: see " + this.saveNew(test, talking) );
@@ -129,26 +129,26 @@ abstract public class AbstractZCrudResponseTest {
 	}*/
 	
 	@SuppressWarnings("rawtypes")
-	private ClientServerTalking buildTalking(StorageResolverForTests storageResolverForTests, ClientServerTalking<?,?,?> expectedTalking) throws JsonParseException, JsonMappingException, IOException{
+	private ClientServerTalking buildTalking(StorageResolverForTests storageResolverForTests, ClientServerTalking<?,?,?,?> expectedTalking) throws JsonParseException, JsonMappingException, IOException{
 		
 		ClientServerTalking talking = new ClientServerTalking();
 		
-		for (ClientServerTalkingItem<?,?,?> expectedItem : expectedTalking.getItems()){
-			ClientServerTalkingItem<?,?,?> item = this.buildItem(storageResolverForTests, expectedItem);
+		for (ClientServerTalkingItem<?,?,?,?> expectedItem : expectedTalking.getItems()){
+			ClientServerTalkingItem<?,?,?,?> item = this.buildItem(storageResolverForTests, expectedItem);
 			talking.add(item);
         }
 		
 		return talking;
 	}
 	
-	private ClientServerTalkingItem<?,?,?> buildItem(StorageResolverForTests storageResolverForTests, ClientServerTalkingItem<?,?,?> expectedItem)
+	private ClientServerTalkingItem<?,?,?,?> buildItem(StorageResolverForTests storageResolverForTests, ClientServerTalkingItem<?,?,?,?> expectedItem)
 			throws JsonParseException, JsonMappingException, IOException {
 		
 		// Build zcrudRequest
 		ZCrudRequest zcrudRequest = expectedItem.getRequest();
 		
 		// Resolve Storage
-		Storage<?,?,?> storage = storageResolverForTests.resolve(zcrudRequest.getClass());
+		Storage<?, ?, ?> storage = storageResolverForTests.resolve(zcrudRequest.getClass());
 		
 		// Build zcrudCommand
 		ZCrudCommand zcrudCommand = zcrudRequest.buildCommand(storage);
@@ -157,13 +157,13 @@ abstract public class AbstractZCrudResponseTest {
 		ZCrudResponse zcrudResponse = zcrudCommand.buildResponse();
 		
 		// Build expected ClientServerTalkingItem
-		ClientServerTalkingItem<?,?,?> item = (ClientServerTalkingItem<?,?,?>) expectedItem.clone();
+		ClientServerTalkingItem<?,?,?,?> item = (ClientServerTalkingItem<?,?,?,?>) expectedItem.clone();
 		item.replaceResponse(zcrudResponse);;
 		
 		return item;
 	}
 
-	protected String saveNew(String test, ClientServerTalking<?,?,?> talking) throws IOException{
+	protected String saveNew(String test, ClientServerTalking<?,?,?,?> talking) throws IOException{
 		
 		StringBuilder buffer = this.buildBuffer(talking);
 		
@@ -187,7 +187,7 @@ abstract public class AbstractZCrudResponseTest {
         fileWriter.close();
 	}
 	
-	private StringBuilder buildBuffer(ClientServerTalking<?,?,?> talking) throws IOException {
+	private StringBuilder buildBuffer(ClientServerTalking<?,?,?,?> talking) throws IOException {
 		
 		String json = ObjectMapperProviderForTest.getInstance().get().writerWithDefaultPrettyPrinter().writeValueAsString(talking);
 		

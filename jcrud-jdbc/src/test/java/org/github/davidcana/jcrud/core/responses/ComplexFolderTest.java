@@ -18,7 +18,7 @@ public class ComplexFolderTest extends AbstractZCrudResponseTest {
         		new StorageResolverForTests(
         				ComplexJDBCStorage.getInstance()
         		),
-        		new TypeReference<ClientServerTalking<Complex, Complex, Complex>>() {}
+        		new TypeReference<ClientServerTalking<Complex, Integer, Complex, Complex>>() {}
         );
 	}
 

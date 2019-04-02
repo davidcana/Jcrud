@@ -28,12 +28,12 @@ abstract public class AbstractZCrudRequestTest extends AbstractTest {
 	public void tearDown() throws Exception {
 	}
 
-	protected void testRequest(String cmd, String test, ZCrudRequest expected) throws JsonParseException, JsonMappingException, IOException {
+	protected void testRequest(String cmd, String test, ZCrudRequest<?, ?, ?> expected) throws JsonParseException, JsonMappingException, IOException {
 		
         long start = System.currentTimeMillis();
         
         // Build expectedZcrudRequest
-        ZCrudRequest zCrudRequest = DefaultCRUDManager.getInstance().getRequest(
+        ZCrudRequest<?, ?, ?> zCrudRequest = DefaultCRUDManager.getInstance().getRequest(
         		cmd, 
         		this.getResourceReader(TESTS_PATH, test, FILE_EXTENSION), 
         		SimpleVoidStorage.getInstance()
@@ -50,7 +50,7 @@ abstract public class AbstractZCrudRequestTest extends AbstractTest {
         System.err.println(test + ": tested in " + elapsed + " ms");
 	}
 
-	protected String saveNew(String test, ZCrudRequest zCrudRequest) throws IOException {
+	protected String saveNew(String test, ZCrudRequest<?, ?, ?> zCrudRequest) throws IOException {
 		
         String buffer = this.buildBuffer(
 				ObjectMapperProviderForTest.getInstance().get().writerWithDefaultPrettyPrinter().writeValueAsString(zCrudRequest)

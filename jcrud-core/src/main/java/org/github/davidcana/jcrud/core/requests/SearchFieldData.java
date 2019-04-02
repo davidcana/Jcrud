@@ -83,7 +83,8 @@ public class SearchFieldData<F extends ZCrudEntity> implements ISearchFieldData<
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SearchFieldData other = (SearchFieldData) obj;
+		@SuppressWarnings("unchecked")
+		SearchFieldData<F> other = (SearchFieldData<F>) obj;
 		if (filter == null) {
 			if (other.filter != null)
 				return false;

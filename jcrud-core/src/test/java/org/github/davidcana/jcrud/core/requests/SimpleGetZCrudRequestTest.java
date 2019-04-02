@@ -16,7 +16,7 @@ public class SimpleGetZCrudRequestTest extends AbstractZCrudRequestTest {
 	public void testBuildResponse() throws JsonParseException, JsonMappingException, IOException {
 		
         // Build zcrudRequest
-        GetZCrudRequest<Simple> zcrudRequest = new GetZCrudRequest<Simple>();
+        GetZCrudRequest<Simple, Integer, Simple> zcrudRequest = new GetZCrudRequest<>();
         zcrudRequest.setKey("1");
         zcrudRequest.setCommand("getRecord");
         

@@ -27,7 +27,7 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public void doCRUD(UpdateZCrudRequest<T, F> updateRequest) throws StorageException {
+	public void doCRUD(UpdateZCrudRequest<T, K, F> updateRequest) throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 
@@ -42,13 +42,13 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest<F> listCRUDRequest)
+	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest<T, K, F> listCRUDRequest)
 			throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 
 	@Override
-	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getCRUDRequest)
+	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<T, K, F> getCRUDRequest)
 			throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}

@@ -17,9 +17,11 @@ public class OriginalMemberJDBCStorage extends JDBCStorage<OriginalMember, Integ
 		super();
 		
 		this.filterManager = FormFilterManager.getInstance();
+		/*
 		this.setListRequestTypeReference(
-				new TypeReference<ListZCrudRequest<MemberFilter>>() { }
+				new TypeReference<ListZCrudRequest<OriginalMember, Integer,MemberFilter>>() { }
 		);
+		*/
 	}
 
 	static public OriginalMemberJDBCStorage getInstance() {

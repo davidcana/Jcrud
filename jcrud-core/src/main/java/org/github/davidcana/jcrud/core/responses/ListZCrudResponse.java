@@ -49,6 +49,7 @@ public class ListZCrudResponse<T extends ZCrudEntity> extends GenericZCrudRespon
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		ListZCrudResponse other = (ListZCrudResponse) obj;
 		if (records == null) {
 			if (other.records != null)

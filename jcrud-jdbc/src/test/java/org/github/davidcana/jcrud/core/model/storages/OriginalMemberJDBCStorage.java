@@ -9,7 +9,7 @@ import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-public class OriginalMemberJDBCStorage extends JDBCStorage<OriginalMember, Integer, Member> {
+public class OriginalMemberJDBCStorage extends JDBCStorage<OriginalMember, Integer, MemberFilter> {
 	
 	static private OriginalMemberJDBCStorage instance; 
 	
@@ -17,9 +17,11 @@ public class OriginalMemberJDBCStorage extends JDBCStorage<OriginalMember, Integ
 		super();
 		
 		this.filterManager = FormFilterManager.getInstance();
+		/*
 		this.setListRequestTypeReference(
-				new TypeReference<ListZCrudRequest<MemberFilter>>() { }
+				new TypeReference<ListZCrudRequest<OriginalMember, Integer, MemberFilter>>() { }
 		);
+		*/
 	}
 
 	static public OriginalMemberJDBCStorage getInstance() {

@@ -11,5 +11,5 @@ import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 @Retention(RUNTIME)
 @Target(FIELD)
 public @interface JDBCOneToMany {
-	Class<? extends JDBCStorage<?,?,?>> storage();
+	Class<? extends JDBCStorage<?, ?, ?>> storage();
 }

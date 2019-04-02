@@ -8,7 +8,7 @@ import org.github.davidcana.jcrud.core.commands.UpdateZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class UpdateZCrudRequest<T extends ZCrudEntity, F extends ZCrudEntity> extends AbstractZCrudRequest implements IZCrudRecords<T> {
+public class UpdateZCrudRequest<T extends ZCrudEntity, K, F extends ZCrudEntity> extends AbstractZCrudRequest<T, K, F> implements IZCrudRecords<T> {
 	
 	private String url;
 	private List<T> newRecords;
@@ -59,8 +59,8 @@ public class UpdateZCrudRequest<T extends ZCrudEntity, F extends ZCrudEntity> ex
 	}
 
 	@Override
-	public ZCrudCommand buildCommand(Storage storage) {
-		return new UpdateZCrudCommand(this, storage);
+	public ZCrudCommand buildCommand(Storage<T, K, F> storage) {
+		return new UpdateZCrudCommand<T, K, F>(this, storage);
 	}
 
 	@Override
@@ -83,7 +83,8 @@ public class UpdateZCrudRequest<T extends ZCrudEntity, F extends ZCrudEntity> ex
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UpdateZCrudRequest<T,F> other = (UpdateZCrudRequest<T,F>) obj;
+		@SuppressWarnings("unchecked")
+		UpdateZCrudRequest<T, K, F> other = (UpdateZCrudRequest<T, K, F>) obj;
 		if (existingRecords == null) {
 			if (other.existingRecords != null)
 				return false;

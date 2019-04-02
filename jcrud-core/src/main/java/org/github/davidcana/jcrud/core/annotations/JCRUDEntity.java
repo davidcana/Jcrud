@@ -13,7 +13,7 @@ import org.github.davidcana.jcrud.storages.Storage;
 @Target(TYPE)
 @IndexAnnotated
 public @interface JCRUDEntity {
-	Class<? extends Storage<?,?,?>> storage();
+	Class<? extends Storage<?, ?, ?>> storage();
 	String jsFilePath() default "";
 	String jsFileVarName() default "";
 	String urlParameter() default "";

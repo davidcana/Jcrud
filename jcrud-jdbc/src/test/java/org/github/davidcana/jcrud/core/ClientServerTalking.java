@@ -3,21 +3,21 @@ package org.github.davidcana.jcrud.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientServerTalking<T extends ZCrudEntity, F extends ZCrudEntity, U extends ZCrudEntity> {
+public class ClientServerTalking<T extends ZCrudEntity, K, F extends ZCrudEntity, U extends ZCrudEntity> {
 
-	private List<ClientServerTalkingItem<T, F, U>> items = new ArrayList<>();
+	private List<ClientServerTalkingItem<T, K, F, U>> items = new ArrayList<>();
 	
 	public ClientServerTalking(){}
 
-	public List<ClientServerTalkingItem<T, F, U>> getItems() {
+	public List<ClientServerTalkingItem<T, K, F, U>> getItems() {
 		return items;
 	}
 
-	public void setItems(List<ClientServerTalkingItem<T, F, U>> items) {
+	public void setItems(List<ClientServerTalkingItem<T, K, F, U>> items) {
 		this.items = items;
 	}
 
-	public void add(ClientServerTalkingItem<T, F, U> item){
+	public void add(ClientServerTalkingItem<T, K, F, U> item){
 		this.items.add(item);
 	}
 	
@@ -42,7 +42,8 @@ public class ClientServerTalking<T extends ZCrudEntity, F extends ZCrudEntity, U
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClientServerTalking<T, F, U> other = (ClientServerTalking<T, F, U>) obj;
+		@SuppressWarnings("unchecked")
+		ClientServerTalking<T, K, F, U> other = (ClientServerTalking<T, K, F, U>) obj;
 		if (items == null) {
 			if (other.items != null)
 				return false;

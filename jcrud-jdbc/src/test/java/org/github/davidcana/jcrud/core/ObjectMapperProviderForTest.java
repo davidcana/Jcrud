@@ -24,8 +24,8 @@ public class ObjectMapperProviderForTest {
 		return this.mapper;
 	}
 
-	public ClientServerTalking<?,?,?> getClientServerTalking(String json, TypeReference<?> typeReference) throws IOException, JsonParseException, JsonMappingException {
-		return (ClientServerTalking<?,?,?>) this.get().readValue(json, typeReference);
+	public ClientServerTalking<?,?,?,?> getClientServerTalking(String json, TypeReference<?> typeReference) throws IOException, JsonParseException, JsonMappingException {
+		return (ClientServerTalking<?,?,?,?>) this.get().readValue(json, typeReference);
 	}
 	
 	static private ObjectMapper instanceObjectMapper(){

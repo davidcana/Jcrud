@@ -16,7 +16,7 @@ public class SimpleListZCrudRequestTest extends AbstractZCrudRequestTest {
 	public void testBuildResponse() throws JsonParseException, JsonMappingException, IOException {
 		
         // Build zcrudRequest
-        ListZCrudRequest<Simple> zcrudRequest = new ListZCrudRequest<>();
+        ListZCrudRequest<Simple, Integer, Simple> zcrudRequest = new ListZCrudRequest<>();
         zcrudRequest.setFilter(new Simple());
         zcrudRequest.setPageNumber(1);
         zcrudRequest.setPageSize(5);

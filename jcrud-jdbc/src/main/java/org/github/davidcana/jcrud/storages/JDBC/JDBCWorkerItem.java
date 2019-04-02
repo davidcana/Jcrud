@@ -19,7 +19,7 @@ public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	private IZCrudRecords<T> zcrudRecords;
 	private List<PreparedStatement> stList; 
 	private Connection connection;
-	private JDBCStorage parentStorage;
+	private JDBCStorage<?, ?, ?> parentStorage;
 	private Object parentKey;
 	
 	public JDBCWorkerItem(JDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection) throws StorageException {
@@ -32,7 +32,7 @@ public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 		this.generateIds();
 	}
 	
-	public JDBCWorkerItem(JDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection, JDBCStorage parentStorage, Object parentKey) throws StorageException {
+	public JDBCWorkerItem(JDBCStorage<T, K, F> storage, IZCrudRecords<T> zcrudRecords, List<PreparedStatement> stList, Connection connection, JDBCStorage<?, ?, ?> parentStorage, Object parentKey) throws StorageException {
 		
 		this(storage, zcrudRecords, stList, connection);
 		this.parentStorage = parentStorage;

@@ -17,19 +17,25 @@ import com.fasterxml.jackson.core.type.TypeReference;
 abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> implements Storage<T, K, F> {
 	
 	protected Class<T> clazz;
-	protected Class<T> filterClazz;
+	protected Type[] actualTypeArguments;
 	protected TypeReference<?> listRequestTypeReference;
 	protected TypeReference<?> getRequestTypeReference;
 	protected TypeReference<?> updateRequestTypeReference;
 	protected boolean keyNeeded = true;
 	
+	@SuppressWarnings("unchecked")
 	protected AbstractStorage(){
 		
-		Type[] actualTypeArguments = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
-		this.clazz = (Class<T>) actualTypeArguments[0];
-		this.filterClazz = (Class<T>) actualTypeArguments[2];
+		this.actualTypeArguments = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments();
+		this.clazz = (Class<T>) this.actualTypeArguments[0];
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Class<?> getActualTypeArguments(int index) {
+		return (Class<T>) this.actualTypeArguments[index];
+	}
+
 	@Override
 	public List<Option<K>> getAllAsOptions() throws StorageException {
 		
@@ -37,6 +43,7 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 			List<Option<K>> result = new ArrayList<>();
 			
 			for (T object : this.getAll()){
+				@SuppressWarnings("unchecked")
 				OptionProvider<K> optionProvider = (OptionProvider<K>) object;
 				result.add(
 						optionProvider.buildOption());
@@ -54,11 +61,7 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 		return this.clazz;
 	}
 	
-	@Override
-	public Class<?> getFilterDeserializeClass() {
-		return this.filterClazz;
-	}
-	
+	/*
 	@Override
 	public void setListRequestTypeReference(TypeReference<?> typeReference) {
 		this.listRequestTypeReference = typeReference;
@@ -88,7 +91,8 @@ abstract public class AbstractStorage<T extends ZCrudEntity, K, F extends ZCrudE
 	public TypeReference<?> getUpdateRequestTypeReference() {
 		return updateRequestTypeReference;
 	}
-
+	 */
+	
 	private void resolveSuperClassAnnotation(Annotation annotation){
 		
 	    if (annotation instanceof JCRUDEntity){

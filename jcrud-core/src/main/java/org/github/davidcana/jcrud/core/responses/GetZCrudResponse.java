@@ -60,6 +60,7 @@ public class GetZCrudResponse<T extends ZCrudEntity> extends GenericZCrudRespons
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		GetZCrudResponse other = (GetZCrudResponse) obj;
 		if (fieldsData == null) {
 			if (other.fieldsData != null)

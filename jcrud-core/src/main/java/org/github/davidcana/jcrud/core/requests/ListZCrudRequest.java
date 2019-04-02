@@ -5,7 +5,7 @@ import org.github.davidcana.jcrud.core.commands.ListZCrudCommand;
 import org.github.davidcana.jcrud.core.commands.ZCrudCommand;
 import org.github.davidcana.jcrud.storages.Storage;
 
-public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudRequest<F>  implements ISearchFieldData<F>  {
+public class ListZCrudRequest<T extends ZCrudEntity, K, F extends ZCrudEntity> extends AbstractZCrudRequest<T, K, F>  implements ISearchFieldData<F>  {
 
 	//pageNumber=1&pageSize=15&sortFieldId=name&sortType=asc&command=listRecords
 	
@@ -63,8 +63,8 @@ public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudReques
 	}
 
 	@Override
-	public ZCrudCommand buildCommand(Storage storage) {
-		return new ListZCrudCommand(this, storage);
+	public ZCrudCommand buildCommand(Storage<T, K, F> storage) {
+		return new ListZCrudCommand<T, K, F>(this, storage);
 	}
 	
 	@Override
@@ -87,7 +87,8 @@ public class ListZCrudRequest<F extends ZCrudEntity> extends AbstractZCrudReques
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ListZCrudRequest<F> other = (ListZCrudRequest<F>) obj;
+		@SuppressWarnings("unchecked")
+		ListZCrudRequest<T, K, F> other = (ListZCrudRequest<T, K, F>) obj;
 		if (filter == null) {
 			if (other.filter != null)
 				return false;

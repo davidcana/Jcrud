@@ -55,6 +55,7 @@ public class ZCrudRecords<T extends ZCrudEntity> implements IZCrudRecords<T> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("unchecked")
 		ZCrudRecords<T> other = (ZCrudRecords<T>) obj;
 		if (existingRecords == null) {
 			if (other.existingRecords != null)

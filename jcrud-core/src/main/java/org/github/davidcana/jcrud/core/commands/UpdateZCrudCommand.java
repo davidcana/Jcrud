@@ -8,10 +8,10 @@ import org.github.davidcana.jcrud.storages.Storage;
 
 public class UpdateZCrudCommand<T extends ZCrudEntity, K, F extends ZCrudEntity> implements ZCrudCommand {
 
-	private UpdateZCrudRequest<T, F> zCrudRequest;
-	private Storage<T,K,F> storage;
+	private UpdateZCrudRequest<T, K, F> zCrudRequest;
+	private Storage<T, K, F> storage;
 	
-	public UpdateZCrudCommand(UpdateZCrudRequest<T, F> zCrudRequest, Storage<T,K,F> storage) {
+	public UpdateZCrudCommand(UpdateZCrudRequest<T, K, F> zCrudRequest, Storage<T, K, F> storage) {
 		super();
 		this.zCrudRequest = zCrudRequest;
 		this.storage = storage;

@@ -1,9 +1,8 @@
 package org.github.davidcana.jcrud.core.model.filters;
 
-import org.github.davidcana.jcrud.core.model.Member;
 import org.github.davidcana.jcrud.storages.JDBC.DefaultFilterManager;
 
-public class FormFilterManager extends DefaultFilterManager<Member> {
+public class FormFilterManager extends DefaultFilterManager<MemberFilter> {
 	
 	static private FormFilterManager instance;
 	

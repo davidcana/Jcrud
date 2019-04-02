@@ -27,7 +27,7 @@ public class ObjectMapperProviderForTest {
 		return this.mapper;
 	}
 
-	public ZCrudRequest getZCrudRequest(String json, Storage<?,?,?> storage) throws IOException, JsonParseException, JsonMappingException {
+	public ZCrudRequest getZCrudRequest(String json, Storage<?, ?, ?> storage) throws IOException, JsonParseException, JsonMappingException {
 		
 		JavaType type = this.get().getTypeFactory().constructParametricType(ZCrudRequest.class, storage.getDeserializeClass());
 		return (ZCrudRequest) this.get().readValue(json, type);

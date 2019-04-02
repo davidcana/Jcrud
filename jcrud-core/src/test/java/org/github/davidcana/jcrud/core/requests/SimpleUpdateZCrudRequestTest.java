@@ -19,7 +19,7 @@ public class SimpleUpdateZCrudRequestTest extends AbstractZCrudRequestTest {
 	public void testBuildResponse() throws JsonParseException, JsonMappingException, IOException {
 		
         // Build zcrudRequest
-		UpdateZCrudRequest<Simple, Simple> zcrudRequest = new UpdateZCrudRequest<Simple, Simple>();
+		UpdateZCrudRequest<Simple, Integer, Simple> zcrudRequest = new UpdateZCrudRequest<>();
 		zcrudRequest.setNewRecords(new ArrayList<>());
 		zcrudRequest.setRecordsToRemove(new ArrayList<>());
 		zcrudRequest.setUrl("CRUDManager.do?cmd=BATCH_UPDATE&table=simple"); //TODO Remove URL

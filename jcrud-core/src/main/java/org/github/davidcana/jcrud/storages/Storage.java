@@ -11,29 +11,29 @@ import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
 public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public List<T> getAll() throws StorageException;
 	
-	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest<F> listCRUDRequest) throws StorageException;
+	public void fillListCRUDResponse(ListZCrudResponse<T> listCRUDResponse, ListZCrudRequest<T, K, F> listCRUDRequest) throws StorageException;
 
-	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<F> getCRUDRequest) throws StorageException;
+	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<T, K, F> getCRUDRequest) throws StorageException;
 	
-	public void doCRUD(UpdateZCrudRequest<T, F> updateCRUDRequest) throws StorageException;
+	public void doCRUD(UpdateZCrudRequest<T, K, F> updateCRUDRequest) throws StorageException;
 	
 	public long getNumberOfRecords(ISearchFieldData<F> iSearchFieldData) throws StorageException;
 	
 	public Class<?> getDeserializeClass();
-	public Class<?> getFilterDeserializeClass();
+	public Class<?> getActualTypeArguments(int index);
 	
+	/*
 	public void setListRequestTypeReference(TypeReference<?> typeReference);
 	public TypeReference<?> getListRequestTypeReference();
 	public void setGetRequestTypeReference(TypeReference<?> typeReference);
 	public TypeReference<?> getGetRequestTypeReference();
 	public void setUpdateRequestTypeReference(TypeReference<?> typeReference);
 	public TypeReference<?> getUpdateRequestTypeReference();
+	*/
 	
 	public List<Option<K>> getAllAsOptions() throws StorageException;
 	

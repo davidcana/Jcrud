@@ -59,7 +59,8 @@ public class Option<K> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Option other = (Option) obj;
+		@SuppressWarnings("unchecked")
+		Option<K> other = (Option<K>) obj;
 		if (displayText == null) {
 			if (other.displayText != null)
 				return false;
