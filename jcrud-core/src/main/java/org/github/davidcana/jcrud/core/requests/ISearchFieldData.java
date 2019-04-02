@@ -4,9 +4,9 @@ import org.github.davidcana.jcrud.core.ZCrudEntity;
 
 public interface ISearchFieldData<F extends ZCrudEntity> {
 
-	public int getPageNumber();
+	public Integer getPageNumber();
 
-	public int getPageSize();
+	public Integer getPageSize();
 
 	public String getSortFieldId();
 

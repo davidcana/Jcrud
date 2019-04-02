@@ -2,10 +2,15 @@ package org.github.davidcana.jcrud.core.requests;
 
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 public class SearchFieldData<F extends ZCrudEntity> implements ISearchFieldData<F> {
 
-	private int pageNumber;
-	private int pageSize;
+	@JsonInclude(Include.NON_EMPTY)
+	private Integer pageNumber;
+	@JsonInclude(Include.NON_EMPTY)
+	private Integer pageSize;
 	private String sortFieldId;
 	private String sortType;
 	private F filter;
@@ -13,20 +18,20 @@ public class SearchFieldData<F extends ZCrudEntity> implements ISearchFieldData<
 	public SearchFieldData(){}
 	
 	@Override
-	public int getPageNumber() {
+	public Integer getPageNumber() {
 		return pageNumber;
 	}
 
-	public void setPageNumber(int pageNumber) {
+	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
 	}
 	
 	@Override
-	public int getPageSize() {
+	public Integer getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 	
@@ -68,8 +73,8 @@ public class SearchFieldData<F extends ZCrudEntity> implements ISearchFieldData<
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((filter == null) ? 0 : filter.hashCode());
-		result = prime * result + pageNumber;
-		result = prime * result + pageSize;
+		result = prime * result + ((pageNumber == null) ? 0 : pageNumber.hashCode());
+		result = prime * result + ((pageSize == null) ? 0 : pageSize.hashCode());
 		result = prime * result + ((sortFieldId == null) ? 0 : sortFieldId.hashCode());
 		result = prime * result + ((sortType == null) ? 0 : sortType.hashCode());
 		return result;
@@ -90,9 +95,15 @@ public class SearchFieldData<F extends ZCrudEntity> implements ISearchFieldData<
 				return false;
 		} else if (!filter.equals(other.filter))
 			return false;
-		if (pageNumber != other.pageNumber)
+		if (pageNumber == null) {
+			if (other.pageNumber != null)
+				return false;
+		} else if (!pageNumber.equals(other.pageNumber))
 			return false;
-		if (pageSize != other.pageSize)
+		if (pageSize == null) {
+			if (other.pageSize != null)
+				return false;
+		} else if (!pageSize.equals(other.pageSize))
 			return false;
 		if (sortFieldId == null) {
 			if (other.sortFieldId != null)

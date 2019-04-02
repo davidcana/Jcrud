@@ -1,0 +1,370 @@
+{
+  "items" : [ {
+    "getRequest" : {
+      "filter" : { },
+      "searchFieldsData" : {
+        "originalMembers" : {
+          "pageNumber" : 1,
+          "pageSize" : 10,
+          "filter" : {
+            "year" : 2011
+          }
+        },
+        "verifiedMembers" : {
+          "pageNumber" : 0,
+          "pageSize" : 0,
+          "filter" : { }
+        }
+      }
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "originalMembers" : [ {
+          "name" : "Colette Holden",
+          "country" : 5,
+          "recordDateTime" : 1320164438000,
+          "id" : 1
+        }, {
+          "name" : "Hasad Green",
+          "country" : 5,
+          "recordDateTime" : 1296831713000,
+          "id" : 12
+        }, {
+          "name" : "Dylan Rosario",
+          "country" : 3,
+          "recordDateTime" : 1323698162000,
+          "id" : 26
+        }, {
+          "name" : "Harrison Cabrera",
+          "country" : 1,
+          "recordDateTime" : 1304757419000,
+          "id" : 61
+        }, {
+          "name" : "Chantale Beach",
+          "country" : 3,
+          "recordDateTime" : 1307717966000,
+          "id" : 62
+        }, {
+          "name" : "Scarlett William",
+          "country" : 2,
+          "recordDateTime" : 1314700621000,
+          "id" : 67
+        }, {
+          "name" : "Warren Bullock",
+          "country" : 4,
+          "recordDateTime" : 1308242009000,
+          "id" : 76
+        }, {
+          "name" : "Martina Valenzuela",
+          "country" : 4,
+          "recordDateTime" : 1324171287000,
+          "id" : 79
+        }, {
+          "name" : "Cameron Mueller",
+          "country" : 4,
+          "recordDateTime" : 1298983495000,
+          "id" : 90
+        }, {
+          "name" : "Brody Coleman",
+          "country" : 1,
+          "recordDateTime" : 1319526032000,
+          "id" : 116
+        } ],
+        "verifiedMembers" : [ {
+          "name" : "Colette Holden",
+          "country" : 5,
+          "recordDateTime" : 1320164438000,
+          "id" : 1
+        }, {
+          "name" : "Scarlet Chen",
+          "country" : 5,
+          "recordDateTime" : 1495475037000,
+          "id" : 2
+        }, {
+          "name" : "Elijah Meyer",
+          "country" : 5,
+          "recordDateTime" : 1286646236000,
+          "id" : 3
+        }, {
+          "name" : "Ima Dominguez",
+          "country" : 1,
+          "recordDateTime" : 1292191262000,
+          "id" : 4
+        }, {
+          "name" : "Melvin Carlson",
+          "country" : 3,
+          "recordDateTime" : 1362760881000,
+          "id" : 5
+        }, {
+          "name" : "Lilah Duke",
+          "country" : 5,
+          "recordDateTime" : 1268031831000,
+          "id" : 6
+        }, {
+          "name" : "Xander Gilbert",
+          "country" : 3,
+          "recordDateTime" : 1566599395000,
+          "id" : 7
+        }, {
+          "name" : "Jana Shaw",
+          "country" : 3,
+          "recordDateTime" : 1444578610000,
+          "id" : 8
+        }, {
+          "name" : "Salvador Bishop",
+          "country" : 1,
+          "recordDateTime" : 1464065782000,
+          "id" : 9
+        }, {
+          "name" : "Cheryl Jefferson",
+          "country" : 5,
+          "recordDateTime" : 1477828312000,
+          "id" : 10
+        } ]
+      },
+      "fieldsData" : {
+        "verifiedMembers" : {
+          "totalNumberOfRecords" : 10
+        },
+        "originalMembers" : {
+          "totalNumberOfRecords" : 12
+        }
+      }
+    }
+  }, {
+    "updateRequest" : {
+      "command" : "batchUpdate",
+      "url" : "CRUDManager.do?cmd=BATCH_UPDATE&table=form",
+      "newRecords" : [ {
+        "verifiedMembersZCrudRecords" : {
+          "newRecords" : [ {
+            "name" : "Martina Valenzuela",
+            "country" : 4,
+            "recordDateTime" : 1324171287000,
+            "id" : 79
+          }, {
+            "name" : "Cameron Mueller",
+            "country" : 4,
+            "recordDateTime" : 1298983495000,
+            "id" : 90
+          } ],
+          "recordsToRemove" : [ ],
+          "existingRecords" : { }
+        }
+      } ],
+      "recordsToRemove" : [ ],
+      "existingRecords" : { },
+      "filter" : {
+        "year" : 2011
+      }
+    },
+    "updateResponse" : {
+      "result" : "OK"
+    }
+  }, {
+    "getRequest" : {
+      "command" : "getRecord",
+      "filter" : {
+        "year" : 2010
+      },
+      "searchFieldsData" : {
+        "originalMembers" : {
+          "pageNumber" : 1,
+          "pageSize" : 10,
+          "filter" : { }
+        },
+        "verifiedMembers" : {
+          "pageNumber" : 0,
+          "pageSize" : 0,
+          "filter" : {
+            "year" : 2010
+          }
+        }
+      }
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "originalMembers" : [ {
+          "name" : "Colette Holden",
+          "country" : 5,
+          "recordDateTime" : 1320164438000,
+          "id" : 1
+        }, {
+          "name" : "Scarlet Chen",
+          "country" : 5,
+          "recordDateTime" : 1495475037000,
+          "id" : 2
+        }, {
+          "name" : "Elijah Meyer",
+          "country" : 5,
+          "recordDateTime" : 1286646236000,
+          "id" : 3
+        }, {
+          "name" : "Ima Dominguez",
+          "country" : 1,
+          "recordDateTime" : 1292191262000,
+          "id" : 4
+        }, {
+          "name" : "Melvin Carlson",
+          "country" : 3,
+          "recordDateTime" : 1362760881000,
+          "id" : 5
+        }, {
+          "name" : "Lilah Duke",
+          "country" : 5,
+          "recordDateTime" : 1268031831000,
+          "id" : 6
+        }, {
+          "name" : "Xander Gilbert",
+          "country" : 3,
+          "recordDateTime" : 1566599395000,
+          "id" : 7
+        }, {
+          "name" : "Jana Shaw",
+          "country" : 3,
+          "recordDateTime" : 1444578610000,
+          "id" : 8
+        }, {
+          "name" : "Salvador Bishop",
+          "country" : 1,
+          "recordDateTime" : 1464065782000,
+          "id" : 9
+        }, {
+          "name" : "Cheryl Jefferson",
+          "country" : 5,
+          "recordDateTime" : 1477828312000,
+          "id" : 10
+        } ],
+        "verifiedMembers" : [ {
+          "name" : "Elijah Meyer",
+          "country" : 5,
+          "recordDateTime" : 1286646236000,
+          "id" : 3
+        }, {
+          "name" : "Ima Dominguez",
+          "country" : 1,
+          "recordDateTime" : 1292191262000,
+          "id" : 4
+        }, {
+          "name" : "Lilah Duke",
+          "country" : 5,
+          "recordDateTime" : 1268031831000,
+          "id" : 6
+        } ]
+      },
+      "fieldsData" : {
+        "verifiedMembers" : {
+          "totalNumberOfRecords" : 3
+        },
+        "originalMembers" : {
+          "totalNumberOfRecords" : 188
+        }
+      }
+    }
+  }, {
+    "getRequest" : {
+      "command" : "getRecord",
+      "filter" : {
+        "year" : 2011
+      },
+      "searchFieldsData" : {
+        "originalMembers" : {
+          "pageNumber" : 1,
+          "pageSize" : 10,
+          "filter" : {
+            "year" : 2011
+          }
+        },
+        "verifiedMembers" : {
+          "pageNumber" : 0,
+          "pageSize" : 0,
+          "filter" : {
+            "year" : 2011
+          }
+        }
+      }
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "originalMembers" : [ {
+          "name" : "Colette Holden",
+          "country" : 5,
+          "recordDateTime" : 1320164438000,
+          "id" : 1
+        }, {
+          "name" : "Hasad Green",
+          "country" : 5,
+          "recordDateTime" : 1296831713000,
+          "id" : 12
+        }, {
+          "name" : "Dylan Rosario",
+          "country" : 3,
+          "recordDateTime" : 1323698162000,
+          "id" : 26
+        }, {
+          "name" : "Harrison Cabrera",
+          "country" : 1,
+          "recordDateTime" : 1304757419000,
+          "id" : 61
+        }, {
+          "name" : "Chantale Beach",
+          "country" : 3,
+          "recordDateTime" : 1307717966000,
+          "id" : 62
+        }, {
+          "name" : "Scarlett William",
+          "country" : 2,
+          "recordDateTime" : 1314700621000,
+          "id" : 67
+        }, {
+          "name" : "Warren Bullock",
+          "country" : 4,
+          "recordDateTime" : 1308242009000,
+          "id" : 76
+        }, {
+          "name" : "Martina Valenzuela",
+          "country" : 4,
+          "recordDateTime" : 1324171287000,
+          "id" : 79
+        }, {
+          "name" : "Cameron Mueller",
+          "country" : 4,
+          "recordDateTime" : 1298983495000,
+          "id" : 90
+        }, {
+          "name" : "Brody Coleman",
+          "country" : 1,
+          "recordDateTime" : 1319526032000,
+          "id" : 116
+        } ],
+        "verifiedMembers" : [ {
+          "name" : "Colette Holden",
+          "country" : 5,
+          "recordDateTime" : 1320164438000,
+          "id" : 1
+        }, {
+          "name" : "Martina Valenzuela",
+          "country" : 4,
+          "recordDateTime" : 1324171287000,
+          "id" : 79
+        }, {
+          "name" : "Cameron Mueller",
+          "country" : 4,
+          "recordDateTime" : 1298983495000,
+          "id" : 90
+        } ]
+      },
+      "fieldsData" : {
+        "verifiedMembers" : {
+          "totalNumberOfRecords" : 3
+        },
+        "originalMembers" : {
+          "totalNumberOfRecords" : 12
+        }
+      }
+    }
+  } ]
+}

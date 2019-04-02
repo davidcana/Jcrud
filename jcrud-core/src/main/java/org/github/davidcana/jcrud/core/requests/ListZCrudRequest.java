@@ -18,20 +18,20 @@ public class ListZCrudRequest<T extends ZCrudEntity, K, F extends ZCrudEntity> e
 	public ListZCrudRequest(){}
 
 	@Override
-	public int getPageNumber() {
+	public Integer getPageNumber() {
 		return pageNumber;
 	}
 
-	public void setPageNumber(int pageNumber) {
+	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
 	}
 	
 	@Override
-	public int getPageSize() {
+	public Integer getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 	

@@ -207,13 +207,19 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	@Override
 	public void fillGetCRUDResponse(GetZCrudResponse<T> getCRUDResponse, GetZCrudRequest<T, K, F> getRequest) throws StorageException {
 		
-		// Build record
+		// Get searchFieldData
+		Map<String, SearchFieldData<F>> searchFieldData = getRequest.getSearchFieldsData();
+		if (searchFieldData == null){
+			searchFieldData = new HashMap<>();
+		}
+		
+		// Get key
 		String key = getRequest.getKey();
+		
+		// Build record
 		T record = key == null? 
-				this.get(
-						getRequest.getSearchFieldsData(), getCRUDResponse): 
-				this.get(
-						getRequest.getSearchFieldsData(), getCRUDResponse, key);
+				this.get(searchFieldData, getCRUDResponse): 
+				this.get(searchFieldData, getCRUDResponse, key);
 		
 		// Set record to getCRUDResponse
 		getCRUDResponse.setRecord(record);
@@ -346,9 +352,10 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		
 		StringBuilder sb = new StringBuilder();
 		
-		int limit = iSearchFieldData.getPageSize();
-		int offset = (iSearchFieldData.getPageNumber() - 1) * limit;
+		int limit = iSearchFieldData.getPageSize() == null? 0: iSearchFieldData.getPageSize();
 		if (limit > 0) {
+			int pageNumber = iSearchFieldData.getPageNumber() == null? 1: iSearchFieldData.getPageNumber();
+			int offset = (pageNumber - 1) * limit;
 			sb.append("LIMIT ")
 				.append(limit)
 				.append(" ");
