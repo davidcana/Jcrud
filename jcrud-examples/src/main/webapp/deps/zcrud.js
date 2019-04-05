@@ -7679,7 +7679,7 @@ var History = function( optionsToApply, editableOptionsToApply, dictionaryProvid
             
             // Delete removed records
             for ( var c = 0; c < item.recordsToRemove.length; ++c ){
-                delete record[ fieldId ][ c ];
+                record[ fieldId ].splice( c, 1 );
             }
         } 
     };
@@ -8069,7 +8069,9 @@ module.exports = (function() {
         }
         
         // Build delete
-        jsonObject.recordsToRemove = actionsObject.deleted;
+        if ( actionsObject.deleted ){
+            jsonObject.recordsToRemove = actionsObject.deleted;
+        }
         
         return jsonObject;
     };
@@ -8132,8 +8134,10 @@ module.exports = (function() {
         
         for ( var c = 0; c < recordsArray.length; c++ ) {
             var record = recordsArray[ c ];
-            var key = record[ keyField ];
-            recordsMap[ key ] = record;
+            if ( record ){
+                var key = record[ keyField ];
+                recordsMap[ key ] = record;   
+            }
         }
         
         return recordsMap;
@@ -8923,6 +8927,7 @@ var FormPage = function ( optionsToApply, userDataToApply ) {
     this.successMessage = undefined;
     this.eventFunction = undefined;
     this.omitKey = false;
+    this.forceKey = false;
     
     this.initFromOptions( userDataToApply || {} );
     this.configure();
@@ -9049,6 +9054,7 @@ FormPage.prototype.configure = function(){
             if ( ! this.record ) {
                 this.record = fieldUtils.buildDefaultValuesRecord( this.fields );
             }
+            this.forceKey = true;
             break; 
         default:
             throw "Unknown FormPage type: " + this.type;
@@ -9269,7 +9275,12 @@ FormPage.prototype.beforeProcessTemplate = function( recordToUse, dictionaryExte
         throw "No record to show in form!";
     }
     this.record = recordToUse;
-
+    
+    // Add a default key if needed
+    if ( this.forceKey && this.record[ this.getKey() ] == undefined ){
+        this.record[ this.getKey() ] = 0;
+    }
+    
     // Process dataFromServer
     if ( dataFromServer ){
         this.filterRecordFromServerData( dataFromServer.record, this.fields );
@@ -9545,17 +9556,17 @@ FormPage.prototype.submitList = function( event, $form ){
     );
 };
 FormPage.prototype.doSubmitList = function( event, $form ){
-
-    var keyFieldId = this.getKey();
+    
     return this.saveCommon( 
         this.id, 
         event,
         context.getJSONBuilder( this.options ).buildJSONForAll( 
-            keyFieldId,
-            this.record[ keyFieldId ]? [ this.record ]: [],
+            this.getKey(),
+            [ this.record ],
             this.fields,
             undefined,
-            context.getHistory() 
+            context.getHistory(),
+            {}
         ),
         $form 
     );

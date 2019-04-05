@@ -2,131 +2,6 @@
   "items" : [ {
     "getRequest" : {
       "command" : "getRecord",
-      "searchFieldsData" : {
-        "originalMembers" : {
-          "pageNumber" : 1,
-          "pageSize" : 10
-        }
-      }
-    },
-    "getResponse" : {
-      "result" : "OK",
-      "record" : {
-        "originalMembers" : [ {
-          "name" : "Colette Holden",
-          "country" : 5,
-          "recordDateTime" : 1320164438000,
-          "id" : 1
-        }, {
-          "name" : "Scarlet Chen",
-          "country" : 5,
-          "recordDateTime" : 1495475037000,
-          "id" : 2
-        }, {
-          "name" : "Elijah Meyer",
-          "country" : 5,
-          "recordDateTime" : 1286646236000,
-          "id" : 3
-        }, {
-          "name" : "Ima Dominguez",
-          "country" : 1,
-          "recordDateTime" : 1292191262000,
-          "id" : 4
-        }, {
-          "name" : "Melvin Carlson",
-          "country" : 3,
-          "recordDateTime" : 1362760881000,
-          "id" : 5
-        }, {
-          "name" : "Lilah Duke",
-          "country" : 5,
-          "recordDateTime" : 1268031831000,
-          "id" : 6
-        }, {
-          "name" : "Xander Gilbert",
-          "country" : 3,
-          "recordDateTime" : 1566599395000,
-          "id" : 7
-        }, {
-          "name" : "Jana Shaw",
-          "country" : 3,
-          "recordDateTime" : 1444578610000,
-          "id" : 8
-        }, {
-          "name" : "Salvador Bishop",
-          "country" : 1,
-          "recordDateTime" : 1464065782000,
-          "id" : 9
-        }, {
-          "name" : "Cheryl Jefferson",
-          "country" : 5,
-          "recordDateTime" : 1477828312000,
-          "id" : 10
-        } ],
-        "verifiedMembers" : [ {
-          "name" : "Colette Holden",
-          "country" : 5,
-          "recordDateTime" : 1320164438000,
-          "id" : 1
-        }, {
-          "name" : "Scarlet Chen",
-          "country" : 5,
-          "recordDateTime" : 1495475037000,
-          "id" : 2
-        }, {
-          "name" : "Elijah Meyer",
-          "country" : 5,
-          "recordDateTime" : 1286646236000,
-          "id" : 3
-        }, {
-          "name" : "Ima Dominguez",
-          "country" : 1,
-          "recordDateTime" : 1292191262000,
-          "id" : 4
-        }, {
-          "name" : "Melvin Carlson",
-          "country" : 3,
-          "recordDateTime" : 1362760881000,
-          "id" : 5
-        }, {
-          "name" : "Lilah Duke",
-          "country" : 5,
-          "recordDateTime" : 1268031831000,
-          "id" : 6
-        }, {
-          "name" : "Xander Gilbert",
-          "country" : 3,
-          "recordDateTime" : 1566599395000,
-          "id" : 7
-        }, {
-          "name" : "Jana Shaw",
-          "country" : 3,
-          "recordDateTime" : 1444578610000,
-          "id" : 8
-        }, {
-          "name" : "Salvador Bishop",
-          "country" : 1,
-          "recordDateTime" : 1464065782000,
-          "id" : 9
-        }, {
-          "name" : "Cheryl Jefferson",
-          "country" : 5,
-          "recordDateTime" : 1477828312000,
-          "id" : 10
-        } ]
-      },
-      "fieldsData" : {
-        "verifiedMembers" : {
-          "totalNumberOfRecords" : 10
-        },
-        "originalMembers" : {
-          "totalNumberOfRecords" : 188
-        }
-      }
-    }
-  }, {
-    "getRequest" : {
-      "command" : "getRecord",
       "filter" : {
         "year" : 2010
       },
@@ -235,13 +110,8 @@
         "0" : {
           "verifiedMembersZCrudRecords" : {
             "newRecords" : [ ],
-            "recordsToRemove" : [ ],
-            "existingRecords" : {
-              "6" : {
-                "name" : "Lilah Duke Jr",
-                "country" : 1
-              }
-            }
+            "recordsToRemove" : [ "4" ],
+            "existingRecords" : { }
           }
         }
       },
@@ -424,20 +294,15 @@
           "recordDateTime" : 1286646236000,
           "id" : 3
         }, {
-          "name" : "Ima Dominguez",
-          "country" : 1,
-          "recordDateTime" : 1292191262000,
-          "id" : 4
-        }, {
-          "name" : "Lilah Duke Jr",
-          "country" : 1,
+          "name" : "Lilah Duke",
+          "country" : 5,
           "recordDateTime" : 1268031831000,
           "id" : 6
         } ]
       },
       "fieldsData" : {
         "verifiedMembers" : {
-          "totalNumberOfRecords" : 3
+          "totalNumberOfRecords" : 2
         },
         "originalMembers" : {
           "totalNumberOfRecords" : 30
