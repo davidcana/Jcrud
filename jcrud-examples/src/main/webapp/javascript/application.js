@@ -111,6 +111,59 @@ options.ajax.ajaxPostFilter = function( data ){
     appendDataToConsole( data, $consolePost, ++postCounter );
     return data;
 };
+options.ajax.ajaxFunction = function( options ){
+	
+	//
+	var url = options.url;
+	var json = options.data;
+	var successCallback = options.success;
+	var errorCallback  = options.error;
+	/*
+	const requestOptions = {
+		'method': 'POST',
+		'headers': {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Accept': 'application/json'
+		},
+		'body': data
+	};
+	*/
+	const requestOptions = {
+		'method': 'POST',
+		'headers': {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		'body': json
+	};
+	/*
+	dataType   : 'json',
+	contentType: 'application/json; charset=UTF-8',
+	type       : 'POST'
+	*/
+	fetch(
+		url,
+		requestOptions
+	).then(
+		function( response ){
+			if ( ! response.ok ){
+				runErrorCallback( errorCallback, response );
+				return;
+			}
+			return response.json();
+		}
+	).then(
+		function( data ){
+			if ( data ){
+				successCallback( data );
+			}
+		}
+	).catch(
+		function( error ){
+			runErrorCallback( errorCallback, error );
+		}
+	);
+};
 
 var openTab = function(evt, id) {
 	
