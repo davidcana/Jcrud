@@ -6,7 +6,10 @@
     
     "_general": "",
     "general_entityName": "Form",
-    
+
+    "_form": "",
+    "Custom form": "Custom form",
+
     "_fields": "",
     "originalMembers_title": "Original members",
     "originalMembers_description": "The initial list of members",

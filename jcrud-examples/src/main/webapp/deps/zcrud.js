@@ -3110,20 +3110,21 @@ module.exports = (function() {
         );
     };
 
-    var getOptions = function ( fieldId, url, options ) {
+    var getOptions = function ( fieldId, url, options, callback ) {
 
-        var result = [];
+        //var result = [];
 
         var thisOptions = {
             url    : url,
-            async  : false,
+            //async  : false,
             success: function ( data ) {
                 data = options.ajax.ajaxPostFilter( data );
                 if ( data.result != 'OK' ) {
                     throw 'Error downloading options:' + data.message;
                 }
 
-                result = data.options;
+                //result = data.options;
+                callback( data.options );
             },
             error  : function () {
                 throw 'Can not load options for ' + fieldId;
@@ -3134,7 +3135,7 @@ module.exports = (function() {
             utils.extend( false, {}, options.ajax.defaultFormAjaxOptions, thisOptions )
         );
 
-        return result;
+        //return result;
     };
     
     return {
@@ -3409,8 +3410,8 @@ module.exports = {
     },
 
     ajax: {
-        ajaxFunction: $.ajax,
-        //ajaxFunction: requestHelper.fetch,
+        //ajaxFunction: $.ajax,
+        ajaxFunction: requestHelper.fetch,
         defaultFormAjaxOptions: {
             dataType   : 'json',
             contentType: 'application/json; charset=UTF-8',
@@ -5324,85 +5325,113 @@ var OptionProvider = function() {
         return buildOptions( params );
     };
     
-    var buildOptions = function( params ){
+    var asyncGetOptions = function( record, field, options, callback ){
         
+        var params = {
+            field: field,
+            value: record[ field.id ],
+            options: options,
+            record: record
+        };
+        params.dependedValues = createDependedValuesUsingRecord( record, field );
+        //params.dependedValues = {};
+
+        buildOptions( params, callback );
+    };
+
+    var buildOptions = function( params, callback ){
+
         var optionsSource = params.field.options;
         var funcParams = params;
-        
+        var mustGetOptionsFromCRUD = false;
+
         // Check if it is a function
         if ( utils.isFunction( optionsSource ) ) {
             // Prepare parameter to the function
-            /*
-            funcParams = utils.extend( 
-                true,
-                {
-                    _cacheCleared: false,
-                    dependedValues: {},
-                    clearCache: function () {
-                        this._cacheCleared = true;
-                    }
-                }, 
-                funcParams 
-            );
-            */
             funcParams = buildFuncParams( funcParams );
             
             // Call function and get actual options source
             optionsSource = optionsSource( funcParams );
         }
         
-        // Build options according to it's source type
+        // Get optionsList according to its source type
         var optionsList = undefined;
-        if ( typeof optionsSource == 'string' ) { // It is an URL to download options
-            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; // Create an unique cache key
-            var mustBuild = false;
-            if ( funcParams._cacheCleared || ( ! cache[ cacheKey ] ) ) {
-                // If user calls clearCache() or options are not found in the cache, download options
-                mustBuild = true;
-            } else {
-                // Found on cache!
-                // If this method (getOptionsForField) is called to get option for a specific value (on funcParams.source == 'list')
-                // and this value is not in cached options, we need to re-download options to get the unfound (probably new) option.
-                if ( funcParams.value != undefined ) {
-                    var optionForValue = findOptionByValue( cache[ cacheKey ], funcParams.value );
-                    if ( optionForValue.displayText == undefined ) { //this value is not in cached options...
-                        mustBuild = true;
-                    }
-                }
-            }
-            
-            // Build options if needed
-            if ( mustBuild ){
-                optionsList = buildOptionsFromArrayOrObject(
-                    crudManager.getOptions(
-                        params.field.id, 
-                        optionsSource, 
-                        params.options ),
-                    params.field );
-                cache[ cacheKey ] = optionsList;
-                sortFieldOptions( cache[ cacheKey ], params.field.optionsSorting );
-                
-            } else {
-                optionsList = cache[ cacheKey ];
-            }
-            
-        } else {
+        if ( typeof optionsSource !== 'string' ) { // Check it is NOT an URL
+
+            // It is NOT an URL, must build optionsList
             optionsList = buildOptionsFromArrayOrObject( optionsSource, params.field );
+
+        } else {
+            // It is an URL, must download options
+
+            // Try to get values from cache
+            var cacheKey = 'options_' + params.field.id + '_' + optionsSource; // Create an unique cache key
+            optionsList = cache[ cacheKey ];
+
+            if ( ! optionsList ) {
+                // Options are not found in the cache, download options
+                mustGetOptionsFromCRUD = true;
+
+                // Download options
+                crudManager.getOptions(
+                    params.field.id, 
+                    optionsSource, 
+                    params.options,
+                    function( newValues ){
+
+                        // Build optionsList
+                        optionsList = buildOptionsFromArrayOrObject(
+                            newValues,
+                            params.field
+                        );
+                        // Add optionsList to cache
+                        cache[ cacheKey ] = optionsList;
+
+                        // Sort values
+                        sortFieldOptions(
+                            cache[ cacheKey ],
+                            params.field.optionsSorting
+                        );
+
+                        // Add current value if needed
+                        if ( params.field.addCurrentValueToOptions ){
+                            optionsList = addCurrentValue( optionsList, params );
+                        }
+
+                        // Run callback if needed
+                        if ( callback ){
+                            callback( optionsList );
+                        }
+
+                        return;
+                    }
+                );
+            }
         }
 
-        return params.field.addCurrentValueToOptions? 
-            addCurrentValue( optionsList, params ): 
-            optionsList;
+        // Return undefined if must build optionsList
+        if ( ! optionsList && mustGetOptionsFromCRUD ){
+            return undefined;
+        }
+        
+        // Add current value if needed
+        if ( params.field.addCurrentValueToOptions ){
+            optionsList = addCurrentValue( optionsList, params );
+        }
+        
+        // Run callback if needed
+        if ( callback ){
+            callback( optionsList );
+            return;
+        }
+
+        return optionsList;
     };
     
     var buildFuncParams = function( funcParams ){
         
         var newFuncParams = {
-            _cacheCleared: false,
-            dependedValues: {},
-            clearCache: function () {
-                this._cacheCleared = true;
-            }
+            dependedValues: {}
         };
         
         for ( var i in funcParams ){
@@ -5515,7 +5544,7 @@ var OptionProvider = function() {
             });
         }
     };
-    
+    /*
     // Find an option object by given value
     var findOptionByValue = function (options, value) {
         return findItemByProperty( options, 'value', value );
@@ -5532,7 +5561,7 @@ var OptionProvider = function() {
 
         return {};
     };
-    
+    */
     // Create an array of options from given object
     var buildOptionsArrayFromObject = function ( options ) {
         
@@ -5586,6 +5615,7 @@ var OptionProvider = function() {
         buildOptions: buildOptions,
         getOptionsFromBlank: getOptionsFromBlank,
         getOptionsFromRecord: getOptionsFromRecord,
+        asyncGetOptions: asyncGetOptions,
         createDependedValuesUsingForm: createDependedValuesUsingForm
     };
 }();
@@ -5602,6 +5632,7 @@ var context = _dereq_( '../context.js' );
 var optionProvider = _dereq_( './optionProvider.js' );
 var $ = _dereq_( 'jquery' );
 var zpt = _dereq_( 'zpt' );
+var utils  = _dereq_( '../utils.js' );
 
 var OptionsField = function( properties ) {
     Field.call( this, properties );
@@ -5644,6 +5675,40 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                     $selection, 
                     params 
                 );
+
+                optionProvider.buildOptions(
+                    params,
+                    function( optionsList ){
+                        // optionsList does not contain any values, exit
+                        if ( ! optionsList ){
+                            return;
+                        }
+
+                        // optionsList contains values, continue
+                        dictionary.optionsListFromForm = optionsList;
+                        dictionary.record = params.record;
+                        dictionary.value = params.record[ params.field.id ];
+                        dictionary.field = params.field;
+                        dictionary.type = params.field.type;
+                        dictionary.value = params.value;
+        
+                        // Refresh template
+                        zpt.run({
+                            root: $thisDropdown[ 0 ],
+                            dictionaryExtension: dictionary
+                        });
+        
+                        // Trigger change event to refresh multi cascade dropdowns.
+                        $thisDropdown.trigger(
+                            'change',
+                            //[ true ]
+                            {
+                                'disableHistory': true
+                            }
+                        );
+                    }
+                )
+                /*
                 dictionary.optionsListFromForm = optionProvider.buildOptions( params );
                 dictionary.record = params.record;
                 dictionary.value = params.record[ params.field.id ];
@@ -5665,46 +5730,10 @@ OptionsField.prototype.afterProcessTemplateForFieldInCreateOrUpdate = function( 
                         'disableHistory': true
                     }
                 );
+                */
             }
         );
     }
-    /*
-    $.each( this.dependsOn, function ( index, dependsOn ) {
-        var dependsOnField = context.getField( page.getOptions().fields, dependsOn );
-
-        // Find the depended combobox
-        var $dependsOnDropdown = $selection.find( "[name='" + dependsOnField.name + "']");
-        
-        // When depended combobox changes
-        $dependsOnDropdown.on(
-            'change',
-            function (){
-                // Refresh options
-                params.dependedValues = optionProvider.createDependedValuesUsingForm( 
-                    params.field, 
-                    page.getOptions(), 
-                    $selection, 
-                    params 
-                ) ;
-                dictionary.optionsListFromForm = optionProvider.buildOptions( params );
-                dictionary.record = params.record;
-                dictionary.value = params.record[ params.field.id ];
-                dictionary.field = params.field;
-                dictionary.type = params.field.type;
-                dictionary.value = params.value;
-
-                // Refresh template
-                zpt.run({
-                    root: $thisDropdown[ 0 ],
-                    dictionaryExtension: dictionary
-                });
-
-                // Trigger change event to refresh multi cascade dropdowns.
-                $thisDropdown.trigger( 'change', [ true ] );
-            }
-        );
-    });
-    */
 };
 
 OptionsField.prototype.afterProcessTemplateForField = function( params, $selection ){
@@ -5882,8 +5911,32 @@ OptionsField.prototype.getOptionsFromRecord = function( record, options ){
     return optionProvider.getOptionsFromRecord( record, this, options );
 };
 
+OptionsField.prototype.getAsync = function( record, callback ){
+    optionProvider.asyncGetOptions( record, this, this.page.getOptions(), callback );
+};
+
+OptionsField.prototype.builNonDependentAsyncFieldList = function(){
+    var optionsSource = this.options;
+    return ( typeof optionsSource == 'string' || utils.isFunction( optionsSource ) && ! this.dependsOn )?
+        [ this ]:
+        [];
+};
+
+OptionsField.prototype.buildDependentAsyncFieldList = function( record ){
+    var optionsSource = this.options;
+    return ( typeof optionsSource == 'string' || utils.isFunction( optionsSource ) && this.dependsOn )?
+        [
+            {
+                record: this.dependsOn? record: {},
+                field: this
+            }
+        ]:
+        [];
+};
+
 module.exports = OptionsField;
-},{"../context.js":27,"./field.js":33,"./optionProvider.js":37,"jquery":62,"zpt":136}],39:[function(_dereq_,module,exports){
+
+},{"../context.js":27,"../utils.js":58,"./field.js":33,"./optionProvider.js":37,"jquery":62,"zpt":136}],39:[function(_dereq_,module,exports){
 /*
     Subform class
 */
@@ -6568,8 +6621,74 @@ Subform.prototype.goToFirstPage = function(){
 Subform.prototype.getType = function(){
     return this.page.getType();
 };
+/*
+Subform.prototype.getAsync = function( record, callback ){
+
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        var field = this.fieldsArray[ c ]
+        if ( utils.isFunction( field.getAsync ) ){
+            field.getAsync( record, callback );
+        }
+    }
+};
+*/
+Subform.prototype.builNonDependentAsyncFieldList = function(){
+
+    var result = [];
+
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        var field = this.fieldsArray[ c ]
+        if ( utils.isFunction( field.builNonDependentAsyncFieldList ) ){
+            result = result.concat(
+                field.builNonDependentAsyncFieldList()
+            );
+        }
+    }
+
+    return result;
+};
+
+Subform.prototype.buildDependentAsyncFieldList = function( record ){
+
+    var result = [];
+    var subformRecords = this.getValueFromRecord( record );
+
+    for ( var i = 0; i < subformRecords.length; i++ ) {
+        var subformRecord = subformRecords[ i ];
+
+        for ( var c = 0; c < this.fieldsArray.length; ++c ){
+            var field = this.fieldsArray[ c ]
+            if ( utils.isFunction( field.buildDependentAsyncFieldList ) ){
+                result = result.concat(
+                    field.buildDependentAsyncFieldList( subformRecord )
+                );
+            }
+        }
+    }
+
+    return result;
+};
+
+/*
+Subform.prototype.buildAsyncFieldList = function(){
+
+    var result = [];
+
+    for ( var c = 0; c < this.fieldsArray.length; ++c ){
+        var field = this.fieldsArray[ c ]
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            result = result.concat(
+                field.buildAsyncFieldList( subformRecord )
+            );
+        }
+    }
+
+    return result;
+};
+*/
 
 module.exports = Subform;
+
 
 },{"../buttons/buttonUtils.js":2,"../components/componentsMap.js":21,"../context.js":27,"../crudManager.js":28,"../history/composition.js":42,"../history/create.js":43,"../history/delete.js":44,"../pages/formPage.js":52,"../pages/pageUtils.js":55,"../utils.js":58,"../validationManager.js":59,"./field.js":33,"./fieldUtils.js":36,"jquery":62,"zpt":136}],40:[function(_dereq_,module,exports){
 /* 
@@ -8599,6 +8718,8 @@ var fieldBuilder = _dereq_( './fields/fieldBuilder' );
 var defaultOptions = _dereq_( './defaultOptions.js' );
 var utils = _dereq_( './utils.js' );
 
+exports.version = '0.2.0-SNAPSHOT';
+
 exports.init = function( userOptions, callback, failCallback ){
     
     // Register in options.dictionary I18n instances
@@ -8917,6 +9038,8 @@ exports.getFormPage = function( formPageIdSource ){
     }
     return formPage;
 };
+
+exports.utils = utils;
 
 },{"./context.js":27,"./defaultOptions.js":29,"./fields/fieldBuilder":34,"./normalizer.js":51,"./pages/formPage.js":52,"./pages/listPage.js":53,"./utils.js":58,"jquery":62,"zpt":136}],51:[function(_dereq_,module,exports){
 /* 
@@ -9329,13 +9452,20 @@ FormPage.prototype.buildDataUsingRecord = function( recordToUse ) {
 FormPage.prototype.showUsingRecord = function( recordToUse, dictionaryExtension, root, callback, dataFromServer ) {
 
     this.beforeProcessTemplate( recordToUse, dictionaryExtension, dataFromServer );
-    this.processTemplate( root );
-    this.afterProcessTemplate( this.get$form() );
 
-    if ( callback ){
-        callback( true );
-    }
-}
+    var self = this;
+    this.run1RecordAsync(
+        recordToUse,
+        function(){
+            self.processTemplate( root );
+            self.afterProcessTemplate( self.get$form() );
+        
+            if ( callback ){
+                callback( true );
+            }
+        }
+    );
+};
 
 FormPage.prototype.processTemplate = function( root ) {
     
@@ -9410,7 +9540,8 @@ FormPage.prototype.showUsingServer = function( key, getRecordURL, dictionaryExte
                     dictionaryExtension, 
                     root, 
                     callback, 
-                    dataFromServer );
+                    dataFromServer
+                );
             },
             error: function( dataFromServer ){
                 context.showError( 
@@ -10178,12 +10309,19 @@ ListPage.prototype.showUsingRecords = function ( recordsToUse, dictionaryExtensi
 ListPage.prototype.clientAndServerSuccessFunction = function( data, dictionaryExtension, root, callback ){
 
     this.beforeProcessTemplate( data, dictionaryExtension );
-    this.processTemplate( root );
-    this.afterProcessTemplate( this.get$form() );
 
-    if ( callback ){
-        callback( true );
-    }
+    var self = this;
+    this.runRecordsAsync(
+        data.records,
+        function(){
+            self.processTemplate( root );
+            self.afterProcessTemplate( self.get$form() );
+        
+            if ( callback ){
+                callback( true );
+            }
+        }
+    );
 };
     
 ListPage.prototype.show = function( params ){
@@ -10572,6 +10710,7 @@ var $ = _dereq_( 'jquery' );
 var context = _dereq_( '../context.js' );
 var pageUtils = _dereq_( './pageUtils.js' );
 var buttonUtils = _dereq_( '../buttons/buttonUtils.js' );
+var utils = _dereq_( '../utils.js' );
 
 var Page = function( optionsToApply, userDataToApply ) {
     
@@ -10762,6 +10901,292 @@ Page.prototype.filterArrayOfRecordsFromServerData = function( serverDataArrayOfR
     }
 };
 
+Page.prototype.run1RecordAsync = function( record, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFields = [];
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        if ( utils.isFunction( field.builNonDependentAsyncFieldList ) ){
+            var nonDependentList = field.builNonDependentAsyncFieldList();
+            for ( const field  of nonDependentList ) {
+                asyncFields.push(
+                    {
+                        record: {},
+                        field: field
+                    }
+                );
+            }
+        }
+        if ( utils.isFunction( field.buildDependentAsyncFieldList ) ){
+            var dependent = field.buildDependentAsyncFieldList( record );
+            asyncFields = asyncFields.concat( dependent );
+        }
+    }
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( asyncFields, callback );
+};
+
+/*
+Page.prototype.run1RecordAsync = function( record, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFields = this.buildListOfAsyncFunctionsFields( record );
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( asyncFields, callback );
+};
+*/
+/*
+Page.prototype.run1RecordAsync = function( record, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFields = this.buildListOfAsyncFunctionsFields();
+
+    // Run them; afterwards run the callback
+    this.run1RecordAsyncFunctions( record, asyncFields, callback );
+};
+*/
+Page.prototype.runRecordsAsync = function( records, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFields = [];
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        if ( utils.isFunction( field.builNonDependentAsyncFieldList ) ){
+            var nonDependentList = field.builNonDependentAsyncFieldList();
+            for ( const field of nonDependentList ) {
+                asyncFields.push(
+                    {
+                        record: {},
+                        field: field
+                    }
+                );
+            }
+        }
+        if ( utils.isFunction( field.buildDependentAsyncFieldList ) ){
+            for ( const record of records ){
+                var dependent = field.buildDependentAsyncFieldList( record );
+                asyncFields = asyncFields.concat( dependent );
+            }
+        }
+    }
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( asyncFields, callback );
+};
+/*
+Page.prototype.runRecordsAsync = function( records, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFieldsObject = this.buildObjectOfAsyncFunctionsFields();
+
+    // Build the list of fields to run later
+    var listOfAsyncFunctionsForRecords = this.buildListOfAsyncFunctionsForRecords( records, asyncFieldsObject );
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( listOfAsyncFunctionsForRecords, callback );
+};
+*/
+/*
+Page.prototype.runRecordsAsync = function( records, callback ){
+
+    // Get the list of getAsync functions
+    var asyncFieldsObject = this.buildObjectOfAsyncFunctionsFields();
+
+    // Build the list of fields to run later
+    var listOfAsyncFunctionsForRecords = this.buildListOfAsyncFunctionsForRecords( records, asyncFieldsObject );
+
+    // Run them; afterwards run the callback
+    this.runRecordsAsyncFunctions( listOfAsyncFunctionsForRecords, callback );
+};
+*/
+/*
+Page.prototype.buildListOfAsyncFunctionsForRecords = function( records, asyncFieldsObject ){
+
+    var result = [];
+
+    // Non dependent
+    var nonDependent = asyncFieldsObject.nonDependent;
+    for ( var c = 0; c < nonDependent.length; c++ ) {
+        var field = nonDependent[ c ];
+        result.push(
+            {
+                record: {},
+                field: field
+            }
+        );
+
+    }
+
+    // Dependent
+    var dependent = asyncFieldsObject.dependent;
+    for ( var c = 0; c < dependent.length; c++ ) {
+        var field = dependent[ c ];
+        for ( var i = 0; i < records.length; i++ ) {
+            var record = records[ i ];
+            result.push(
+                {
+                    record: record,
+                    field: field
+                }
+            );
+        }
+    }
+
+    return result;
+};
+*/
+/*
+Page.prototype.buildObjectOfAsyncFunctionsFields = function( record ){
+
+    var result = {
+        dependent: [],
+        nonDependent: []
+    };
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+
+        var field = this.fields[ c ];
+
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            field.buildAsyncFieldList( result, record );
+        }
+    }
+
+    return result;
+};
+*/
+/*
+Page.prototype.buildObjectOfAsyncFunctionsFields = function(){
+
+    var dependent = [];
+    var nonDependent = [];
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+
+        var field = this.fields[ c ];
+
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+
+            // Get the async fields
+            var temp = field.buildAsyncFieldList();
+            for ( var i = 0; i < temp.length; i++ ) {
+                this.addFieldToList( dependent, nonDependent, temp[ i ] );
+            }
+        }
+    }
+
+    return {
+        dependent: dependent,
+        nonDependent: nonDependent
+    };
+};
+
+Page.prototype.addFieldToList = function( dependent, nonDependent, field ){
+
+    var list = field.dependsOn? dependent: nonDependent;
+    list.push( field );
+};
+*/
+/*
+Page.prototype.buildListOfAsyncFunctionsFields = function(){
+
+    var asyncFields = [];
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        if ( utils.isFunction( field.buildAsyncFieldList ) ){
+            var temp = field.buildAsyncFieldList();
+
+            // temp can be a sigle field or an array of fields
+            if ( utils.isArray( temp ) ){
+                asyncFields = asyncFields.concat( temp );
+            } else if ( temp ) {
+                asyncFields.push( temp );
+            }
+        }
+    }
+
+    return asyncFields;
+};
+*/
+/*
+Page.prototype.buildListOfAsyncFunctionsFields = function( record ){
+
+    var dependent = [];
+    var nonDependent = [];
+
+    for ( var c = 0; c < this.fields.length; c++ ) {
+        var field = this.fields[ c ];
+        if ( utils.isFunction( field.builNonDependentAsyncFieldList ) ){
+            nonDependent = nonDependent.concat(
+                field.builNonDependentAsyncFieldList()
+            );
+        }
+        if ( utils.isFunction( field.buildDependentAsyncFieldList ) ){
+            dependent = dependent.concat(
+                field.buildDependentAsyncFieldList( record )
+            );
+        }
+    }
+
+    return {
+        dependent: dependent,
+        nonDependent: nonDependent
+    };
+};
+*/
+/*
+Page.prototype.run1RecordAsyncFunctions = function( record, asyncFields, callback ){
+
+    // Get the first item and remove it from asyncFunctions
+    var firstAsyncField = asyncFields.shift();
+
+    // Run callback and exit if there is no more items
+    if ( ! firstAsyncField ){
+        if ( callback && utils.isFunction( callback ) ){
+            callback();
+        }
+        return;
+    }
+
+    // Run firstAsyncFunction and continue
+    var self = this;
+    firstAsyncField.getAsync(
+        record,
+        function(){
+            self.run1RecordAsyncFunctions( record, asyncFields, callback );
+        }
+    );
+};
+*/
+Page.prototype.runRecordsAsyncFunctions = function( listOfAsyncFunctionsForRecords, callback ){
+
+    // Get the first item and remove it
+    var object = listOfAsyncFunctionsForRecords.shift();
+
+    // Run callback and exit if there is no more items
+    if ( ! object ){
+        if ( callback && utils.isFunction( callback ) ){
+            callback();
+        }
+        return;
+    }
+
+    // Run getAsync and continue
+    var field = object.field;
+    var record = object.record;
+    var self = this;
+    field.getAsync(
+        record,
+        function(){
+            self.runRecordsAsyncFunctions( listOfAsyncFunctionsForRecords, callback );
+        }
+    );
+};
+
 Page.doSuperClassOf = function( ChildClass ){
 
     ChildClass.prototype = new Page();
@@ -10770,7 +11195,7 @@ Page.doSuperClassOf = function( ChildClass ){
 
 module.exports = Page;
 
-},{"../buttons/buttonUtils.js":2,"../context.js":27,"./pageUtils.js":55,"jquery":62}],55:[function(_dereq_,module,exports){
+},{"../buttons/buttonUtils.js":2,"../context.js":27,"../utils.js":58,"./pageUtils.js":55,"jquery":62}],55:[function(_dereq_,module,exports){
 /* 
     context singleton class
 */
@@ -11009,7 +11434,7 @@ module.exports = (function() {
      * @param {Object} fecthOptions
      * 
      */
-    var fetch = function( fecthOptions ){
+    var requestFetch = function( fecthOptions ){
 
         post(
             fecthOptions.url,
@@ -11029,7 +11454,7 @@ module.exports = (function() {
     };
 
     return {
-        fetch: fetch
+        fetch: requestFetch
     };
 })();
 
