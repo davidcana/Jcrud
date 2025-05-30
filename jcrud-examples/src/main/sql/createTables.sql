@@ -124,3 +124,13 @@ CREATE TABLE verified_members (
 );
 GRANT SELECT, INSERT, UPDATE, DELETE ON verified_members TO jcrud_user;
 
+/* Simple with file*/
+DROP TABLE simple_with_file CASCADE;
+CREATE TABLE simple_with_file (
+    id integer PRIMARY KEY,
+    name varchar(100) UNIQUE NOT NULL,
+    description text,
+    file text
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON simple TO jcrud_user;
+
