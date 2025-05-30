@@ -1,0 +1,19 @@
+{
+    "/CONF/": {
+        "language": "en",
+        "locale": "en-US"
+    },
+    
+    "_general": "",
+    "general_entityName": "Simple with file",
+    
+    "_fields": "",
+    "id_title": "Id",
+    "id_description": "An unique id",
+    "name_title": "Name",
+    "name_description": "The name",
+    "description_title": "Description",
+    "description_description": "The description",
+    "file_title": "File",
+    "file_description": "The file"
+}
