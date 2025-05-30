@@ -64,7 +64,8 @@ var appendTextToConsole = function( textToAppend, $console ){
 	$console.text( currentText + textToAppend + '\n' );
 	
 	if ( $autoScroll.prop( 'checked' ) ){
-		$console.scrollTop( $console[0].scrollHeight );
+		//$console.scrollTop( $console[0].scrollHeight );
+		scrollTop( $console[0] );
 	}
 };
 
@@ -78,6 +79,10 @@ var appendDataToConsole = function( data, $console, counter ){
 	);
 };
 
+var scrollTop = function ( el ) {
+	el.scrollTo( 0, el.scrollHeight );
+}
+
 var updateConsole1 = function(){
 	
 	$console1.text( 
@@ -85,7 +90,8 @@ var updateConsole1 = function(){
 	);
 	
 	if ( $autoScroll.prop( 'checked' ) ){
-		$console1.scrollTop( $console1[0].scrollHeight );
+		//$console1.scrollTop( $console1[0].scrollHeight );
+		scrollTop( $console1[0] );
 	}
 };
 
@@ -199,7 +205,7 @@ var copyConsole1ToClipboard = function(){
 };
 
 // Get the element with id="defaultOpen" and click on it
-$('.defaultTabLink').click();
+$('.defaultTabLink').trigger( 'click' );
 
 $( '#container' ).zcrud( 
     'init',

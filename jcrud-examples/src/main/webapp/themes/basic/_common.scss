@@ -307,15 +307,16 @@ div.zcrud-main-container {
     }
     
     // Modified fields
-    td.zcrud-modified-field {
+    td.zcrud-modified-field,
+    div.zcrud-modified-field {
         background-image: url('#{$images-url}/square-dirty.gif');
         background-repeat: no-repeat;
         background-position: left top;
     }
 
-    tr.zcrud-modified-row td, div.zcrud-modified-field {
-        background-color: $modified-row-background-color;
-    }
+    //tr.zcrud-modified-row td, div.zcrud-modified-field {
+    //    background-color: $modified-row-background-color;
+    //}
     
     // Form validation
     .valid {}
@@ -351,7 +352,6 @@ div.zcrud-main-container {
         border-radius: 10px;
         font-weight: 600;
     }
-
     // Datetime picker
     .datetime {
         box-shadow: 0 5px 15px -5px;
@@ -543,4 +543,71 @@ div.zcrud-main-container {
     background: url('#{$images-url}/loading.gif') no-repeat;
     background-color: $busy-background-color;
     background-position: 8px;
+}
+
+// Standard form validation
+input:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+input:focus:invalid {
+    box-shadow: none;
+}
+
+// All zcrud-validationMessage elements
+span.zcrud-validationMessage {
+    color: white;
+    background-color: red;
+    padding: .25em .5em .25em .5em;
+    border-radius: 10px;
+}
+
+// zcrud-validationMessage in forms
+div.zcrud-form-updatable span.zcrud-validationMessage {
+    position: absolute;
+    margin-left: 1em;
+}
+
+// zcrud-validationMessage in editable lists or in subforms
+table.zcrud span.zcrud-validationMessage,
+div.zcrud-subform-content table.zcrud span.zcrud-validationMessage {
+    position: absolute;
+    margin-left: .25em;
+}
+
+// File upload fields
+div.zcrud-field-file {
+    div.fileUpload {
+        cursor: pointer !important; 
+    }
+    div.subtitle {
+        font-size: 70%;
+        font-weight: bold;
+    }
+    div.fileName {
+        font-style: italic;
+    }
+    div.currentFile {
+        border: dashed orange;
+        margin-bottom: .5em;
+        padding-left : .5em;
+    }
+    div.newFile {
+        border: dashed orange;
+        padding-left : .5em;
+    }
+    div.dropText {
+        padding: 2em 0 1em 0;
+        font-size: 120%;
+    }
+    span.zcrud-validationMessage {
+        margin-top: -5em; 
+    }
+    &.drag-over {
+        background-color: #ecd864;
+    }
+}
+
+// Hide elements. Do not mix with zcrud-hide-marker, a style used as a marker that is not defined in CSS files
+.zcrud-hidden {
+    display: none;
 }
