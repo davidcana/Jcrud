@@ -95,7 +95,15 @@ constants.options.simpleWithFile = {
 			type: 'textarea'
         },
         file: {
-            type: 'fileUpload'
+            type: 'fileUpload',
+            attributes: {
+                field: {
+                    accept: '.pdf'
+                }
+            },
+            acceptedFileExtensions: [ '.pdf' ],
+            maxFileSize: 1024 * 1024, // 1Mb
+            minFileSize:   10 * 1024  // 10Kb
         }
 	}
 }
