@@ -130,7 +130,12 @@ CREATE TABLE simple_with_file (
     id integer PRIMARY KEY,
     name varchar(100) UNIQUE NOT NULL,
     description text,
-    file text
+    file_name varchar(200),
+    file_last_modified bigint,
+    file_size bigint,
+    file_type varchar(50),
+    file_contents text,
+    file_url varchar(200)
 );
-GRANT SELECT, INSERT, UPDATE, DELETE ON simple TO jcrud_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON simple_with_file TO jcrud_user;
 

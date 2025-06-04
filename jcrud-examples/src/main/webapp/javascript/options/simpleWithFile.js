@@ -6,12 +6,12 @@ constants.options.simpleWithFile = {
     
     pageConf: {
         defaultPageConf: {
-            updateURL: 'CRUDManager.do?cmd=BATCH_UPDATE&table=simple',
-            getRecordURL: 'CRUDManager.do?cmd=GET&table=simple'
+            updateURL: 'CRUDManager.do?cmd=BATCH_UPDATE&table=simpleWithFile',
+            getRecordURL: 'CRUDManager.do?cmd=GET&table=simpleWithFile'
         },
         pages: {
             list: {
-                getGroupOfRecordsURL: 'CRUDManager.do?cmd=LIST&table=simple',
+                getGroupOfRecordsURL: 'CRUDManager.do?cmd=LIST&table=simpleWithFile',
                 fields: [
                     {
                         type: 'fieldsGroup'
@@ -55,11 +55,6 @@ constants.options.simpleWithFile = {
             }
         }
     },
-    
-    validation: {
-        modules: 'security, date',
-        rules: {}
-    },
     i18n: {
         language: 'es',
         files: { 
@@ -70,19 +65,14 @@ constants.options.simpleWithFile = {
     logging: {
         isOn: false
     },
-    
     ajax: {
         ajaxPreFilter: function( data ){
             return JSON.stringify( data );
         }
-    }
-,
-
+    },
     key: 'id',
     fields: {
-        id: {
-
-        },
+        id: {},
         name: {
 		    attributes:{
 		        rowHeader: {

@@ -523,7 +523,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		return instance;
 	}
 	
-	private void setField(Object targetObject, String fieldName, Object fieldValue) throws SQLException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+	public void setField(Object targetObject, String fieldName, Object fieldValue) throws SQLException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		
 	    Field field = this.getField(targetObject, fieldName);
 	    field.setAccessible(true);

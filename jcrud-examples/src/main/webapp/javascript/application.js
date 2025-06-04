@@ -153,7 +153,8 @@ options.ajax.ajaxFunction = function( options ){
 	).then(
 		function( response ){
 			if ( ! response.ok ){
-				runErrorCallback( errorCallback, response );
+				//runErrorCallback( errorCallback, response );
+				errorCallback( response );
 				return;
 			}
 			return response.json();
@@ -166,7 +167,8 @@ options.ajax.ajaxFunction = function( options ){
 		}
 	).catch(
 		function( error ){
-			runErrorCallback( errorCallback, error );
+			//runErrorCallback( errorCallback, error );
+			errorCallback( error );
 		}
 	);
 };
