@@ -33,6 +33,18 @@ public class SQLFieldGroup {
 		NOT_UPDATABLE_TYPES.put("zcrudrecords", true);
 	}
 	
+	private static final Map<String, Boolean> SIMPLE_TYPES = new HashMap<String, Boolean>();
+	static {
+		SIMPLE_TYPES.put("boolean", true);
+		SIMPLE_TYPES.put("date", true);
+		SIMPLE_TYPES.put("float", true);
+		SIMPLE_TYPES.put("integer", true);
+		SIMPLE_TYPES.put("long", true);
+		SIMPLE_TYPES.put("string", true);
+		SIMPLE_TYPES.put("localtime", true);
+		SIMPLE_TYPES.put("timestamp", true);
+	}
+	
 	public SQLFieldGroup(Object record) throws IllegalArgumentException, IllegalAccessException {
 		this.build(record);
 	}
@@ -94,13 +106,13 @@ public class SQLFieldGroup {
 	    
 	    return fields;
 	}
-	
+
 	public boolean isUpdatable() {
 		return updatable;
 	}
 
 	//(id, name)
-	public String getInsertIntoNamesPart() {
+	public String getInsertIntoNamesPart() throws IllegalArgumentException, IllegalAccessException {
 		return this.buildFieldNameList(false, true);
 	}
 	
@@ -132,36 +144,48 @@ public class SQLFieldGroup {
 	}
 	
 	//id=?, name=?
-	public String getUpdatePart() {		
+	public String getUpdatePart() throws IllegalArgumentException, IllegalAccessException {		
 		return this.buildFieldNameList(true, false);
 	}
 	
-	private String buildFieldNameList(boolean appendEqualsPart, boolean appendParenthesis) {
+	private String buildFieldNameList(boolean appendEqualsPart, boolean appendParenthesis) throws IllegalArgumentException, IllegalAccessException {
 		
 		StringBuilder sb = new StringBuilder();
 		if (appendParenthesis) {
 			sb.append('(');
 		}
 		
-		int c = 0;
+		ReferenceInteger c = new ReferenceInteger();
+		iterateFieldsForBuildFieldNameList(
+			this.fields,
+			this.values,
+			sb,
+			appendEqualsPart,
+			c,
+			null
+		);
+		/*
 		for (Field field : this.fields) {
 			if (! fieldIsUpdatable(field)){
 				continue;
 			}
+
 			if (c++ > 0) {
 				sb.append(", ");
 			}
 			sb.append(
-					buildSQLName(field));
+					buildSQLName(field)
+			);
 			if (appendEqualsPart) {
 				sb.append("=?");
 			}
 		}
-		
+		*/
 		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
-			if (c++ > 0) {
+			if (c.getInteger() > 0) {
 				sb.append(", ");
 			}
+			c.inc();
 			sb.append(
 					this.buildParentKeyFieldName()
 			);
@@ -174,15 +198,55 @@ public class SQLFieldGroup {
 			sb.append(')');
 		}
 		
+		this.size = c.getInteger();
+		
 		return sb.toString();
+	}
+	
+	static private void iterateFieldsForBuildFieldNameList(List<Field> fields, Map<String,Object> values, StringBuilder sb, boolean appendEqualsPart, ReferenceInteger c, String parentFieldName) throws IllegalArgumentException, IllegalAccessException {
+		
+		for (Field field : fields) {
+			if (! fieldIsUpdatable(field)){
+				continue;
+			}
+			String type = getType(field);
+			if (SIMPLE_TYPES.containsKey(type)) {
+				// Simple type
+				if (c.getInteger() > 0) {
+					sb.append(", ");
+				}
+				c.inc();
+				sb.append(
+						buildSQLName(field, parentFieldName)
+				);
+				if (appendEqualsPart) {
+					sb.append("=?");
+				}
+			} else {
+				// Complex type
+				String fieldName = field.getName();
+				Object record = values.get(fieldName);
+				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
+				iterateFieldsForBuildFieldNameList(
+						sqlFieldGroup.fields,
+						sqlFieldGroup.values,
+						sb,
+						appendEqualsPart,
+						c,
+						fieldName
+				);
+			}
+		}
 	}
 	
 	private String buildParentKeyFieldName() {
 		return this.storage.buildParentKeyFieldName();
 	}
 	
-	static private String buildSQLName(Field field){
-		return buildSQLName(field.getName());
+	static private String buildSQLName(Field field, String parentFieldName){
+		return parentFieldName == null?
+				buildSQLName(field.getName()):
+				parentFieldName + "_" + buildSQLName(field.getName());
 	}
 
 	public static String buildSQLName(String name) {
@@ -221,7 +285,7 @@ public class SQLFieldGroup {
 		
 		return sb.toString();
 	}
-
+ 
 	/*
 	static public String getType(Field field) {
 		
@@ -240,9 +304,16 @@ public class SQLFieldGroup {
 		return i == -1? fullType: fullType.substring(1 + i);
 	}
 	
-	public void updateStatement(PreparedStatement preparedStatement) throws SQLException, IllegalArgumentException {
+	public void updateStatement(PreparedStatement preparedStatement) throws SQLException, IllegalArgumentException, IllegalAccessException {
 		
-		int c = 1;
+		Integer c = 1;
+		iterateFieldsForUpdateStatement(
+				preparedStatement,
+				this.fields,
+				this.values,
+				c
+		);
+		/*
 		for (Field field : this.fields) {
 			Object value = this.values.get(field.getName());
 			String type = getType(field);
@@ -250,10 +321,12 @@ public class SQLFieldGroup {
 			if (! fieldIsUpdatable(type)){
 				continue;
 			}
+
 			if (setValueOfStatement(preparedStatement, c, value, type)){
 				++c;
 			}
 		}
+		*/
 		
 		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
 			Field parentKeyField = this.parentStorage.getKeyField();
@@ -262,7 +335,37 @@ public class SQLFieldGroup {
 		}
 		
 	}
-
+	
+	static private void iterateFieldsForUpdateStatement(PreparedStatement preparedStatement, List<Field> fields, Map<String,Object> values, Integer c) throws SQLException, IllegalArgumentException, IllegalAccessException {
+		
+		for (Field field : fields) {
+			Object value = values.get(field.getName());
+			String type = getType(field);
+			
+			if (! fieldIsUpdatable(type)){
+				continue;
+			}
+			
+			if (SIMPLE_TYPES.containsKey(type)) {
+				// Simple type
+				if (setValueOfStatement(preparedStatement, c, value, type)){
+					++c;
+				}
+			} else {
+				// Complex type
+				String fieldName = field.getName();
+				Object record = values.get(fieldName);
+				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
+				iterateFieldsForUpdateStatement(
+						preparedStatement,
+						sqlFieldGroup.fields,
+						sqlFieldGroup.values,
+						c
+				);
+			}
+		}
+	}
+	
 	static public boolean setValueOfStatement(PreparedStatement preparedStatement, int pos, Object value, String type) throws SQLException {
 		
 		switch (type) {
