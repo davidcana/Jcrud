@@ -5,8 +5,8 @@ import java.util.Objects;
 public class File {
 	
     private String name;
-    private long lastModified;
-    private long size;
+    private Long lastModified;
+    private Long size;
     private String type;
     private String contents;
     private String url;
@@ -21,19 +21,19 @@ public class File {
 		this.name = name;
 	}
 
-	public long getLastModified() {
+	public Long getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(long lastModified) {
+	public void setLastModified(Long lastModified) {
 		this.lastModified = lastModified;
 	}
 
-	public long getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public void setSize(long size) {
+	public void setSize(Long size) {
 		this.size = size;
 	}
 
@@ -75,9 +75,9 @@ public class File {
 		if (getClass() != obj.getClass())
 			return false;
 		File other = (File) obj;
-		return Objects.equals(contents, other.contents) && lastModified == other.lastModified
-				&& Objects.equals(name, other.name) && size == other.size && Objects.equals(type, other.type)
-				&& Objects.equals(url, other.url);
+		return Objects.equals(contents, other.contents) && Objects.equals(lastModified, other.lastModified)
+				&& Objects.equals(name, other.name) && Objects.equals(size, other.size)
+				&& Objects.equals(type, other.type) && Objects.equals(url, other.url);
 	}
 
 	@Override

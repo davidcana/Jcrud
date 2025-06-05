@@ -38,6 +38,11 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 				this.setField(instance, fieldName, fieldValue);
 				
 			} else {
+				// Do not instance an empty File instance
+				if (fieldValue == null) {
+					continue;
+				}
+				
 				// Related to file field
 				File file = instance.getFile();
 				
@@ -47,7 +52,9 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 					instance.setFile(file);
 				}
 				
-				String fieldName = sqlFieldName.substring(filePrefix.length());
+				String fieldName = SQLFieldGroup.buildFieldName(
+						sqlFieldName.substring(filePrefix.length())
+				);
 				this.setField(file, fieldName, fieldValue);
 			}
 		}
