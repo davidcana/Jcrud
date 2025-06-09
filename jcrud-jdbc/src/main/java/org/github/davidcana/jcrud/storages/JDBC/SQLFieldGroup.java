@@ -117,6 +117,30 @@ public class SQLFieldGroup {
 	}
 	
 	//(?,?)
+	public String getInsertIntoArgumentPart() throws IllegalArgumentException, IllegalAccessException {
+		
+		StringBuilder sb = new StringBuilder("(");
+		
+		ReferenceInteger c = new ReferenceInteger();
+		iterateFieldsForGetInsertIntoArgumentPart(
+			this.fields,
+			this.values,
+			sb,
+			c
+		);
+		
+		if (this.storage != null && this.parentStorage != null && this.parentStorage.isKeyNeeded()){
+			if (c.getInteger() > 0) {
+				c.inc();
+				sb.append(',');
+			}
+			sb.append('?');
+		}
+		
+		sb.append(')');
+		return sb.toString();
+	}
+	/*
 	public String getInsertIntoArgumentPart() {
 		
 		StringBuilder sb = new StringBuilder("(");
@@ -141,6 +165,39 @@ public class SQLFieldGroup {
 		
 		sb.append(')');
 		return sb.toString();
+	}
+	*/
+	static private void iterateFieldsForGetInsertIntoArgumentPart(List<Field> fields, Map<String,Object> values, StringBuilder sb, ReferenceInteger c) throws IllegalArgumentException, IllegalAccessException {
+		
+		for (int i = 0; i < fields.size(); ++i) {
+			Field field = fields.get(i);
+			if (! fieldIsUpdatable(field)){
+				continue;
+			}
+			
+			String type = getType(field);
+			if (SIMPLE_TYPES.containsKey(type)) {
+				// Simple type
+				if (c.getInteger() > 0) {
+					sb.append(',');
+				}
+				c.inc();
+				sb.append('?');
+				
+			} else {
+				// Complex type
+				String fieldName = field.getName();
+				Object record = values.get(fieldName);
+				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
+				iterateFieldsForGetInsertIntoArgumentPart(
+						sqlFieldGroup.fields,
+						sqlFieldGroup.values,
+						sb,
+						c
+				);
+			}
+			
+		}
 	}
 	
 	//id=?, name=?
