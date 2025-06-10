@@ -10,6 +10,7 @@ import org.github.davidcana.jcrud.core.requests.ListZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.UpdateZCrudRequest;
 import org.github.davidcana.jcrud.core.responses.GetZCrudResponse;
 import org.github.davidcana.jcrud.core.responses.ListZCrudResponse;
+import org.github.davidcana.jcrud.core.File;
 
 public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
@@ -29,4 +30,6 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	public List<Option<K>> getAllAsOptions() throws StorageException;
 	
 	public boolean isKeyNeeded();
+	
+	public File getFile(String key, String fileFieldName) throws StorageException;
 }

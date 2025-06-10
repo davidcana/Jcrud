@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import org.github.davidcana.jcrud.core.model.File;
+import org.github.davidcana.jcrud.core.File;
 import org.github.davidcana.jcrud.core.model.SimpleWithFile;
 import org.github.davidcana.jcrud.core.model.storages.SimpleWithFileJDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;

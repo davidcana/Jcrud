@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.github.davidcana.jcrud.core.File;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.ISearchFieldData;
@@ -272,6 +273,42 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
+	@Override
+	public File getFile(String key, String fileFieldName) throws StorageException {
+		
+		String sql = "SELECT * FROM " + this.getTableName() + " WHERE " + this.getKeyFieldName() + "=?;";
+		
+		try (PreparedStatement preparedStatement = this.getConnection().prepareStatement(sql)) {
+			
+			this.setKey(key, 1, preparedStatement);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			// Build File instance
+			File file = new File();
+			if (rs.next()) {
+				file.setName(rs.getString(fileFieldName + "_name"));
+				file.setLastModified(rs.getLong(fileFieldName + "_last_modified"));
+				file.setSize(rs.getLong(fileFieldName + "_size"));
+				file.setType(rs.getString(fileFieldName + "_type"));
+				file.setContents(rs.getString(fileFieldName + "_contents"));
+				file.setUrl(rs.getString(fileFieldName + "_url"));
+				
+				if (rs.next()) {
+					throw new SQLException("More than one result found in table " + this.getTableName() + " using key: " + key);
+				}
+			} else {
+				throw new SQLException("No result found in table " + this.getTableName() + " using key: " + key);
+			}
+			
+			return file;
+
+		} catch ( StorageException e ) {
+			throw e;
+		} catch ( Exception e ) {
+			throw new StorageException(e);
+		}
+	}
 	protected void addSubformsToInstance(T instance, boolean useKey, Map<String, SearchFieldData<F>> searchFieldsData, GetZCrudResponse<T> getCRUDResponse) throws StorageException {
 		
 		try {

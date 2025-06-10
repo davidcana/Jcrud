@@ -1,4 +1,4 @@
-package org.github.davidcana.jcrud.core.model;
+package org.github.davidcana.jcrud.core;
 
 import java.util.Objects;
 

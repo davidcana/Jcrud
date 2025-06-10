@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.github.davidcana.jcrud.core.File;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.requests.GetZCrudRequest;
 import org.github.davidcana.jcrud.core.requests.ISearchFieldData;
@@ -55,6 +56,11 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 
 	@Override
 	public long getNumberOfRecords(ISearchFieldData<F> iSearchFieldData) throws StorageException {
+		throw new StorageException("Not implemented method!");
+	}
+
+	@Override
+	public File getFile(String key, String fileFieldName) throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 

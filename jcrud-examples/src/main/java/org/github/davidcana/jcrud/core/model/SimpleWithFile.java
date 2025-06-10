@@ -2,6 +2,7 @@ package org.github.davidcana.jcrud.core.model;
 
 import java.util.Objects;
 
+import org.github.davidcana.jcrud.core.File;
 import org.github.davidcana.jcrud.core.ZCrudEntity;
 import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 import org.github.davidcana.jcrud.core.model.storages.SimpleWithFileJDBCStorage;
