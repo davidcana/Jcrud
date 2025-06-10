@@ -3278,6 +3278,10 @@ module.exports = {
                         pattern: '[0-9a-zA-Z ]{8,12}'
                     }
                 }
+            },
+            file: {
+                maxFileSize: 1024 * 1024, // 1Mb
+                minFileSize:    1 * 1024  // 1Kb
             }
         },
         getDefaultFieldTemplate: function( field ){
@@ -5626,6 +5630,10 @@ FileUpload.prototype.bindEvents = function( params, $selection ){
                 }
             }
     );
+};
+
+FileUpload.prototype.getViewTemplate = function(){
+    return 'viewTemplate@templates/fields/files.html';
 };
 
 FileUpload.prototype.readFile = function( $file ){
