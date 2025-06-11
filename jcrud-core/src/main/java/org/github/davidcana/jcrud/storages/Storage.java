@@ -31,5 +31,5 @@ public interface Storage<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 	
 	public boolean isKeyNeeded();
 	
-	public File getFile(String key, String fileFieldName) throws StorageException;
+	public File getFile(String key, String fileFieldName, boolean getContents) throws StorageException;
 }

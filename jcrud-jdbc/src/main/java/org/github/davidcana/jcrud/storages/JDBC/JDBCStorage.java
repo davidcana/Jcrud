@@ -273,8 +273,12 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		}
 	}
 	
+	public boolean treatFileContentsAsNormalField() {
+		return false;
+	}
+	
 	@Override
-	public File getFile(String key, String fileFieldName) throws StorageException {
+	public File getFile(String key, String fileFieldName, boolean getContents) throws StorageException {
 		
 		String sql = "SELECT * FROM " + this.getTableName() + " WHERE " + this.getKeyFieldName() + "=?;";
 		
@@ -291,8 +295,10 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 				file.setLastModified(rs.getLong(fileFieldName + "_last_modified"));
 				file.setSize(rs.getLong(fileFieldName + "_size"));
 				file.setType(rs.getString(fileFieldName + "_type"));
-				file.setContents(rs.getString(fileFieldName + "_contents"));
-				file.setUrl(rs.getString(fileFieldName + "_url"));
+				if (getContents) {
+					file.setContents(rs.getString(fileFieldName + "_contents"));
+				}
+				//file.setUrl(rs.getString(fileFieldName + "_url"));
 				
 				if (rs.next()) {
 					throw new SQLException("More than one result found in table " + this.getTableName() + " using key: " + key);

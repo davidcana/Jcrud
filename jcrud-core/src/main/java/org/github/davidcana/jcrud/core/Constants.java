@@ -31,8 +31,8 @@ public class Constants {
 	// URL parameters keys
 	public static final String COMMAND_URL_PARAMETER = "cmd";
 	public static final String TABLE_URL_PARAMETER = "table";
-	public static final String KEY_URL_PARAMETER = "key";
 	public static final String FILE_FIELD_URL_PARAMETER = "field";
+	public static final String KEY_URL_PARAMETER = "key";
 	
     // URL parameters values: commands
 	public static final String COMMAND_LIST_URL_PARAMETER = "LIST";

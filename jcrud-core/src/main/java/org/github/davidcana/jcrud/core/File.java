@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class File {
 	
+	public static final String CONTENTS_FIELD = "contents";
+	
     private String name;
     private Long lastModified;
     private Long size;

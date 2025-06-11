@@ -60,7 +60,7 @@ public class VoidStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	}
 
 	@Override
-	public File getFile(String key, String fileFieldName) throws StorageException {
+	public File getFile(String key, String fileFieldName, boolean getContents) throws StorageException {
 		throw new StorageException("Not implemented method!");
 	}
 

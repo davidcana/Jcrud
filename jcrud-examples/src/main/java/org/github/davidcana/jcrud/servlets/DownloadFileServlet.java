@@ -45,7 +45,7 @@ public class DownloadFileServlet extends HttpServlet {
 			Storage storage = StorageResolver.getInstance().get(table);
 			
 			// Get the file from the Storage instance
-			File file = storage.getFile(key, field);
+			File file = storage.getFile(key, field, true);
 			
 			// Check dataURL contains something
 	        String dataURL = file.getContents();
@@ -139,5 +139,13 @@ public class DownloadFileServlet extends HttpServlet {
         info.base64Encoded = metadata.toLowerCase().contains(";base64");
         
         return info;
+    }
+    
+    static public String buildDownloadURL(String table, Object key, String fieldName) {
+    	//http://localhost:8080/jcrud/downloadFile?table=simpleWithFile&key=1&field=file
+    	return "/jcrud/downloadFile?"
+    			+ Constants.TABLE_URL_PARAMETER + "=" + table + "&" 
+    			+ Constants.KEY_URL_PARAMETER + "=" + key + "&"
+    			+ Constants.FILE_FIELD_URL_PARAMETER + "=" + fieldName;
     }
 }
