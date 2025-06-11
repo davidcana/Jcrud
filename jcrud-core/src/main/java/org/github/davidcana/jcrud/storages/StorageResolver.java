@@ -28,8 +28,8 @@ public class StorageResolver {
 			while (i.hasNext()){
 				Class<?> clazz = i.next();
 				JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
-				
 				String key = resolveKey(jcrudEntity, clazz);
+				
 				@SuppressWarnings("rawtypes")
 				Storage storage = this.resolveStorage(jcrudEntity);
 				
@@ -54,7 +54,7 @@ public class StorageResolver {
 		return (Storage<?, ?, ?>) method.invoke(method);
 	}
 
-	static private String resolveKey(JCRUDEntity jcrudEntity, Class<?> clazz) {
+	static public String resolveKey(JCRUDEntity jcrudEntity, Class<?> clazz) {
 		
 		return !jcrudEntity.urlParameter().equals("")?
 				jcrudEntity.urlParameter(): 

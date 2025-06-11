@@ -8,8 +8,10 @@ import org.github.davidcana.jcrud.core.File;
 import org.github.davidcana.jcrud.core.model.SimpleWithFile;
 import org.github.davidcana.jcrud.core.model.storages.SimpleWithFileJDBCStorage;
 import org.github.davidcana.jcrud.servlets.DownloadFileServlet;
+import org.github.davidcana.jcrud.storages.StorageResolver;
 import org.github.davidcana.jcrud.storages.JDBC.JDBCStorage;
 import org.github.davidcana.jcrud.storages.JDBC.SQLFieldGroup;
+import org.github.davidcana.jcrud.core.annotations.JCRUDEntity;
 
 public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integer, SimpleWithFile> {
 
@@ -61,7 +63,7 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 				);
 				
 				// Do not set contents field if configured 
-				if (!"contents".equals(fieldName) || this.treatFileContentsAsNormalField()) {
+				if (!File.CONTENTS_FIELD.equals(fieldName) || this.treatFileContentsAsNormalField()) {
 					this.setField(file, fieldName, fieldValue);
 				}
 			}
@@ -72,7 +74,7 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 		if (file != null && !this.treatFileContentsAsNormalField()) {
 			file.setUrl(
 					DownloadFileServlet.buildDownloadURL(
-							"simpleWithFile",
+							this.resolveStorageKey(), //"simpleWithFile",
 							instance.getId(),
 							FILE_FIELD
 					)
@@ -80,6 +82,12 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 		}
 		
 		return instance;
+	}
+	
+	private String resolveStorageKey() {
+		Class<?> clazz = SimpleWithFile.class;
+		JCRUDEntity jcrudEntity = clazz.getAnnotation(JCRUDEntity.class);
+		return StorageResolver.resolveKey(jcrudEntity, clazz);
 	}
 	
 	@Override
