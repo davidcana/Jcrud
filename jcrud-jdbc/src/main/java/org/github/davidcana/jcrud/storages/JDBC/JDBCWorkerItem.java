@@ -94,11 +94,11 @@ public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 			}
 			
 			String sql = "UPDATE " + this.storage.getTableName()
-				+ " SET " + sqlFieldGroup.getUpdatePart() + " WHERE " + this.storage.getKeyFieldName() + "=?;";
+				+ " SET " + sqlFieldGroup.getUpdatePart(record) + " WHERE " + this.storage.getKeyFieldName() + "=?;";
 			PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
 			
 			this.stList.add(preparedStatement);
-			sqlFieldGroup.updateStatement(preparedStatement);
+			sqlFieldGroup.updateStatement(preparedStatement, record);
 
 			this.storage.setKey(
 					currentId, 
@@ -121,15 +121,15 @@ public class JDBCWorkerItem<T extends ZCrudEntity, K, F extends ZCrudEntity> {
 			String sql = "INSERT INTO " + this.storage.getTableName()
 				+ " " 
 				//+ "(id, name)"
-				+ sqlFieldGroup.getInsertIntoNamesPart()
+				+ sqlFieldGroup.getInsertIntoNamesPart(record)
 				+ " VALUES "
 				//+ "(?,?)"
-				+ sqlFieldGroup.getInsertIntoArgumentPart()
+				+ sqlFieldGroup.getInsertIntoArgumentPart(record)
 				+ ";";
 			PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
 			
 			this.stList.add(preparedStatement);
-			sqlFieldGroup.updateStatement(preparedStatement);
+			sqlFieldGroup.updateStatement(preparedStatement, record);
 			
 			preparedStatement.executeUpdate();
 		}

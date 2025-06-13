@@ -1,8 +1,10 @@
 package org.github.davidcana.jcrud.core;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class File {
+public class File implements IncludesNotUpdatableFieldsSet {
 	
 	public static final String CONTENTS_FIELD = "contents";
 	
@@ -62,7 +64,14 @@ public class File {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+	
+	@Override
+	public Set<String> generateNotUpdatableFieldsSet(){
+		Set<String> result = new HashSet<String>();
+		result.add("url");
+		return result;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(contents, lastModified, name, size, type, url);

@@ -1,6 +1,7 @@
 package org.github.davidcana.jcrud.storages.JDBC;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,11 +11,14 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.github.davidcana.jcrud.core.IncludesNotUpdatableFieldsSet;
 import org.github.davidcana.jcrud.core.requests.ZCrudRecords;
 
 public class SQLFieldGroup {
@@ -100,7 +104,23 @@ public class SQLFieldGroup {
 		
 	    List<Field> fields = new ArrayList<>();
 	    do {
-	        Collections.addAll(fields, clazz.getDeclaredFields());
+	    	/*
+	        Collections.addAll(
+	        		fields,
+	        		clazz.getDeclaredFields()
+	        );
+	        */
+	    	// Get all non static fields
+	    	List<Field> temp = Arrays.stream(
+	    			clazz.getDeclaredFields()
+	    	).filter(
+	    			f -> !Modifier.isStatic(f.getModifiers())
+	    	).toList();
+	    	
+	    	// Add them
+	    	fields.addAll(temp);
+	    	
+	    	// Get the superclass and continue
 	        clazz = clazz.getSuperclass();
 	    } while (clazz != null);
 	    
@@ -112,18 +132,18 @@ public class SQLFieldGroup {
 	}
 
 	//(id, name)
-	public String getInsertIntoNamesPart() throws IllegalArgumentException, IllegalAccessException {
-		return this.buildFieldNameList(false, true);
+	public String getInsertIntoNamesPart(Object object ) throws IllegalArgumentException, IllegalAccessException {
+		return this.buildFieldNameList(object, false, true);
 	}
 	
 	//(?,?)
-	public String getInsertIntoArgumentPart() throws IllegalArgumentException, IllegalAccessException {
+	public String getInsertIntoArgumentPart(Object object) throws IllegalArgumentException, IllegalAccessException {
 		
 		StringBuilder sb = new StringBuilder("(");
 		
 		ReferenceInteger c = new ReferenceInteger();
 		iterateFieldsForGetInsertIntoArgumentPart(
-			this.fields,
+			filterFields(this.fields, object),
 			this.values,
 			sb,
 			c
@@ -187,10 +207,10 @@ public class SQLFieldGroup {
 			} else {
 				// Complex type
 				String fieldName = field.getName();
-				Object record = values.get(fieldName);
-				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
+				Object object = values.get(fieldName);
+				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(object);
 				iterateFieldsForGetInsertIntoArgumentPart(
-						sqlFieldGroup.fields,
+						filterFields(sqlFieldGroup.fields, object),
 						sqlFieldGroup.values,
 						sb,
 						c
@@ -201,11 +221,11 @@ public class SQLFieldGroup {
 	}
 	
 	//id=?, name=?
-	public String getUpdatePart() throws IllegalArgumentException, IllegalAccessException {		
-		return this.buildFieldNameList(true, false);
+	public String getUpdatePart(Object record ) throws IllegalArgumentException, IllegalAccessException {		
+		return this.buildFieldNameList(record, true, false);
 	}
 	
-	private String buildFieldNameList(boolean appendEqualsPart, boolean appendParenthesis) throws IllegalArgumentException, IllegalAccessException {
+	private String buildFieldNameList(Object object , boolean appendEqualsPart, boolean appendParenthesis) throws IllegalArgumentException, IllegalAccessException {
 		
 		StringBuilder sb = new StringBuilder();
 		if (appendParenthesis) {
@@ -214,7 +234,7 @@ public class SQLFieldGroup {
 		
 		ReferenceInteger c = new ReferenceInteger();
 		iterateFieldsForBuildFieldNameList(
-			this.fields,
+			filterFields(this.fields, object),
 			this.values,
 			sb,
 			appendEqualsPart,
@@ -285,7 +305,7 @@ public class SQLFieldGroup {
 				Object record = values.get(fieldName);
 				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
 				iterateFieldsForBuildFieldNameList(
-						sqlFieldGroup.fields,
+						filterFields(sqlFieldGroup.fields, record),
 						sqlFieldGroup.values,
 						sb,
 						appendEqualsPart,
@@ -361,12 +381,12 @@ public class SQLFieldGroup {
 		return i == -1? fullType: fullType.substring(1 + i);
 	}
 	
-	public void updateStatement(PreparedStatement preparedStatement) throws SQLException, IllegalArgumentException, IllegalAccessException {
+	public void updateStatement(PreparedStatement preparedStatement, Object object) throws SQLException, IllegalArgumentException, IllegalAccessException {
 		
 		Integer c = 1;
 		iterateFieldsForUpdateStatement(
 				preparedStatement,
-				this.fields,
+				filterFields(this.fields, object),
 				this.values,
 				c
 		);
@@ -393,6 +413,29 @@ public class SQLFieldGroup {
 		
 	}
 	
+	static private List<Field> filterFields(List<Field> fields, Object object){
+		
+		// Do nothing if object does not include  not updatable fields
+		if (!(object instanceof IncludesNotUpdatableFieldsSet)) {
+			return fields;
+		}
+		
+		// Get the notUpdatableFields Set
+		IncludesNotUpdatableFieldsSet instance = (IncludesNotUpdatableFieldsSet) object;
+		Set<String> notUpdatableFields = instance.generateNotUpdatableFieldsSet();
+		
+		// Must iterate using an iterator as we are going to remove items
+		Iterator <Field> i = fields.iterator();
+		while (i.hasNext()) {
+			Field field = i.next();
+			if (notUpdatableFields.contains(field.getName())){
+				fields.remove(field);
+			}
+		}
+		
+		return fields;
+	} 
+	
 	static private void iterateFieldsForUpdateStatement(PreparedStatement preparedStatement, List<Field> fields, Map<String,Object> values, Integer c) throws SQLException, IllegalArgumentException, IllegalAccessException {
 		
 		for (Field field : fields) {
@@ -415,7 +458,7 @@ public class SQLFieldGroup {
 				SQLFieldGroup sqlFieldGroup = new SQLFieldGroup(record);
 				iterateFieldsForUpdateStatement(
 						preparedStatement,
-						sqlFieldGroup.fields,
+						filterFields(sqlFieldGroup.fields, record),
 						sqlFieldGroup.values,
 						c
 				);

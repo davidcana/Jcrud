@@ -48,6 +48,7 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	protected JDBCId jdbcId;
 	protected FilterManager<F> filterManager = new DefaultFilterManager<F>();
 	protected JDBCStorage<?, ?, ?> parentStorage;
+	//private Set<String> notStorableFields = new HashSet<String>();
 	
 	public JDBCStorage() {
 		super();
@@ -133,6 +134,12 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 	    	this.resolveJDBCOneToMany( (JDBCOneToMany) annotation, field);
 	    	return true;
 	    }
+	    /*
+	    if (annotation instanceof JDBCNotStorableField){
+	    	this.resolveJDBCNotStorableField( (JDBCNotStorableField) annotation, field);
+	    	return true;
+	    }
+	    */
 	    
 	    return false;
 	}
@@ -159,6 +166,11 @@ public class JDBCStorage<T extends ZCrudEntity, K, F extends ZCrudEntity> extend
 		this.allSubformStorageClass.put(field.getName(), storageClass);
 		this.allJDBCOneToMany.put(field.getName(), jdbcOneToMany);
 	}
+	/*
+	private void resolveJDBCNotStorableField(JDBCNotStorableField jdbcNotStorableField, Field field) {
+		this.notStorableFields.add(field.getName());
+	}
+	*/
 	
 	/* Start JDBC methods */
 	
