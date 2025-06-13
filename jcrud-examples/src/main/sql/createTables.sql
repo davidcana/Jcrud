@@ -134,8 +134,7 @@ CREATE TABLE simple_with_file (
     file_last_modified bigint,
     file_size bigint,
     file_type varchar(50),
-    file_contents text,
-    file_url varchar(200)
+    file_contents text
 );
 GRANT SELECT, INSERT, UPDATE, DELETE ON simple_with_file TO jcrud_user;
 
