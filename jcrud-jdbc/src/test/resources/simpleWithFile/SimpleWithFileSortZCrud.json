@@ -1,0 +1,145 @@
+{
+  "items" : [ {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor",
+        "file" : {
+          "name" : "sample PDF 1.pdf",
+          "lastModified" : 1750076072393,
+          "size" : 10149,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=1&field=file"
+        }
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+        "file" : {
+          "name" : "sample PDF 2.pdf",
+          "lastModified" : 1750144525175,
+          "size" : 10219,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
+        }
+      } ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 2,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 3,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 19,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 19,
+      "pageSize" : 5,
+      "sortFieldId" : "name",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "name",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor",
+        "file" : {
+          "name" : "sample PDF 1.pdf",
+          "lastModified" : 1750076072393,
+          "size" : 10149,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=1&field=file"
+        }
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+        "file" : {
+          "name" : "sample PDF 2.pdf",
+          "lastModified" : 1750144525175,
+          "size" : 10219,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
+        }
+      } ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 2,
+      "pageSize" : 5,
+      "sortFieldId" : "name",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ ],
+      "totalNumberOfRecords" : 2
+    }
+  } ]
+}

@@ -1,0 +1,110 @@
+{
+  "items" : [ {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor",
+        "file" : {
+          "name" : "sample PDF 1.pdf",
+          "lastModified" : 1750076072393,
+          "size" : 10149,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=1&field=file"
+        }
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+        "file" : {
+          "name" : "sample PDF 2.pdf",
+          "lastModified" : 1750144525175,
+          "size" : 10219,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
+        }
+      } ],
+      "totalNumberOfRecords" : 2
+    }
+  }, {
+    "getRequest" : {
+      "command" : "getRecord",
+      "key" : "1"
+    },
+    "getResponse" : {
+      "result" : "OK",
+      "record" : {
+        "id" : 1,
+        "name" : "Igor Cooley",
+        "description" : "Lorem ipsum dolor",
+        "file" : {
+          "name" : "sample PDF 1.pdf",
+          "lastModified" : 1750076072393,
+          "size" : 10149,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=1&field=file"
+        }
+      }
+    }
+  }, {
+    "updateRequest" : {
+      "command" : "batchUpdate",
+      "url" : "CRUDManager.do?cmd=BATCH_UPDATE&table=simple",
+      "newRecords" : [ ],
+      "recordsToRemove" : [ ],
+      "existingRecords" : {
+        "1" : {
+          "name" : "Igor Cooley Junior"
+        }
+      }
+    },
+    "updateResponse" : {
+      "result" : "OK"
+    }
+  }, {
+    "listRequest" : {
+      "command" : "listRecords",
+      "pageNumber" : 1,
+      "pageSize" : 5,
+      "sortFieldId" : "id",
+      "sortType" : "asc",
+      "filter" : { }
+    },
+    "listResponse" : {
+      "result" : "OK",
+      "records" : [ {
+        "id" : 1,
+        "name" : "Igor Cooley Junior",
+        "description" : "Lorem ipsum dolor",
+        "file" : {
+          "name" : "sample PDF 1.pdf",
+          "lastModified" : 1750076072393,
+          "size" : 10149,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=1&field=file"
+        }
+      }, {
+        "id" : 2,
+        "name" : "Trevor Pennington",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed",
+        "file" : {
+          "name" : "sample PDF 2.pdf",
+          "lastModified" : 1750144525175,
+          "size" : 10219,
+          "type" : "application/pdf",
+          "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
+        }
+      } ],
+      "totalNumberOfRecords" : 2
+    }
+  } ]
+}
