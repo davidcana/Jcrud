@@ -93,7 +93,7 @@ constants.options.simpleWithFile = {
             },
             acceptedFileExtensions: [ '.pdf' ],
             maxFileSize: 1024 * 1024, // 1Mb
-            minFileSize:   10 * 1024  // 10Kb
+            minFileSize:    1 * 1024  // 10Kb
         }
 	}
 }

@@ -13,3 +13,5 @@ DELETE FROM verified_members;
 
 DELETE FROM secondary;
 
+DELETE FROM simple_with_file;
+
