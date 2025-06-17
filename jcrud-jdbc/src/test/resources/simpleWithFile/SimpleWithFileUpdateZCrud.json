@@ -32,8 +32,12 @@
           "type" : "application/pdf",
           "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
         }
+      }, {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
       } ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "getRequest" : {
@@ -103,8 +107,12 @@
           "type" : "application/pdf",
           "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
         }
+      }, {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
       } ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   } ]
 }

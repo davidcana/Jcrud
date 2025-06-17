@@ -65,6 +65,15 @@ public class File implements IncludesNotUpdatableFieldsSet {
 		this.url = url;
 	}
 	
+	public boolean validate() {
+		return this.name != null
+				&& this.lastModified != null
+				&& this.lastModified > 0
+				&& this.size != null
+				&& this.size > 0
+				&& this.type != null;
+	}
+	
 	@Override
 	public Set<String> generateNotUpdatableFieldsSet(){
 		Set<String> result = new HashSet<String>();

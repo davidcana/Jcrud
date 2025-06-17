@@ -69,6 +69,9 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 			}
 		}
 		
+		// Remove file if is not valid
+		this.invalidateFileIfNeeded(instance);
+		
 		// Set the URL of the file if there is a file and contents was not added to file
 		File file = instance.getFile();
 		if (file != null && !this.treatFileContentsAsNormalField()) {
@@ -82,6 +85,14 @@ public class SimpleWithFileJDBCStorage extends JDBCStorage<SimpleWithFile, Integ
 		}
 		
 		return instance;
+	}
+	
+	private void invalidateFileIfNeeded(SimpleWithFile instance) {
+		
+		File file = instance.getFile();
+		if (!file.validate()) {
+			instance.setFile(null);
+		}
 	}
 	
 	private String resolveStorageKey() {

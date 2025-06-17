@@ -32,8 +32,12 @@
           "type" : "application/pdf",
           "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
         }
+      }, {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
       } ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "listRequest" : {
@@ -47,7 +51,7 @@
     "listResponse" : {
       "result" : "OK",
       "records" : [ ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "listRequest" : {
@@ -61,7 +65,7 @@
     "listResponse" : {
       "result" : "OK",
       "records" : [ ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "listRequest" : {
@@ -75,7 +79,7 @@
     "listResponse" : {
       "result" : "OK",
       "records" : [ ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "listRequest" : {
@@ -89,7 +93,7 @@
     "listResponse" : {
       "result" : "OK",
       "records" : [ ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "listRequest" : {
@@ -103,6 +107,10 @@
     "listResponse" : {
       "result" : "OK",
       "records" : [ {
+        "id" : 3,
+        "name" : "Acton Waller",
+        "description" : "Lorem ipsum dolor sit amet, consectetuer"
+      }, {
         "id" : 1,
         "name" : "Igor Cooley",
         "description" : "Lorem ipsum dolor",
@@ -125,7 +133,7 @@
           "url" : "/jcrud/downloadFile?table=simpleWithFile&key=2&field=file"
         }
       } ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   }, {
     "listRequest" : {
@@ -139,7 +147,7 @@
     "listResponse" : {
       "result" : "OK",
       "records" : [ ],
-      "totalNumberOfRecords" : 2
+      "totalNumberOfRecords" : 3
     }
   } ]
 }
