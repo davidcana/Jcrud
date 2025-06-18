@@ -83,11 +83,6 @@ public class Complex2 implements ZCrudEntity {
         }
     },
 
-    validation: {
-        modules: 'security, date',
-        rules: {}
-    },
-
     i18n: {
         language: 'es',
         files: { 

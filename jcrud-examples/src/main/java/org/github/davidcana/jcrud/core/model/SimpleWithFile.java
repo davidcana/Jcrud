@@ -71,11 +71,6 @@ public class SimpleWithFile implements ZCrudEntity {
             }
         }
     },
-    
-    validation: {
-        modules: 'security, date',
-        rules: {}
-    },
 
     i18n: {
         language: 'es',
